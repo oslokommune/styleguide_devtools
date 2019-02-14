@@ -1,0 +1,75 @@
+/* Vendor */
+$gap: 10px
+$primary: rgb(39, 42, 86)
+@import '~bulma'
+@import '~github-markdown-css/github-markdown.css'
+
+/* Components */
+@import 'fonts'
+@import 'highlight'
+@import 'markdown'
+@import 'viewBox/viewBox'
+
+/* General */
+html, body
+  font-family: 'OsloSans', sans-serif
+
+.has-background-grey-custom
+  background-color: rgb(240, 241, 242)
+
+  &:after
+    content: "beta"
+    position: fixed
+    width: 80px
+    height: 25px
+    background-color: #EE8E4A
+    top: 7px
+    left: -20px
+    text-align: center
+    font-size: 13px
+    font-family: sans-serif
+    text-transform: uppercase
+    font-weight: bold
+    color: #fff
+    line-height: 27px
+    -ms-transform: rotate(-45deg)
+    -webkit-transform: rotate(-45deg)
+    transform: rotate(-45deg)
+
+.start
+  padding: 40px
+
+.view
+  margin: 60px
+
+.brand
+  margin: 40px 40px 65px 40px
+
+  img
+    margin-right: 20px
+
+  .title
+    font-size: 24px
+    padding-top: 35px
+
+  .title, .subtitle
+    color: rgb(39, 42, 86)
+
+.tab-content
+  margin-top: 20px
+
+aside.nav
+  margin-top: 30px
+  margin-left: 20px
+  margin-right: 20px
+
+pre
+  padding: 0
+  margin: 0
+
+.margin-top
+  margin-top: 30px
+
+.button.is-tag
+  min-width: 70px
+  margin-bottom: 5px

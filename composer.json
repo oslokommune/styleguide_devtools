@@ -1,0 +1,16 @@
+{
+  "name": "oslokommune/ok-atomic-frontend-viewer",
+  "type": "project",
+  "license": "UNLICENSED",
+  "authors": [
+    {
+      "name": "Lars Boldt",
+      "email": "boldt.lars@gmail.com"
+    }
+  ],
+  "require": {
+    "twig/twig": "^2.5",
+    "vlucas/phpdotenv": "^2.5",
+    "ext-json": "*"
+  }
+}

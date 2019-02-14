@@ -1,8 +1,8 @@
 version: '3.7'
 services:
   app:
-    image: ukeweb/styleguide_devtools:0.5.0
     container_name: styleguide_devtools
+    build: ./
     command: sh -c "npm i && npm run hmr-watch"
     ports:
       - 9000:9000
