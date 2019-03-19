@@ -9,7 +9,7 @@
       </ul>
     </div>
     <div :class="'frame' + ($store.state.viewBox.backgroundSolid ? ' solid' : '') + (!$store.state.viewBox.ruler ? ' no-ruler' : '')" :style="'background-color: ' + bgColor">
-      <iframe id="patternBox" :width="frameWidth" :height="frameHeight" :srcdoc="frameContents" title="Pattern"></iframe>
+      <iframe id="patternBox" :style="iframeSizeStyle" :srcdoc="frameContents" title="Pattern"></iframe>
       <div v-if="$store.state.viewBox.ruler" class="view-width-indicator" :style="'width: ' + frameWidth">
         <div class="arrow-head-left"></div>
         <div class="width-indicator">
@@ -58,6 +58,10 @@
     }),
 
     computed: {
+      iframeSizeStyle() {
+        return 'width: ' + this.frameWidth + '; height: ' + this.frameHeight + 'px'
+      },
+
       frameContents() {
         let contents = frameStart
         if (this.$store.state.viewBox.viewMode.single) {
