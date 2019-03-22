@@ -34,14 +34,26 @@ fs.access(lockFile, fs.constants.F_OK | fs.constants.W_OK, (aerr) => {
 function build() {
   let file = process.argv[3]
   let extension = ''
+  let relativePath = ''
   if (file) {
     extension = file.substring(file.lastIndexOf('.') + 1)
+    relativePath = file.substring(file.lastIndexOf('/') + 1)
   }
 
   let cmd = 'npm run dev'
   switch (extension) {
     case 'md':
+      console.log('\n\x1b[32m' + relativePath + ' changed - building structure...\n')
       cmd = 'npm run build-structure true'
+      break
+    case 'json':
+    case 'twig': // TODO: also json?
+      console.log('\n\x1b[32m' + relativePath + ' changed - compiling twig and building structure...\n')
+      cmd = 'npm run build-structure \"false\" && php src/utils/twigCompiler.php && npm run build-structure \"true\"'
+      break    
+    case 'sass':
+      console.log('\n\x1b[32m' + relativePath + ' changed - compiling sass and building structure...\n')
+      cmd = 'npm run build-structure \"false\" && webpack --config config/webpack.modules.js --mode development && npm run build-structure \"true\"'
       break
     default:
       cmd = 'npm run dev'

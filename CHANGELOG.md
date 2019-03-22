@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - switch from alt-watch to watch
 - added compilation outputs in watch
 - added -kill flag to watch to cancel running builds on new change
+- only compiling the files of the same type as the one that changed in watch script
 
 ### Added
 
