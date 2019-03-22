@@ -84,7 +84,8 @@ if (is_writable(PROJECT_DIR . 'dist')) {
         $compiled
       );
     } catch (\Exception $e) {
-      die("\nRendering: " . $entry->src . "\nMessage: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine(). "\n\n");
+      // \033[31m make the color of the output red
+      die("\n\033[31mRendering: " . $entry->src . "\n\033[31mMessage: " . $e->getMessage() . "\n\033[31mFile: " . $e->getFile() . "\n\033[31mLine: " . $e->getLine(). "\n\n");
     }
   }
 } else {
