@@ -47,7 +47,10 @@ function build() {
       cmd = 'npm run dev'
   }
 
-  exec(cmd, (error, stdout, stderr) => {})
+  exec(cmd, (error, stdout, stderr) => {
+    // logging command output
+    console.log(stdout)
+  })
 
   fs.access(rebuildFile, fs.constants.F_OK | fs.constants.W_OK, (rerr) => {
     if (!rerr) {
