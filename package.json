@@ -12,9 +12,8 @@
     "build-viewer": "webpack --config config/webpack.app.js --mode production",
     "build-production": "rm -rf dist/* && npm run build-structure \"false\" && php src/utils/twigCompiler.php && npm run build-modules && npm run build-structure \"true\" && npm run build-viewer",
     "mkpat": "babel-node --presets env src/utils/newPattern.js",
-    "watch": "onchange -i --no-exclude \"node_modules/ok-atomic-frontend/src/**/*\" -- ./node_modules/.bin/babel-node eventListener.js {{event}} {{changed}}",
-    "alt-watch": "onchange -i --no-exclude \"node_modules/styleguide/src/**/*\" -- npm run dev",
-    "hmr-watch": "npm run dev && concurrently \"npm run hmr\" \"npm run alt-watch\" --kill-others --kill-others-on-fail"
+    "watch": "onchange --kill --initial --no-exclude \"node_modules/styleguide/src/**/*\" -- ./node_modules/.bin/babel-node eventListener.js {{event}} {{changed}}",
+    "hmr-watch": "npm run dev && concurrently \"npm run hmr\" \"npm run watch\" --kill-others --kill-others-on-fail"
   },
   "repository": {
     "type": "git",
