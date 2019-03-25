@@ -47,7 +47,7 @@ function build() {
       cmd = 'npm run build-structure true'
       break
     case 'json':
-    case 'twig': // TODO: also json?
+    case 'twig':
       console.log('\n\x1b[32m' + relativePath + ' changed - compiling twig and building structure...\n')
       cmd = 'npm run build-structure \"false\" && php src/utils/twigCompiler.php && npm run build-structure \"true\"'
       break    
