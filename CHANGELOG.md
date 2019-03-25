@@ -10,11 +10,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - iframe autosizing
-- red color for error output from the twigcompiler
 - switch from alt-watch to watch
-- added compilation outputs in watch
-- added -kill flag to watch to cancel running builds on new change
 - only compiling the files of the same type as the one that changed in watch script
+- added compilation outputs in watch
+- colored outputs for change detection and twig/sass errors
+- added -kill flag to watch to cancel running builds on new change
 
 ### Added
 
