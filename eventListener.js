@@ -45,16 +45,16 @@ function build() {
   let cmd = 'npm run dev'
   switch (extension) {
     case 'md':
-      console.log('\n' + blueTerminalText + relativePath + ' changed - building structure...' + resetTerminalColor + '\n')
+      console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
       cmd = 'npm run build-structure true'
       break
     case 'json':
     case 'twig':
-      console.log('\n' + blueTerminalText + relativePath + ' changed - compiling twig and building structure...' + resetTerminalColor + '\n')
+      console.log(`\n${blueTerminalText}${relativePath} changed - compiling twig and building structure...${resetTerminalColor}\n`)
       cmd = 'php src/utils/twigCompiler.php && npm run build-structure \"true\"'
       break    
     case 'sass':
-      console.log('\n' + blueTerminalText + relativePath + ' changed - compiling sass and building structure...' + resetTerminalColor + '\n')
+      console.log(`\n${blueTerminalText}${relativePath} changed - compiling sass and building structure...${resetTerminalColor}\n`)
       cmd = 'webpack --config config/webpack.modules.js --mode development && npm run build-structure \"true\"'
       break
     default:
@@ -67,7 +67,7 @@ function build() {
     let resetTerminalColor = '\x1b[0m'
 
     // color sass and twig errors red
-    let formattedOutput = stdout.replace('ERROR', redTerminalText + 'ERROR') + resetTerminalColor
+    let formattedOutput = stdout.replace('ERROR', `${redTerminalText}ERROR`) + resetTerminalColor
 
     console.log(formattedOutput)
   })
