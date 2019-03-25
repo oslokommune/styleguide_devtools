@@ -59,7 +59,7 @@
 
     computed: {
       iframeSizeStyle() {
-        return 'width: ' + this.frameWidth + '; height: ' + this.frameHeight + 'px'
+        return `width: ${this.frameWidth}; height: ${this.frameHeight}px`
       },
 
       frameContents() {
