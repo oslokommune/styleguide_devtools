@@ -2,7 +2,7 @@
   <aside class="menu nav">
     <div class="field">
       <div class="control">
-        <input type="text" v-model="search" class="input is-primary" placeholder="Search for patterns" @keyup.enter="addTag"/>
+        <input type="text" v-model="search" class="input is-primary" placeholder="Search for patterns" @keyup.enter="addTag" title="Search" />
       </div>
     </div>
     <div class="field is-grouped is-grouped-multiline">
