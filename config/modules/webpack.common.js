@@ -29,32 +29,6 @@ module.exports = {
         }
       },
       {
-        test: /\.(sass|css)$/,
-        use: [
-          {
-            loader: 'style-loader',
-            options: {
-              sourceMap: false
-            }
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: false
-            }
-          },
-          {
-            loader: 'resolve-url-loader'
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
-      },
-      {
         test: /\.(jpe?g|gif|png|svg)/,
         loader: 'file-loader',
         options: {
