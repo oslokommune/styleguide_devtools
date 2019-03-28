@@ -1,0 +1,19 @@
+{
+  "name": "oslo-styleguide-web",
+  "version": "1.0.0",
+  "description": "Oslo Styleguide Web",
+  "author": "UKEWEB <devnull@uke.oslo.kommune.no>",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/oslokommune/styleguide_devtools.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/oslokommune/styleguide_devtools#readme",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
