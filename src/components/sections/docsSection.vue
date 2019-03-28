@@ -53,11 +53,9 @@
 
     mixins: [copyToClipboardMixin, shared],
 
-    data() {
-      return {
-        includeStatements: []
-      }
-    },
+    data: () => ({
+      includeStatements: []
+    }),
 
     computed: {
       twigIncludes() {
