@@ -1,4 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const DotEnv = require('dotenv-webpack')
 
@@ -59,9 +58,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'src/app.html'
-    }),
     new VueLoaderPlugin(),
     new DotEnv()
   ]
