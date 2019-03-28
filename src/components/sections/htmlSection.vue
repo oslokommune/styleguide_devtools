@@ -21,11 +21,9 @@
 
     mixins: [copyToClipboardMixin, shared],
 
-    data() {
-      return {
-        regexToFindNewLines: /^(?:[\t ]*(?:\r?\n|\r))+/gm
-      }
-    },
+    data: () => ({
+      regexToFindNewLines: /^(?:[\t ]*(?:\r?\n|\r))+/gm
+    }),
 
     computed: {
       template() {
