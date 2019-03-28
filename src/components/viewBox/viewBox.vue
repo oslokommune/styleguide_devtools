@@ -59,7 +59,7 @@
 
     computed: {
       iframeSizeStyle() {
-        return `width: ${this.frameWidth}; height: ${this.frameHeight}px`
+        return `width: ${this.frameWidth}; height: ${this.frameHeight}`
       },
 
       frameContents() {
@@ -163,7 +163,7 @@
 
     methods: {
       getFrameContentHeight() {
-        return document.getElementById('patternBox').contentDocument.body.scrollHeight
+        return document.getElementById('patternBox').contentDocument.body.scrollHeight + 'px'
       },
 
       a11yValidate() {
