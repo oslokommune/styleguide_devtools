@@ -94,6 +94,12 @@
 
     mounted() {
       this.updatePattern()
+
+      this.$eventHub.$on('errorMsg', val => this.errorMsg = val)
+    },
+
+    beforeDestroy() {
+      this.$eventHub.$off('errorMsg')
     },
 
     watch: {

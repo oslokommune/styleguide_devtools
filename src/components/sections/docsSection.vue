@@ -53,37 +53,20 @@
 
     mixins: [copyToClipboardMixin, shared],
 
+    data: () => ({
+      includeStatements: []
+    }),
+
     computed: {
       twigIncludes() {
-        // returns array with one twig object
-        let twigObjects = this.pattern.files.filter((item) => {
-          return item.extension === 'twig'
-        })
-
-        // check if filter returned the twig object and that it has contents before assigning the content to the variable
-        let twigContent = (twigObjects[0] && twigObjects[0].contents) ? twigObjects[0].contents : undefined
-        let includeStatements
-        // check if the twig content is set and contains at least one include statement
-        if (twigContent && twigContent.includes('include')) {
-          // array with all strings that start with 'include' and end with 'twig' from twig content
-          includeStatements = twigContent.match(/include(.*?)twig/g)
-        }
-
         // if there are no include statements then return an empty array
-        if (!includeStatements || includeStatements.length === 0) {
+        if (!this.includeStatements || this.includeStatements.length === 0) {
           return []
-        }
+        }        
 
-        return includeStatements.map((statement) => {
+        return this.includeStatements.map((statement) => {
           // statement example: "include 'atoms/decorators/shape/shape.twig"
-
-          if (statement.indexOf('\'/') >= 0) {
-            this.errorMsg = 'Twig includes should NOT start with slash (/): ' + statement
-          }
-          if (statement.indexOf('\"/') >= 0) {
-            this.errorMsg = 'For consistency purposes twig includes should use \' instead of \": ' + statement
-          }
-
+          
           let name = statement.substring(
             statement.lastIndexOf('/') + 1,
             statement.lastIndexOf('.twig')
@@ -101,9 +84,57 @@
       }
     },
 
+    watch: {
+      // we need to deep watch the files to regenerate includeStatements when styleguide file changes
+      'pattern.files': {
+        handler() {
+          this.updateIncludeStatements()
+        },
+        deep: true
+      },
+
+      includeStatements(val) {
+        this.reportTwigStatementErrors(val)
+      }
+    },
+
     methods: {
       marked(md) {
         return marked(md, {gfm: true})
+      },
+
+      updateIncludeStatements() {
+        // returns array with one twig object
+        let twigObjects = this.pattern.files.filter((item) => {
+          return item.extension === 'twig'
+        })
+
+        // check if filter returned the twig object and that it has contents before assigning the content to the variable
+        let twigContent = (twigObjects[0] && twigObjects[0].contents) ? twigObjects[0].contents : undefined
+        let includeStatements
+        // check if the twig content is set and contains at least one include statement
+        if (twigContent && twigContent.includes('include')) {
+          // array with all strings that start with 'include' and end with 'twig' from twig content
+          includeStatements = twigContent.match(/include(.*?)twig/g)
+        }
+
+        this.includeStatements = includeStatements
+      },
+
+      reportTwigStatementErrors(includeStatements) {
+        includeStatements.forEach(statement => {
+          // statement example: "include 'atoms/decorators/shape/shape.twig"
+
+          let errorMsg = ''
+          if (statement.startsWith('include \'/')) {
+            errorMsg = 'Twig includes should NOT start with slash (/): ' + statement
+          }
+          if (statement.includes('"')) {
+            errorMsg = 'For consistency purposes twig includes should use \' instead of \": ' + statement
+          }
+
+          this.$eventHub.$emit('errorMsg', errorMsg)
+        })
       }
     }
   }
