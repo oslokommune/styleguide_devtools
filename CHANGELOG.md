@@ -14,7 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - only compiling the files of the same type as the one that changed in watch script
 - added compilation outputs in watch
 - colored outputs for change detection and twig/sass errors
-- added -kill flag to watch to cancel running builds on new change
+- added -kill flag to watch script to cancel running builds on new change
+- formatting compiled html before outputting to gui
 
 ### Added
 
