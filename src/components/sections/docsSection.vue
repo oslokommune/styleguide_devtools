@@ -122,15 +122,22 @@
       },
 
       reportTwigStatementErrors(includeStatements) {
+        let errorMsg = ''
+
+        // if there are no include statements on the pattern, then reset the errorMsg
+        if (!includeStatements) {
+          this.$eventHub.$emit('errorMsg', errorMsg)
+          return
+        }
+
         includeStatements.forEach(statement => {
           // statement example: "include 'atoms/decorators/shape/shape.twig"
-
-          let errorMsg = ''
+ 
           if (statement.startsWith('include \'/')) {
-            errorMsg = 'Twig includes should NOT start with slash (/): ' + statement
+            errorMsg += 'Twig includes should NOT start with slash (/): ' + statement + '. '
           }
           if (statement.includes('"')) {
-            errorMsg = 'For consistency purposes twig includes should use \' instead of \": ' + statement
+            errorMsg += 'For consistency purposes twig includes should use \' instead of \": ' + statement + '. '
           }
 
           this.$eventHub.$emit('errorMsg', errorMsg)
