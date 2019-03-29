@@ -95,7 +95,7 @@
     mounted() {
       this.updatePattern()
 
-      this.$eventHub.$on('errorMsg', val => this.errorMsg = val)
+      this.$eventHub.$on('errorMsg', val => this.errorMsg.length ? this.errorMsg += val : this.errorMsg = val)
     },
 
     beforeDestroy() {
