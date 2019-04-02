@@ -138,10 +138,11 @@
       },
 
       viewHeightIndicatorStyle() {
-        return 'left: calc(' + this.frameWidth +
-          (this.$store.state.viewBox.viewSize.full ? ' - 1%' : ' + 40px') +
-          '); width: ' + (this.frameHeight + ';')
-      },
+        return `
+          left: calc(${this.frameWidth} ${(this.$store.state.viewBox.viewSize.full ? '- 1%' : '+ 40px')});
+          width: ${this.frameHeight};
+        `
+      }
     },
 
     mounted() {
