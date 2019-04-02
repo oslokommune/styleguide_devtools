@@ -73,7 +73,7 @@
     },
 
     data: () => ({
-      mobileHeight: '667',
+      mobileHeight: '667px',
       frameContentHeight: ''
     }),
 
