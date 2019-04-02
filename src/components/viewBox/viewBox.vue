@@ -3,26 +3,42 @@
     <view-box-settings :title="pattern.name" />
     <div class="tabs is-boxed">
       <ul>
-        <li :class="variantName === activeVariant ? 'is-active' : ''" v-for="variantName in patternVariantNames" v-bind:key="variantName">
-          <a @click="$emit('update:activeVariant', variantName)">{{ variantName|snakeToRegular|capitalize }}</a>
+        <li
+          :class="variantName === activeVariant ? 'is-active' : ''"
+          v-for="variantName in patternVariantNames"
+          v-bind:key="variantName">
+          <a @click="$emit('update:activeVariant', variantName)">
+            {{ variantName|snakeToRegular|capitalize }}
+          </a>
         </li>
       </ul>
     </div>
-    <div :class="'frame' + ($store.state.viewBox.backgroundSolid ? ' solid' : '') + (!$store.state.viewBox.ruler ? ' no-ruler' : '')" :style="'background-color: ' + bgColor">
-      <iframe id="patternBox" :style="iframeSizeStyle" :srcdoc="frameContents" title="Pattern"></iframe>
-      <div v-if="$store.state.viewBox.ruler" class="view-width-indicator" :style="'width: ' + frameWidth">
-        <div class="arrow-head-left"></div>
+    <div
+      :class="'frame' + ($store.state.viewBox.backgroundSolid ? ' solid' : '') + (!$store.state.viewBox.ruler ? ' no-ruler' : '')"
+      :style="'background-color: ' + bgColor">
+      <iframe
+        id="patternBox" :style="iframeSizeStyle"
+        :srcdoc="frameContents"
+        title="Pattern" />
+      <div
+        v-if="$store.state.viewBox.ruler"
+        class="view-width-indicator"
+        :style="'width: ' + frameWidth">
+        <div class="arrow-head-left" />
         <div class="width-indicator">
           {{ frameWidth }}
         </div>
-        <div class="arrow-head-right"></div>
+        <div class="arrow-head-right" />
       </div>
-      <div v-if="$store.state.viewBox.ruler" class="view-height-indicator" :style="viewHeightIndicatorStyle">
-        <div class="arrow-head-left"></div>
+      <div
+        v-if="$store.state.viewBox.ruler"
+        class="view-height-indicator"
+        :style="viewHeightIndicatorStyle">
+        <div class="arrow-head-left" />
         <div class="height-indicator">
           {{ (frameHeight + 'px') }}
         </div>
-        <div class="arrow-head-right"></div>
+        <div class="arrow-head-right"/>
       </div>
     </div>
   </div>
