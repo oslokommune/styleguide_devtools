@@ -1,10 +1,12 @@
 <template>
-  <div :class="'viewBox' + ($store.state.viewBox.fullscreen ? ' fullscreen' : '')">
+  <div
+    class="viewBox"
+    :class="{ 'fullscreen': $store.state.viewBox.fullscreen }">
     <view-box-settings :title="pattern.name" />
     <div class="tabs is-boxed">
       <ul>
         <li
-          :class="variantName === activeVariant ? 'is-active' : ''"
+          :class="{ 'is-active': variantName === activeVariant }"
           v-for="variantName in patternVariantNames"
           v-bind:key="variantName">
           <a @click="$emit('update:activeVariant', variantName)">
@@ -14,10 +16,12 @@
       </ul>
     </div>
     <div
-      :class="'frame' + ($store.state.viewBox.backgroundSolid ? ' solid' : '') + (!$store.state.viewBox.ruler ? ' no-ruler' : '')"
+      class="frame"
+      :class="{ 'solid': $store.state.viewBox.backgroundSolid, 'no-ruler': !$store.state.viewBox.ruler }"
       :style="'background-color: ' + bgColor">
       <iframe
-        id="patternBox" :style="iframeSizeStyle"
+        id="patternBox"
+        :style="iframeSizeStyle"
         :srcdoc="frameContents"
         title="Pattern" />
       <div
