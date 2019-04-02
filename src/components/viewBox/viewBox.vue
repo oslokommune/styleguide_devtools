@@ -15,34 +15,34 @@
         </li>
       </ul>
     </div>
-    <div
+    <div 
       class="frame"
       :class="{ 'solid': $store.state.viewBox.backgroundSolid, 'no-ruler': !$store.state.viewBox.ruler }"
-      :style="'background-color: ' + bgColor">
-      <iframe
-        id="patternBox"
-        :style="iframeSizeStyle"
-        :srcdoc="frameContents"
-        title="Pattern" />
-      <div
-        v-if="$store.state.viewBox.ruler"
-        class="view-width-indicator"
-        :style="`width: ${frameWidth}`">
-        <div class="arrow-head-left" />
-        <div class="width-indicator">
-          {{ frameWidth }}
+      :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 60px);`">
+      <div :style="iframeSizeStyle">
+        <iframe
+          id="patternBox"
+          :srcdoc="frameContents"
+          title="Pattern" />
+        <div
+          v-if="$store.state.viewBox.ruler"
+          class="view-width-indicator"
+          :style="`width: ${frameWidth}`">
+          <div class="arrow-head-left" />
+          <div class="width-indicator">
+            {{ frameWidth }}
+          </div>
+          <div class="arrow-head-right" />
         </div>
-        <div class="arrow-head-right" />
-      </div>
-      <div
-        v-if="$store.state.viewBox.ruler"
-        class="view-height-indicator"
-        :style="viewHeightIndicatorStyle">
-        <div class="arrow-head-left" />
-        <div class="height-indicator">
-          {{ frameHeight }}
+        <div v-if="$store.state.viewBox.ruler"
+          class="view-height-indicator"
+          :style="viewHeightIndicatorStyle">
+          <div class="arrow-head-left" />
+          <div class="height-indicator">
+            {{ frameHeight }}
+          </div>
+          <div class="arrow-head-right" />
         </div>
-        <div class="arrow-head-right"/>
       </div>
     </div>
   </div>
@@ -79,7 +79,7 @@
 
     computed: {
       iframeSizeStyle() {
-        return `width: ${this.frameWidth}; height: ${this.frameHeight}`
+        return `width: ${this.frameWidth}; height: calc(${this.frameHeight} + 10px)`
       },
 
       frameContents() {
@@ -140,7 +140,7 @@
       viewHeightIndicatorStyle() {
         return 'left: calc(' + this.frameWidth +
           (this.$store.state.viewBox.viewSize.full ? ' - 1%' : ' + 40px') +
-          '); width: ' + (this.frameHeight + 'px;')
+          '); width: ' + (this.frameHeight + ';')
       },
     },
 
