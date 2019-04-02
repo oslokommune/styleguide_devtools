@@ -16,8 +16,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - colored outputs for change detection and twig/sass errors
 - added -kill flag to watch script to cancel running builds on new change
 - formatting compiled html before outputting to gui
+- duplicate includes bug
+- iframe autosizing bug
 
 ### Added
+
+- support for listing embedded twig files
 
 ### Removed
 
