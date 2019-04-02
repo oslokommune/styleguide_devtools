@@ -27,7 +27,7 @@
       <div
         v-if="$store.state.viewBox.ruler"
         class="view-width-indicator"
-        :style="'width: ' + frameWidth">
+        :style="`width: ${frameWidth}`">
         <div class="arrow-head-left" />
         <div class="width-indicator">
           {{ frameWidth }}
@@ -40,7 +40,7 @@
         :style="viewHeightIndicatorStyle">
         <div class="arrow-head-left" />
         <div class="height-indicator">
-          {{ (frameHeight + 'px') }}
+          {{ frameHeight }}
         </div>
         <div class="arrow-head-right"/>
       </div>
