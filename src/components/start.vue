@@ -1,18 +1,18 @@
 <template>
   <div class="start content">
-    <h1>Oslo Styleguide</h1>
+    <h1 class="heading-1">Oslo style guide</h1>
 
-    <p>
-      Oslo Styleguide is way of viewing all of Oslo kommunes shared digital components, together with documentation for
+    <p class="ingress">
+      Oslo style guide is a way of viewing all of Oslo kommune's shared digital components, together with documentation for
       designers and developers.
       It is built on <a href="http://atomicdesign.bradfrost.com/">Atomic Design</a> principles, and therefore
       split into atoms, molecules and organisms, which make up "patterns" that can be "consumed" by developers when
       working with projects within or related to Oslo kommune.
     </p>
-    <p>The style guide is expected to have continual releases with new patterns, code improvements and bugfixes, and
+    <p class="ingress">The style guide is expected to have continual releases with new patterns, code improvements and bugfixes, and
       will follow <a href="http://semver.org">the semver standard</a>.</p>
 
-    <h2>Designers</h2>
+    <h2 class="heading-2">Designers</h2>
     <p>
       Designers will use the style guide for seeing which designs have been realized as "living" patterns, as well as
       reading designers documentation of it's use.
@@ -22,25 +22,25 @@
     </p>
     <h2>Developers</h2>
     <p>
-      The main thing, and in many cases the only thing, that Oslo Styleguide provides for direct consumption is style
+      The main thing, and in many cases the only thing, that Oslo style guide provides for direct consumption is style
       code - css/sass.
     </p>
     <p>
-      To get started one would hook up a project to the style code, navigate to a pattern in Oslo Styleguide one would
+      To get started one would hook up a project to the style code, navigate to a pattern in Oslo style guide one would
       like to implement,
       and make sure that the component, on the consumers/projects side,
-      has the same html output that is shown in the html tab in the patterns view in Oslo Styleguide.
+      has the same html output that is shown in the html tab in the patterns view in Oslo style guide.
     </p>
-    <p>There are two main ways one could want to consume the style code from Oslo Styleguide, which we will call direct
+    <p>There are two main ways one could want to consume the style code from Oslo style guide, which we will call direct
       and indirect consumption.</p>
 
-    <h3>Direct consumption</h3>
+    <h3 class="heading-3">Direct consumption</h3>
     <p>
       Direct consumption would mean that you hook only the sass files from the patterns that you need directly into your
       build chain.
     </p>
     <p>
-      If you are using webpack you can import the desired patterns sass files (from the Oslo Styleguide node module)
+      If you are using webpack you can import the desired patterns sass files (from the Oslo style guide node module)
       into your main sass/scss file, together with your project-specific styles, and let webpack's sass-loader compile it all into one css file.
     </p>
     <strong>Pros:</strong>
@@ -54,7 +54,7 @@
       <li>More complex to set up</li>
     </ul>
 
-    <h3>Indirect consumption</h3>
+    <h3 class="heading-3">Indirect consumption</h3>
     Indirect consumption would mean that you consume the precompiled css (either from a cdn or a local copy), containing
     all components styles, in the head of your html.
     <strong>Pros:</strong>

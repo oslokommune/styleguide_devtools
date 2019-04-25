@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import VueHighlightJS from 'vue-highlightjs'
 import store from './store/store'
 import bus from './bus/bus'
+import './assets/images/favicon.ico'
 
 Vue.use(VueRouter)
 Vue.use(VueHighlightJS)

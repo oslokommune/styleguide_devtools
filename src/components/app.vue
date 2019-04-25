@@ -2,10 +2,8 @@
   <div class="columns is-gapless main-grid">
     <div class="column is-one-quarter has-background-grey-custom">
       <div class="brand">
-        <a href="/#/">
-          <img :src="logo" alt="logo" width="70" class="is-pulled-left" />
-          <p class="title">Oslo</p>
-          <p class="subtitle">Styleguide</p>
+        <a class="logo" href="/#/">
+          <img :src="logo" alt="Oslo logo" class="is-pulled-left" />
         </a>
       </div>
       <atomicNav></atomicNav>
