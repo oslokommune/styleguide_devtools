@@ -51,6 +51,21 @@ docker build -t ukeweb/styleguide_devtools:[VERSION] .
 docker push ukeweb/styleguide_devtools:[VERSION]
 ```
 
+### Build docker image for web
+```shell
+docker build -f .docker/web/Dockerfile -t styleguide_web .
+```
+
+Run it locally
+```shell
+docker run -p 9999:8000 -d styleguide_web
+```
+
+Push it
+```shell
+docker push url/styleguide:SEMVER
+```
+
 ## Known issues
 * Its a little bit slow to update some areas
 * Doesn't catch changes in imported js/sass files. Probably need to add these files to atomicStructure.json so a change can be catched.
