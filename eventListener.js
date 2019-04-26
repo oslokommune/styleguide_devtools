@@ -55,7 +55,7 @@ function build() {
       break    
     case 'sass':
       console.log(`\n${blueTerminalText}${relativePath} changed - compiling sass and building structure...${resetTerminalColor}\n`)
-      cmd = 'webpack --config config/webpack.modules.js --mode development && npm run build-structure \"true\"'
+      cmd = 'webpack --config config/modules/webpack.dev.js --mode development && npm run build-structure \"true\"'
       break
     default:
       cmd = 'npm run dev'
