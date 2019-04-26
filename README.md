@@ -2,6 +2,10 @@
 
 This repo is for contributing to the devtools, as opposed to the patterns. To contribute to the patterns, go to the styleguide repo.
 
+### Setup
+
+Copy the contents of .env.example into a new file named .env.
+
 ### Development
 
 To get hot reload on client side code (vue, js, sass) during development run
@@ -16,14 +20,14 @@ ps: changes to php and node.js code will require you to build the image again by
 docker-compose up --force-recreate --build
 ```
 
-### Building docker image
+### Build and deploy a new version of the docker image
 
 ```shell
 docker build -t ukeweb/styleguide_devtools:[VERSION] .
 docker push ukeweb/styleguide_devtools:[VERSION]
 ```
 
-### Build docker image for web
+### Build and deploy for web
 
 ```shell
 docker build -f .docker/web/Dockerfile -t styleguide_web .
