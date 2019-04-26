@@ -5,19 +5,21 @@ COPY . .
 RUN composer install --ignore-platform-reqs --no-scripts
 
 # Stage 2 - Include PHP dependencies, install node dependencies and build distribution files
-FROM node:10.15-alpine AS node
-RUN apk update \
-    && apk upgrade \
-    && apk add --no-cache php-cli php-json git
+FROM node:11.14 AS node
+RUN apt-get update \
+    && apt-get -y upgrade \
+    && apt-get install -y php-cli php-json git
 
 WORKDIR /app
 COPY . .
 COPY --from=composer /app/vendor /app/vendor
-RUN npm i && npm run build-production
+RUN npm i
+RUN ./node_modules/.bin/npm-install-peers
+RUN npm run build-production
 
 # Stage 3 - Include distribution files and run web server
-FROM node:11.12-alpine
-RUN apk update && apk upgrade
+FROM node:11.14
+RUN apt-get update && apt-get -y upgrade
 EXPOSE 8080
 WORKDIR /app
 COPY ./.docker/web/package.json .
