@@ -1,7 +1,7 @@
 {
   "name": "styleguide_devtools",
-  "version": "0.5.0",
-  "description": "Oslo Styleguide devtools",
+  "version": "0.8.0",
+  "description": "Oslo Style Guide devtools",
   "main": "index.js",
   "scripts": {
     "hmr": "webpack-dev-server --hot --config config/app/webpack.dev.js",
