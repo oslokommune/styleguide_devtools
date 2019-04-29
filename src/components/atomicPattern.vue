@@ -7,11 +7,11 @@
       </div>
     </section>
     <div class="view">
-      <div class="notification is-danger" v-show="errorMsg.length">
-        <i class="fas fa-exclamation-triangle"></i> {{ errorMsg }}
+      <div class="notification is-danger" v-for="(item, index) of errorMessages" :key="index">
+        <i class="fas fa-exclamation-triangle"></i> {{ item.message }}
       </div>
-      <div class="notification is-warning" v-show="warnMsg.length">
-        <i class="fas fa-exclamation-triangle"></i> {{ warnMsg }}
+      <div class="notification is-warning" v-for="(item, index) of warningMessages" :key="index">
+        <i class="fas fa-exclamation-triangle"></i> {{ item.message }}
       </div>
       <view-box
         :pattern="pattern"
@@ -80,8 +80,8 @@
       a11yInvalid: false,
       a11yResults: {},
       activeTab: 'docs',
-      errorMsg: '',
-      warnMsg: '',
+      errorMessages: [],
+      warningMessages: [],
       pattern: {
         name: 'Loading...',
         files: [],
@@ -94,12 +94,24 @@
 
     mounted() {
       this.updatePattern()
+      this.$eventHub.$on('includeErrors', val => {
+        this.errorMessages = this.updateWarningsOrErrorsMessages(this.errorMessages, val, 'include')
+      })
+
+      this.$eventHub.$on('includeWarnings', val => {
+        this.warningMessages = this.updateWarningsOrErrorsMessages(this.warningMessages, val, 'include')
+      })
+    },
+
+    beforeDestroy() {
+      this.$eventHub.$off('includeErrors')
+      this.$eventHub.$off('includeWarnings')
     },
 
     watch: {
       '$route'() {
-        this.errorMsg = ''
-        this.warnMsg = ''
+        this.errorMessages = []
+        this.warningMessages = []
 
         this.updatePattern()
       }
@@ -108,6 +120,23 @@
     methods: {
       updatePattern() {
         this.pattern = patternInfo(this.$route.params.id)
+      },
+
+      updateWarningsOrErrorsMessages(oldMessages, newMessages, messageType) {
+        this.removeMessagesByType(oldMessages, messageType)
+
+        return oldMessages.concat(newMessages)
+      },
+
+      removeMessagesByType(items, type) {
+        if (!items) {
+          return
+        }
+        items.forEach((item, index, object) => {
+          if (item.type === type) {
+            object.splice(index, 1)
+          }
+        })
       }
     }
   }

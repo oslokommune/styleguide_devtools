@@ -8,3 +8,4 @@ services:
       - 9000:9000
     volumes:
       - ../styleguide:/app/node_modules/styleguide
+      - ./src:/app/src

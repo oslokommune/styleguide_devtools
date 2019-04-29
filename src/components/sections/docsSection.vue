@@ -47,14 +47,71 @@
   import copyToClipboardMixin from '../../mixins/copyToClipboard'
   import marked from 'marked'
   import shared from './shared'
+  import _ from 'lodash'
 
   export default {
     name: 'docs-section',
 
     mixins: [copyToClipboardMixin, shared],
 
+    data: () => ({
+      includeStatements: []
+    }),
+
     computed: {
       twigIncludes() {
+        // if there are no include statements then return an empty array
+        if (!this.includeStatements || this.includeStatements.length === 0) {
+          return []
+        }        
+
+        let statements = this.includeStatements.map((statement) => {
+          // statement example: "include 'atoms/decorators/shape/shape.twig"
+          
+          let name = statement.substring(
+            statement.lastIndexOf('/') + 1,
+            statement.lastIndexOf('.twig')
+          ) // get everything between last instance of '/' and '.twig' from statement
+
+          // make "{include/embed} '{type}/{group}/{pattern}/{pattern}.twig" into "{type}-{group}-{pattern}"
+          let url = statement
+            .replace('include "', '')
+            .replace('include \'', '')
+            .replace('embed "', '')
+            .replace('embed \'', '')
+            .replace('/' + name + '.twig', '')
+            .split('/').join('-')
+
+          return {
+            name: name,
+            url: url
+          }
+        })
+
+        return _.uniqBy(statements, 'name')
+      }
+    },
+
+    watch: {
+      // we need to deep watch the files to regenerate includeStatements when styleguide file changes
+      'pattern.files': {
+        handler() {
+          this.updateIncludeStatements()
+        },
+        deep: true
+      },
+
+      includeStatements(val) {
+        this.reportTwigStatementErrors(val)
+      }
+    },
+
+    methods: {
+      marked(md) {
+        return marked(md, {gfm: true})
+      },
+
+      updateIncludeStatements() {
         // returns array with one twig object
         let twigObjects = this.pattern.files.filter((item) => {
           return item.extension === 'twig'
@@ -62,48 +119,51 @@
 
         // check if filter returned the twig object and that it has contents before assigning the content to the variable
         let twigContent = (twigObjects[0] && twigObjects[0].contents) ? twigObjects[0].contents : undefined
-        let includeStatements
+        let statements = []
         // check if the twig content is set and contains at least one include statement
-        if (twigContent && twigContent.includes('include')) {
+        if (twigContent && (twigContent.includes('include') || twigContent.includes('embed'))) {
           // array with all strings that start with 'include' and end with 'twig' from twig content
-          includeStatements = twigContent.match(/include(.*?)twig/g)
+          let includeStatements = twigContent.match(/include(.*?)twig/g) || []
+          // array with all strings that start with 'embed' and end with 'twig' from twig content
+          let embedStatements = twigContent.match(/embed(.*?)twig/g) || []
+
+          statements = includeStatements.concat(embedStatements)
         }
 
-        // if there are no include statements then return an empty array
-        if (!includeStatements || includeStatements.length === 0) {
-          return []
+        this.includeStatements = statements
+      },
+
+      reportTwigStatementErrors(includeStatements) {
+        let errorMsg = []
+        let warnMsg = []
+
+        // if there are no include statements on the pattern, then trigger the removal of old include errors and warnings
+        if (!includeStatements) {
+          this.$eventHub.$emit('includeErrors', errorMsg)
+          this.$eventHub.$emit('includeWarnings', errorMsg)
+
+          return
         }
 
-        return includeStatements.map((statement) => {
+        includeStatements.forEach(statement => {
           // statement example: "include 'atoms/decorators/shape/shape.twig"
-
-          if (statement.indexOf('\'/') >= 0) {
-            this.errorMsg = 'Twig includes should NOT start with slash (/): ' + statement
+ 
+          if (statement.startsWith('include \'/')) {
+            errorMsg.push({
+              type: 'include',
+              message: 'Twig includes should NOT start with slash (/): ' + statement + '. '
+            })
           }
-          if (statement.indexOf('\"/') >= 0) {
-            this.errorMsg = 'For consistency purposes twig includes should use \' instead of \": ' + statement
-          }
-
-          let name = statement.substring(
-            statement.lastIndexOf('/') + 1,
-            statement.lastIndexOf('.twig')
-          ) // get everything between last instance of '/' and '.twig' from statement
-
-          let url = statement.replace('include "', '').replace('include \'', '') // remove "include '"
-            .replace('/' + name + '.twig', '') // remove twig file name parameter
-            .split('/').join('-') // replace all instances of slash with dash
-
-          return {
-            name: name,
-            url: url
-          }
+          if (statement.includes('"')) {
+            warnMsg.push({
+              type: 'include',
+              message: 'For consistency purposes twig includes should use \' instead of \": ' + statement + '. '
+            })
+          }          
         })
-      }
-    },
 
-    methods: {
-      marked(md) {
-        return marked(md, {gfm: true})
+        this.$eventHub.$emit('includeErrors', errorMsg)
+        this.$eventHub.$emit('includeWarnings', warnMsg)
       }
     }
   }

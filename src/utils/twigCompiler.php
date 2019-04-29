@@ -84,7 +84,7 @@ if (is_writable(PROJECT_DIR . 'dist')) {
         $compiled
       );
     } catch (\Exception $e) {
-      die("\nRendering: " . $entry->src . "\nMessage: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine(). "\n\n");
+      die("\nERROR in " . $entry->src . "\nMessage: " . $e->getMessage() . "\nFile: " . $e->getFile() . "\nLine: " . $e->getLine(). "\n\n");
     }
   }
 } else {

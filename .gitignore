@@ -1,1 +1,14 @@
+.env
+.DS_Store
+
 .idea
+node_modules
+vendor
+
+dist/*
+!dist/.gitkeep
+build/*
+!build/.gitkeep
+
+eventListener.lock
+eventListener.rebuild

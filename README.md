@@ -45,6 +45,26 @@ npm run mkpat
 ```
 This will create all files needed to make a complete pattern with some boilerplate code to get quickly up and running.
 
+### Building docker image
+```shell
+docker build -t ukeweb/styleguide_devtools:[VERSION] .
+docker push ukeweb/styleguide_devtools:[VERSION]
+```
+
+### Build docker image for web
+```shell
+docker build -f .docker/web/Dockerfile -t styleguide_web .
+```
+
+Run it locally
+```shell
+docker run -p 9999:8000 -d styleguide_web
+```
+
+Push it
+```shell
+docker push url/styleguide:SEMVER
+```
 
 ## Known issues
 * Its a little bit slow to update some areas
