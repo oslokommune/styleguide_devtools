@@ -1,6 +1,6 @@
 {
   "name": "styleguide_devtools",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Oslo Style Guide devtools",
   "main": "index.js",
   "scripts": {
