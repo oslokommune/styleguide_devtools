@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "hmr": "webpack-dev-server --hot --config config/app/webpack.dev.js",
-    "dev": "rm -rf dist/* && npm run build-structure \"false\" && php src/utils/twigCompiler.php && webpack --config config/modules/webpack.dev.js --mode development && npm run build-structure \"true\"",
+    "dev": "rm -rf dist/* && npm run build-structure \"false\" && php src/utils/twigCompiler.php && webpack --config config/modules/webpack.dev.js --mode development && npm run build-structure \"true\" && npm run docs",
     "dev-modules": "webpack --config config/modules/webpack.dev.js --mode development",
     "build-structure": "./node_modules/.bin/babel-node src/utils/buildAtomicStructure.js",
     "build-modules": "webpack --config config/modules/webpack.production.js --mode production",
