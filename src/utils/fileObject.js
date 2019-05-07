@@ -14,6 +14,7 @@ export function fileObject(path) {
     isAtom: isAtom(path),
     isMolecule: isMolecule(path),
     isOrganism: isOrganism(path),
+    isGlobal: isGlobal(path),
     isFolder: isFolder(path),
     isFile: isFile(path),
     isDataFile: isDataFile(path),
@@ -41,7 +42,8 @@ function getPath(path) {
     replace(process.env.AD_PATTERN_PATH, '').
     replace('atoms/', '').
     replace('molecules/', '').
-    replace('organisms/', '')
+    replace('organisms/', '').
+    replace('globals/', '')
 }
 
 function isAsset(path) {
@@ -58,6 +60,10 @@ function isMolecule(path) {
 
 function isOrganism(path) {
   return path.indexOf('organisms') >= 0
+}
+
+function isGlobal(path) {
+  return path.indexOf('globals') >= 0
 }
 
 function isFolder(path) {
@@ -77,7 +83,7 @@ function isDataFile(path) {
 }
 
 function isRoot(path) {
-  return path === process.env.AD_PATTERN_PATH + 'atoms' || path === process.env.AD_PATTERN_PATH + 'molecules' || path === process.env.AD_PATTERN_PATH + 'organisms'
+  return path === process.env.AD_PATTERN_PATH + 'atoms' || path === process.env.AD_PATTERN_PATH + 'molecules' || path === process.env.AD_PATTERN_PATH + 'organisms' || path === process.env.AD_PATTERN_PATH + 'globals'
 }
 
 function getContents(path) {
