@@ -4,6 +4,18 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 const extractChangelog = new ExtractTextPlugin('changelog/index.html')
 const extractUtils = new ExtractTextPlugin('utils/index.html')
 
+let loaders = [
+  {
+    loader: 'html-loader'
+  },
+  {
+    loader: 'markdown-loader',
+    options: {
+      gfm: true
+    }
+  }
+]
+
 module.exports = {
   mode: 'production',
   plugins: [
@@ -28,28 +40,14 @@ module.exports = {
         include: path.resolve(__dirname + '/../../node_modules/styleguide'),
         exclude: path.resolve(__dirname + '/../../node_modules/styleguide/docs'),
         use: extractChangelog.extract({
-          use: [
-            {
-              loader: 'html-loader'
-            },
-            {
-              loader: 'markdown-loader'
-            }
-          ]
+          use: loaders
         })
       },
       {
         test: /\.md$/,
         include: path.resolve(__dirname + '/../../node_modules/styleguide/docs/utils'),
         use: extractUtils.extract({
-          use: [
-            {
-              loader: 'html-loader'
-            },
-            {
-              loader: 'markdown-loader'
-            }
-          ]
+          use: loaders
         })
       },
     ]
