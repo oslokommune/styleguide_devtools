@@ -21,10 +21,10 @@
       <div class="tab-content">
         <div class="tabs">
           <ul>
-            <li :class="activeTab === 'docs' ? 'is-active' : null">
+            <li v-if="showTab('docs')" :class="activeTab === 'docs' ? 'is-active' : null">
               <a @click="activeTab = 'docs'">Docs</a>
             </li>
-            <li :class="activeTab === 'a11y' ? 'is-active' : null">
+            <li v-if="showTab('a11y')" :class="activeTab === 'a11y' ? 'is-active' : null">
               <a @click="activeTab = 'a11y'">
                 <span class="icon">
                   <i class="fas fa-check has-text-success" v-if="! a11yInvalid"></i>
@@ -33,13 +33,13 @@
                 <span>A11Y</span>
               </a>
             </li>
-            <li :class="activeTab === 'html' ? 'is-active' : null">
+            <li v-if="showTab('html')" :class="activeTab === 'html' ? 'is-active' : null">
               <a @click="activeTab = 'html'">HTML</a>
             </li>
-            <li :class="activeTab === 'twig' ? 'is-active' : null">
+            <li v-if="showTab('twig')" :class="activeTab === 'twig' ? 'is-active' : null">
               <a @click="activeTab = 'twig'">Twig</a>
             </li>
-            <li :class="activeTab === 'data' ? 'is-active' : null">
+            <li v-if="showTab('data')" :class="activeTab === 'data' ? 'is-active' : null">
               <a @click="activeTab = 'data'">Data</a>
             </li>
           </ul>
@@ -92,6 +92,16 @@
       }
     }),
 
+    computed: {
+      tabsToShow() {
+        const hasContents = (this.pattern && this.pattern.variants[0] && this.pattern.variants[0].contents)
+        const contents = hasContents ? JSON.parse(this.pattern.variants[0].contents) : undefined
+        const hasTabs = (contents && contents.meta && contents.meta.tabs)
+
+        return hasTabs ? contents.meta.tabs : []
+      }
+    },
+
     mounted() {
       this.updatePattern()
       this.$eventHub.$on('includeErrors', val => {
@@ -137,6 +147,10 @@
             object.splice(index, 1)
           }
         })
+      },
+
+      showTab(tabName) {
+        return !this.tabsToShow || (this.tabsToShow && this.tabsToShow.includes(tabName))
       }
     }
   }
