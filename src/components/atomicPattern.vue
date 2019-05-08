@@ -44,7 +44,7 @@
             </li>
           </ul>
         </div>
-        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'docs'"></docs-section>
+        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'docs'" :showIncludes="showIncludes" :showAssets="showAssets"></docs-section>
         <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'a11y'" :a11yResults="a11yResults"></a11y-section>
         <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'html'"></html-section>
         <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'twig'"></twig-section>
@@ -93,12 +93,58 @@
     }),
 
     computed: {
-      tabsToShow() {
+      patternData() {
         const hasContents = (this.pattern && this.pattern.variants[0] && this.pattern.variants[0].contents)
-        const contents = hasContents ? JSON.parse(this.pattern.variants[0].contents) : undefined
-        const hasTabs = (contents && contents.meta && contents.meta.tabs)
 
-        return hasTabs ? contents.meta.tabs : []
+        return hasContents ? JSON.parse(this.pattern.variants[0].contents) : undefined
+      },
+
+      patternMeta() {
+        return (this.patternData && this.patternData.meta) ? this.patternData.meta : undefined
+      },
+
+      guiPreset() {
+        const hasGuiPreset = (this.patternMeta && this.patternMeta.guiPreset)
+
+        return hasGuiPreset ? this.patternMeta.guiPreset : undefined
+      },
+
+      tabsToShow() {
+        if (this.guiPreset === 'global-pattern') {
+          return []
+        }
+
+        const hasTabs = (this.patternMeta && this.patternMeta.tabs)
+
+        return hasTabs ? this.patternMeta.tabs : undefined
+      },
+
+      showIncludes() {
+        if (this.guiPreset === 'global-pattern') {
+          return false
+        }
+        if (this.patternMeta && this.patternMeta.showIncludeList === false) {
+          return false
+        }
+        if (!this.patternMeta || this.patternMeta.showIncludeList === true) {
+          return true
+        }
+
+        return true
+      },
+
+      showAssets() {
+        if (this.guiPreset === 'global-pattern') {
+          return false
+        }
+        if (this.patternMeta && this.patternMeta.showAssetList === false) {
+          return false
+        }
+        if (!this.patternMeta || this.patternMeta.showAssetList === true) {
+          return true
+        }
+
+        return true
       }
     },
 

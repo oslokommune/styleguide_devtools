@@ -6,7 +6,7 @@
     <div v-else class="notification is-warning">
       There is no documentation available.
     </div>
-    <aside class="menu">
+    <aside v-if="showIncludes" class="menu">
       <p class="menu-label">Includes</p>
       <ul class="menu-list">
         <li v-for="(item, index) of twigIncludes" v-bind:key="index">
@@ -15,7 +15,7 @@
         <li v-if="twigIncludes.length <= 0" class="has-text-grey">This pattern does not include other patterns.</li>
       </ul>
     </aside>
-    <div class="content margin-top">
+    <div v-if="showAssets" class="content margin-top">
       <p class="is-uppercase has-text-grey is-size-7">Assets</p>
       <div v-if="twigFile">
         <button class="button is-tag is-small is-warning" @click="copy(twigFile.rawPath.replace(patternPath, ''))">
@@ -53,6 +53,18 @@
     name: 'docs-section',
 
     mixins: [copyToClipboardMixin, shared],
+
+    props: {
+      showIncludes: {
+        type: Boolean,
+        required: true
+      },
+
+      showAssets: {
+        type: Boolean,
+        required: true
+      }
+    },
 
     data: () => ({
       includeStatements: []
