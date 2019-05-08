@@ -1,9 +1,9 @@
 <template>
   <div>
-    <article v-if="pattern.mdFile" id="markdown-body" class="markdown-body"
+    <article v-if="showDocs && pattern.mdFile" id="markdown-body" class="markdown-body"
              v-html="marked(pattern.mdFile.contents)">
     </article>
-    <div v-else class="notification is-warning">
+    <div v-if="showDocs && !pattern.mdFile" class="notification is-warning">
       There is no documentation available.
     </div>
     <aside v-if="showIncludes" class="menu">
@@ -36,8 +36,8 @@
         {{ file.rawPath.replace(patternPath, '') }}
       </div>
 
-      <div v-if="pattern.jsFiles.length <= 0 && pattern.cssFiles.length <= 0" class="notification is-warning">
-        There are no assets for this pattern.
+      <div v-if="showAssets && (pattern.jsFiles.length <= 0 && pattern.cssFiles.length <= 0)" class="notification is-warning">
+        There are no CSS or JS assets for this pattern.
       </div>
     </div>
   </div>
@@ -61,6 +61,11 @@
       },
 
       showAssets: {
+        type: Boolean,
+        required: true
+      },
+
+      showDocs: {
         type: Boolean,
         required: true
       }

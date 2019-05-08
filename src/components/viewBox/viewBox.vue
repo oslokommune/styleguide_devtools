@@ -2,8 +2,8 @@
   <div
     class="viewBox"
     :class="{ 'fullscreen': $store.state.viewBox.fullscreen }">
-    <view-box-settings :title="pattern.name" />
-    <div class="tabs is-boxed">
+    <view-box-settings :show-settings="showSettings" :title="pattern.name" />
+    <div v-if="patternVariantNames.length > 1" class="tabs is-boxed">
       <ul>
         <li
           :class="{ 'is-active': variantName === activeVariant }"
@@ -17,7 +17,7 @@
     </div>
     <div 
       class="frame"
-      :class="{ 'solid': $store.state.viewBox.backgroundSolid, 'no-ruler': !$store.state.viewBox.ruler }"
+      :class="{ 'solid': $store.state.viewBox.backgroundSolid || guiPreset === 'global-pattern', 'no-ruler': !$store.state.viewBox.ruler || guiPreset === 'global-pattern' }"
       :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 60px);`">
       <div :style="iframeSizeStyle">
         <iframe
@@ -25,7 +25,7 @@
           :srcdoc="frameContents"
           title="Pattern" />
         <div
-          v-if="$store.state.viewBox.ruler"
+          v-if="$store.state.viewBox.ruler && guiPreset !== 'global-pattern'"
           class="view-width-indicator"
           :style="`width: ${frameWidth}`">
           <div class="arrow-head-left" />
@@ -34,7 +34,7 @@
           </div>
           <div class="arrow-head-right" />
         </div>
-        <div v-if="$store.state.viewBox.ruler"
+        <div v-if="$store.state.viewBox.ruler && guiPreset !== 'global-pattern'"
           class="view-height-indicator"
           :style="viewHeightIndicatorStyle">
           <div class="arrow-head-left" />
@@ -69,6 +69,11 @@
       a11yResults: {
         type: Object,
         required: true
+      },
+
+      guiPreset: {
+        type: String,
+        required: false
       }
     },
 
@@ -78,6 +83,12 @@
     }),
 
     computed: {
+      showSettings() {
+        const hasPresetGlobal = this.guiPreset === 'global-pattern'
+
+        return !this.guiPreset || !hasPresetGlobal ? true : false
+      },
+
       iframeSizeStyle() {
         return `width: ${this.frameWidth}; height: calc(${this.frameHeight} + 10px)`
       },
@@ -96,6 +107,9 @@
       },
 
       bgColor() {
+        if (this.guiPreset === 'global-pattern') {
+          return 'white'
+        }
         if (this.mergedData.meta && this.mergedData.meta['background-color']) {
           return this.mergedData.meta['background-color']
         }
