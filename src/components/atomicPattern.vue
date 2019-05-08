@@ -20,7 +20,7 @@
         v-bind:a11y-invalid.sync="a11yInvalid"
         v-bind:a11y-results.sync="a11yResults" />
       <div class="tab-content">
-        <div class="tabs">
+        <div v-if="tabsToShow !== [] && guiPreset !== 'global-pattern'" class="tabs">
           <ul>
             <li v-if="showTab('docs')" :class="activeTab === 'docs' ? 'is-active' : null">
               <a @click="activeTab = 'docs'">Docs</a>
