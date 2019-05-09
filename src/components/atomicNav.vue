@@ -89,12 +89,12 @@
 </template>
 
 <script>
-import AtomicNavItem from "./atomicNavItem"
-import AtomicTagItem from "./atomicTagItem"
-import atomicStructure from "../../build/atomicStructure.json"
+import AtomicNavItem from './atomicNavItem'
+import AtomicTagItem from './atomicTagItem'
+import atomicStructure from '../../build/atomicStructure.json'
 
 export default {
-  name: "atomicNav",
+  name: 'atomicNav',
   components: {
     AtomicNavItem,
     AtomicTagItem
@@ -102,7 +102,7 @@ export default {
   data: () => ({
     pagesVisible: false,
     atomicStructure,
-    search: "",
+    search: '',
     tags: []
   }),
 
@@ -138,7 +138,7 @@ export default {
     addTag() {
       if (this.search.length) {
         this.tags.push(this.search)
-        this.search = ""
+        this.search = ''
       }
     },
 
