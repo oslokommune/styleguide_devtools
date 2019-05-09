@@ -64,7 +64,9 @@
         v-bind:key="index">
       </atomic-nav-item>
     </ul>
-    <p class="menu-label" v-if="!tags.length && pagesVisible">Pages</p>
+    <p class="menu-label" v-if="!tags.length && pagesVisible">
+      Pages
+    </p>
     <ul class="menu-list" v-if="!tags.length && pagesVisible">
       <li>
         <router-link :to="{ path: '/pageBuilder' }">
