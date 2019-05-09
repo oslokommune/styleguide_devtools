@@ -1,8 +1,12 @@
 var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+/*
+// to transpile more files into separate html files
+// one needs to add separate extractPlugin instance
+// for each file and add separate rules for them
+*/
 const extractChangelog = new ExtractTextPlugin('changelog/index.html')
-const extractUtils = new ExtractTextPlugin('utils/index.html')
 
 let loaders = [
   {
@@ -20,7 +24,6 @@ module.exports = {
   mode: 'production',
   plugins: [
     extractChangelog,
-    extractUtils
   ],
 
   entry: {
@@ -42,14 +45,7 @@ module.exports = {
         use: extractChangelog.extract({
           use: loaders
         })
-      },
-      {
-        test: /\.md$/,
-        include: path.resolve(__dirname + '/../../node_modules/styleguide/docs/utils'),
-        use: extractUtils.extract({
-          use: loaders
-        })
-      },
+      }
     ]
   }
 }
