@@ -89,65 +89,65 @@
 </template>
 
 <script>
-import AtomicNavItem from './atomicNavItem'
-import AtomicTagItem from './atomicTagItem'
-import atomicStructure from '../../build/atomicStructure.json'
+  import AtomicNavItem from './atomicNavItem'
+  import AtomicTagItem from './atomicTagItem'
+  import atomicStructure from '../../build/atomicStructure.json'
 
-export default {
-  name: 'atomicNav',
-  components: {
-    AtomicNavItem,
-    AtomicTagItem
-  },
-  data: () => ({
-    pagesVisible: false,
-    atomicStructure,
-    search: '',
-    tags: []
-  }),
+  export default {
+    name: 'atomicNav',
+    components: {
+      AtomicNavItem,
+      AtomicTagItem
+    },
+    data: () => ({
+      pagesVisible: false,
+      atomicStructure,
+      search: '',
+      tags: []
+    }),
 
-  computed: {
-    patterns() {
-      return this.atoms.concat(this.molecules, this.organisms)
-    },
-    atoms() {
-      return this.flatten(this.atomicStructure.atoms.children)
-    },
-    molecules() {
-      return this.flatten(this.atomicStructure.molecules.children)
-    },
-    organisms() {
-      return this.flatten(this.atomicStructure.organisms.children)
-    }
-  },
-
-  methods: {
-    flatten(items) {
-      let list = []
-      for (let item of items) {
-        if (item.isDataFile) {
-          list.push(item)
-        }
-        if (item.children && item.children.length > 0) {
-          list = list.concat(this.flatten(item.children))
-        }
-      }
-      return list
-    },
-
-    addTag() {
-      if (this.search.length) {
-        this.tags.push(this.search)
-        this.search = ''
+    computed: {
+      patterns() {
+        return this.atoms.concat(this.molecules, this.organisms)
+      },
+      atoms() {
+        return this.flatten(this.atomicStructure.atoms.children)
+      },
+      molecules() {
+        return this.flatten(this.atomicStructure.molecules.children)
+      },
+      organisms() {
+        return this.flatten(this.atomicStructure.organisms.children)
       }
     },
 
-    removeTag(tag) {
-      let index = this.tags.indexOf(tag)
-      if (index >= 0) {
-        this.tags.splice(index, 1)
+    methods: {
+      flatten(items) {
+        let list = []
+        for (let item of items) {
+          if (item.isDataFile) {
+            list.push(item)
+          }
+          if (item.children && item.children.length > 0) {
+            list = list.concat(this.flatten(item.children))
+          }
+        }
+        return list
+      },
+
+      addTag() {
+        if (this.search.length) {
+          this.tags.push(this.search)
+          this.search = ''
+        }
+      },
+
+      removeTag(tag) {
+        let index = this.tags.indexOf(tag)
+        if (index >= 0) {
+          this.tags.splice(index, 1)
+        }
       }
     }
   }
-}
 </script>
