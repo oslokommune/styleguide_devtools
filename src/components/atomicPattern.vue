@@ -105,9 +105,9 @@
       },
 
       guiPreset() {
-        const hasGuiPreset = (this.patternMeta && this.patternMeta['gui-preset'])
+        const hasGuiPreset = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui.preset)
 
-        return hasGuiPreset ? this.patternMeta['gui-preset'] : undefined
+        return hasGuiPreset ? this.patternMeta.gui.preset : undefined
       },
 
       tabsToShow() {
@@ -115,13 +115,13 @@
           return []
         }
 
-        const hasTabs = (this.patternMeta && this.patternMeta.tabs)
+        const hasTabs = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui.tabs)
 
-        return hasTabs ? this.patternMeta.tabs : undefined
+        return hasTabs ? this.patternMeta.gui.tabs : undefined
       },
 
       showIncludes() {
-        const hideIncludeList = (this.patternMeta && this.patternMeta['show-include-list'] === false)
+        const hideIncludeList = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui['show-include-list'] === false)
 
         if (this.guiPreset === 'global-pattern' || hideIncludeList) {
           return false
@@ -131,7 +131,7 @@
       },
 
       showAssets() {
-        const hideAssetList = (this.patternMeta && this.patternMeta['show-asset-list'] === false)
+        const hideAssetList = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui['show-asset-list'] === false)
 
         if (this.guiPreset === 'global-pattern' || hideAssetList) {
           return false
@@ -141,7 +141,7 @@
       },
 
       showDocs() {
-        const hideDocs = (this.patternMeta && this.patternMeta['show-docs'] === false)
+        const hideDocs = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui['show-docs'] === false)
 
         if (hideDocs) {
           return false

@@ -142,8 +142,13 @@
       },
 
       frameHeight() {
-        if (this.mergedData.meta && this.mergedData.meta['min-height']) {
-          return this.mergedData.meta['min-height']
+        if (
+          this.mergedData.meta &&
+          this.mergedData.meta.pattern &&
+          this.mergedData.meta.pattern.frame &&
+          this.mergedData.meta.pattern.frame['min-height']
+        ) {
+          return this.mergedData.meta.pattern.frame['min-height']
         } else if (this.$store.state.viewBox.viewSize.mobile) {
           return this.mobileHeight
         }
