@@ -44,11 +44,11 @@
             </li>
           </ul>
         </div>
-        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('docs')"></docs-section>
-        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('accessibility')" :a11yResults="a11yResults"></a11y-section>
-        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('html')"></html-section>
-        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('twig')"></twig-section>
-        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('json')"></json-section>
+        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('docs')"></docs-section>
+        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('accessibility')" :a11yResults="a11yResults"></a11y-section>
+        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('html')"></html-section>
+        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('twig')"></twig-section>
+        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('json')"></json-section>
       </div>
     </div>
   </div>

@@ -53,6 +53,7 @@
   import ViewBoxSettings from './viewBoxSettings'
   import shared from '../sections/shared'
   import {frameStart, frameSingle, frameGrid, frameRandom, frameEnd} from '../../assets/js/viewBoxFrame'
+  import {cleanState} from '../../store/presets/cleanPattern'
 
   export default {
     name: 'viewBox',
@@ -158,11 +159,7 @@
         }, true)
       })
 
-      console.log('check for settings') // eslint-disable-line
-      if (this.mergedData.devtools && this.mergedData.devtools.pattern) {
-        console.log('settings found') // eslint-disable-line
-        this.$store.dispatch('pattern/setValues', this.mergedData.devtools.pattern)
-      }
+      this.overrideState()
     },
 
     beforeCreate() {
@@ -187,6 +184,7 @@
     watch: {
       '$route.params.id'() {
         this.$emit('update:activeVariant', 'default')
+        this.overrideState()
       },
       frameContents() {
         this.a11yValidate()
@@ -226,6 +224,23 @@
             }
           }
         )
+      },
+
+      overrideState() {
+        if (this.mergedData && this.mergedData.devtools) {
+          if (this.mergedData.devtools.preset) {
+            switch (this.mergedData.devtools.preset) {
+              case 'clean':
+                this.$store.dispatch('pattern/setValues', cleanState)
+                break
+              default:
+                this.$store.dispatch('pattern/setDefaults')
+            }
+          }
+          if (this.mergedData.devtools.pattern) {
+            this.$store.dispatch('pattern/setValues', this.mergedData.devtools.pattern)
+          }
+        }
       }
     }
   }

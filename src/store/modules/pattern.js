@@ -1,62 +1,17 @@
-/* Pattern Store */
-const defaultState = {
-  settings: {
-    visible: true,
-    sections: {
-      title: {
-        visible: true
-      },
-      configuration: {
-        visible: true
-      }
-    }
-  },
-  sections: {
-    docs: {
-      visible: true,
-      active: true,
-      sections: {
-        documentation: {
-          visible: true
-        },
-        assets: {
-          visible: true
-        },
-        includes: {
-          visible: true
-        }
-      }
-    },
-    accessibility: {
-      visible: true,
-      active: false
-    },
-    html: {
-      visible: true,
-      active: false
-    },
-    twig: {
-      visible: true,
-      active: false
-    },
-    json: {
-      visible: true,
-      active: false
-    }
-  }
-}
+import _ from 'lodash'
+import {defaultState} from '../presets/defaultPattern'
 
+/* Pattern Store */
 const state = {}
 
 const getters = {}
 
 const actions = {
   setDefaults({commit}) {
-    commit('setDefaults')
+    commit('setValues', defaultState)
   },
 
   setValues({commit}, payload) {
-    console.log(payload) // eslint-disable-line
     commit('setValues', payload)
   },
 
@@ -66,18 +21,14 @@ const actions = {
 }
 
 const mutations = {
-  setDefaults(state) { // eslint-disable-line
-    state = defaultState // eslint-disable-line
-  },
-
   setActiveSection(state, activeSection) {
     Object.keys(state.sections).forEach(section => {
       state.sections[section].active = section === activeSection
     })
   },
 
-  setValues(state, values) {
-    state = Object.assign(state, values)
+  setValues(state, payload) {
+    state = _.merge(state, payload)
   }
 }
 
