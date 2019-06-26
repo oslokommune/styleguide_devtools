@@ -2,7 +2,7 @@
   <div
     class="viewBox"
     :class="{ 'fullscreen': $store.state.viewBox.fullscreen }">
-    <view-box-settings :show-settings="showSettings" :title="pattern.name" />
+    <view-box-settings :title="pattern.name" />
     <div v-if="patternVariantNames.length > 1" class="tabs is-boxed">
       <ul>
         <li
@@ -15,9 +15,9 @@
         </li>
       </ul>
     </div>
-    <div 
+    <div
       class="frame"
-      :class="{ 'solid': $store.state.viewBox.backgroundSolid || guiPreset === 'global-pattern', 'no-ruler': !$store.state.viewBox.ruler || guiPreset === 'global-pattern' }"
+      :class="{ 'solid': $store.state.viewBox.backgroundSolid, 'no-ruler': !$store.state.viewBox.ruler }"
       :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 60px);`">
       <div :style="iframeSizeStyle">
         <iframe
@@ -25,7 +25,7 @@
           :srcdoc="frameContents"
           title="Pattern" />
         <div
-          v-if="$store.state.viewBox.ruler && guiPreset !== 'global-pattern'"
+          v-if="$store.state.viewBox.ruler"
           class="view-width-indicator"
           :style="`width: ${frameWidth}`">
           <div class="arrow-head-left" />
@@ -34,7 +34,7 @@
           </div>
           <div class="arrow-head-right" />
         </div>
-        <div v-if="$store.state.viewBox.ruler && guiPreset !== 'global-pattern'"
+        <div v-if="$store.state.viewBox.ruler"
           class="view-height-indicator"
           :style="viewHeightIndicatorStyle">
           <div class="arrow-head-left" />
@@ -70,11 +70,6 @@
         type: Object,
         required: true
       },
-
-      guiPreset: {
-        type: String,
-        required: false
-      }
     },
 
     data: () => ({
@@ -83,12 +78,6 @@
     }),
 
     computed: {
-      showSettings() {
-        const hasPresetGlobal = this.guiPreset === 'global-pattern'
-
-        return !this.guiPreset || !hasPresetGlobal ? true : false
-      },
-
       iframeSizeStyle() {
         return `width: ${this.frameWidth}; height: calc(${this.frameHeight} + 10px)`
       },
@@ -107,9 +96,6 @@
       },
 
       bgColor() {
-        if (this.guiPreset === 'global-pattern') {
-          return 'white'
-        }
         if (this.mergedData.meta && this.mergedData.meta['background-color']) {
           return this.mergedData.meta['background-color']
         }
@@ -171,6 +157,12 @@
           this.frameContentHeight = this.getFrameContentHeight()
         }, true)
       })
+
+      console.log('check for settings') // eslint-disable-line
+      if (this.mergedData.devtools && this.mergedData.devtools.pattern) {
+        console.log('settings found') // eslint-disable-line
+        this.$store.dispatch('pattern/setValues', this.mergedData.devtools.pattern)
+      }
     },
 
     beforeCreate() {

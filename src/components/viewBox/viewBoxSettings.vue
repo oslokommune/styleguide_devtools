@@ -1,9 +1,9 @@
 <template>
-  <nav class="level viewBoxSettings">
-    <div class="level-left">
+  <nav v-if="$store.state.pattern.settings.visible" class="level viewBoxSettings">
+    <div v-if="$store.state.pattern.settings.sections.title.visible" class="level-left">
       <h3 class="level-item title is-3">{{ title|capitalize }}</h3>
     </div>
-    <div v-if="showSettings" class="level-right">
+    <div v-if="$store.state.pattern.settings.sections.configuration.visible"  class="level-right">
       <div class="level-item chrome">
         <chrome v-model="color" />
         <div class="buttons has-addons">
@@ -125,11 +125,6 @@
         type: String,
         required: true
       },
-
-      showSettings: {
-        type: Boolean,
-        required: true
-      }
     },
 
     data: () => ({}),

@@ -3,12 +3,14 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
 import viewBox from './modules/viewBox'
+import pattern from './modules/pattern'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    'viewBox': viewBox
+    'viewBox': viewBox,
+    'pattern': pattern
   },
   plugins: [
     createPersistedState({

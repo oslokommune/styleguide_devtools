@@ -15,18 +15,17 @@
       </div>
       <view-box
         :pattern="pattern"
-        :gui-preset="guiPreset"
         v-bind:active-variant.sync="activeVariant"
         v-bind:a11y-invalid.sync="a11yInvalid"
         v-bind:a11y-results.sync="a11yResults" />
       <div class="tab-content">
-        <div v-if="tabsToShow !== [] && guiPreset !== 'global-pattern'" class="tabs">
+        <div class="tabs">
           <ul>
-            <li v-if="showTab('docs')" :class="activeTab === 'docs' ? 'is-active' : null">
-              <a @click="activeTab = 'docs'">Docs</a>
+            <li v-if="renderTab('docs')" :class="isTabActive('docs') ? 'is-active' : null">
+              <a @click="setActiveTab('docs')">Docs</a>
             </li>
-            <li v-if="showTab('a11y')" :class="activeTab === 'a11y' ? 'is-active' : null">
-              <a @click="activeTab = 'a11y'">
+            <li v-if="renderTab('accessibility')" :class="isTabActive('accessibility') ? 'is-active' : null">
+              <a @click="setActiveTab('accessibility')">
                 <span class="icon">
                   <i class="fas fa-check has-text-success" v-if="! a11yInvalid"></i>
                   <i class="fas fa-exclamation-triangle has-text-warning" v-if="a11yInvalid"></i>
@@ -34,22 +33,22 @@
                 <span>A11Y</span>
               </a>
             </li>
-            <li v-if="showTab('html')" :class="activeTab === 'html' ? 'is-active' : null">
-              <a @click="activeTab = 'html'">HTML</a>
+            <li v-if="renderTab('html')" :class="isTabActive('html') ? 'is-active' : null">
+              <a @click="setActiveTab('html')">HTML</a>
             </li>
-            <li v-if="showTab('twig')" :class="activeTab === 'twig' ? 'is-active' : null">
-              <a @click="activeTab = 'twig'">Twig</a>
+            <li v-if="renderTab('twig')" :class="isTabActive('twig') ? 'is-active' : null">
+              <a @click="setActiveTab('twig')">Twig</a>
             </li>
-            <li v-if="showTab('data')" :class="activeTab === 'data' ? 'is-active' : null">
-              <a @click="activeTab = 'data'">Data</a>
+            <li v-if="renderTab('json')" :class="isTabActive('json') ? 'is-active' : null">
+              <a @click="setActiveTab('json')">Data</a>
             </li>
           </ul>
         </div>
-        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'docs'" :show-docs="showDocs" :show-includes="showIncludes" :show-assets="showAssets"></docs-section>
-        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'a11y'" :a11yResults="a11yResults"></a11y-section>
-        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'html'"></html-section>
-        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'twig'"></twig-section>
-        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'data'"></json-section>
+        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('docs')"></docs-section>
+        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('accessibility')" :a11yResults="a11yResults"></a11y-section>
+        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('html')"></html-section>
+        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('twig')"></twig-section>
+        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('json')"></json-section>
       </div>
     </div>
   </div>
@@ -80,7 +79,6 @@
       activeVariant: 'default',
       a11yInvalid: false,
       a11yResults: {},
-      activeTab: 'docs',
       errorMessages: [],
       warningMessages: [],
       pattern: {
@@ -92,64 +90,6 @@
         variants: []
       }
     }),
-
-    computed: {
-      patternData() {
-        const hasContents = (this.pattern && this.pattern.variants[0] && this.pattern.variants[0].contents)
-
-        return hasContents ? JSON.parse(this.pattern.variants[0].contents) : undefined
-      },
-
-      patternMeta() {
-        return (this.patternData && this.patternData.meta) ? this.patternData.meta : undefined
-      },
-
-      guiPreset() {
-        const hasGuiPreset = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui.preset)
-
-        return hasGuiPreset ? this.patternMeta.gui.preset : undefined
-      },
-
-      tabsToShow() {
-        if (this.guiPreset === 'global-pattern') {
-          return []
-        }
-
-        const hasTabs = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui.tabs)
-
-        return hasTabs ? this.patternMeta.gui.tabs : undefined
-      },
-
-      showIncludes() {
-        const hideIncludeList = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui['show-include-list'] === false)
-
-        if (this.guiPreset === 'global-pattern' || hideIncludeList) {
-          return false
-        }
-
-        return true
-      },
-
-      showAssets() {
-        const hideAssetList = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui['show-asset-list'] === false)
-
-        if (this.guiPreset === 'global-pattern' || hideAssetList) {
-          return false
-        }
-
-        return true
-      },
-
-      showDocs() {
-        const hideDocs = (this.patternMeta && this.patternMeta.gui && this.patternMeta.gui['show-docs'] === false)
-
-        if (hideDocs) {
-          return false
-        }
-
-        return true
-      }
-    },
 
     mounted() {
       this.updatePattern()
@@ -178,6 +118,7 @@
 
     methods: {
       updatePattern() {
+        this.$store.dispatch('pattern/setDefaults')
         this.pattern = patternInfo(this.$route.params.id)
       },
 
@@ -198,8 +139,16 @@
         })
       },
 
-      showTab(tabName) {
-        return !this.tabsToShow || (this.tabsToShow && this.tabsToShow.includes(tabName))
+      isTabActive(tab) {
+        return this.$store.state.pattern.sections[tab].active
+      },
+
+      setActiveTab(tab) {
+        this.$store.dispatch('pattern/setActiveSection', tab)
+      },
+
+      renderTab(tab) {
+        return this.$store.state.pattern.sections[tab].visible
       }
     }
   }
