@@ -1,6 +1,6 @@
 import {defaultState} from './defaultPattern'
 
-let cleanState = Object.assign({}, defaultState)
+let cleanState = JSON.parse(JSON.stringify(defaultState))
 cleanState.settings.sections.configuration.visible = false
 cleanState.sections.docs.visible = false
 cleanState.sections.accessibility.visible = false

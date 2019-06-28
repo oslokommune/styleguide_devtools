@@ -44,11 +44,11 @@
             </li>
           </ul>
         </div>
-        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('docs')"></docs-section>
-        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('accessibility')" :a11yResults="a11yResults"></a11y-section>
-        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('html')"></html-section>
-        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('twig')"></twig-section>
-        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="renderTab('json')"></json-section>
+        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('docs') && renderTab('docs')"></docs-section>
+        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('accessibility') && renderTab('accessibility')" :a11yResults="a11yResults"></a11y-section>
+        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('html') && renderTab('html')"></html-section>
+        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('twig') && renderTab('twig')"></twig-section>
+        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('json') && renderTab('json')"></json-section>
       </div>
     </div>
   </div>

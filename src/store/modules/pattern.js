@@ -12,6 +12,8 @@ const actions = {
   },
 
   setValues({commit}, payload) {
+    console.log('values') // eslint-disable-line
+    console.log(payload) // eslint-disable-line
     commit('setValues', payload)
   },
 
