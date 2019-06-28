@@ -20,9 +20,9 @@
           if (match.length <= 0) {
             if (this.item.contents) {
               let contents = JSON.parse(this.item.contents)
-              if (contents.meta && contents.meta.pattern && contents.meta.pattern.tags) {
+              if (contents.devtools && contents.devtools.tags) {
                 for (let tag of this.tags) {
-                  let tagMatch = contents.meta.pattern.tags.filter(
+                  let tagMatch = contents.devtools.tags.filter(
                     x => x.toLowerCase().includes(tag.toLowerCase())
                   )
                   if (tagMatch.length > 0) {

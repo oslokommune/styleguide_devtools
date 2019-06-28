@@ -55,20 +55,13 @@ export default {
         variantJson = _.merge(defaultData, variantData)
       }
 
-      if (!variantJson.meta || !variantJson.meta.tags) {
-        this.warnMsg = 'There are no tags associated with this pattern,' +
-                       'this makes it harder to find, think about adding some!'
-      } else {
-        this.warnMsg = ''
-      }
-
       return variantJson
     },
 
     mergedDataString() {
       let mergedData = Object.assign({}, this.mergedData)
-      if (mergedData.meta) {
-        delete mergedData.meta
+      if (mergedData.devtools) {
+        delete mergedData.devtools
       }
       return typeof mergedData === 'object' ? JSON.stringify(mergedData, undefined, 2) : mergedData
     },

@@ -97,8 +97,8 @@
       },
 
       bgColor() {
-        if (this.mergedData.meta && this.mergedData.meta['background-color']) {
-          return this.mergedData.meta['background-color']
+        if (this.mergedData.devtools && this.mergedData.devtools['background-color']) {
+          return this.mergedData.devtools['background-color']
         }
         if (typeof this.$store.state.viewBox.backgroundColor === 'object') {
           return 'rgba(' +
@@ -130,12 +130,11 @@
 
       frameHeight() {
         if (
-          this.mergedData.meta &&
-          this.mergedData.meta.pattern &&
-          this.mergedData.meta.pattern.frame &&
-          this.mergedData.meta.pattern.frame['min-height']
+          this.mergedData.devtools &&
+          this.mergedData.devtools.frame &&
+          this.mergedData.devtools.frame['min-height']
         ) {
-          return this.mergedData.meta.pattern.frame['min-height']
+          return this.mergedData.devtools.frame['min-height']
         } else if (this.$store.state.viewBox.viewSize.mobile) {
           return this.mobileHeight
         }
