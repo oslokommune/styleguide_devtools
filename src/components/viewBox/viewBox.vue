@@ -157,8 +157,6 @@
           this.frameContentHeight = this.getFrameContentHeight()
         }, true)
       })
-
-      this.overrideState()
     },
 
     beforeCreate() {
@@ -187,6 +185,9 @@
       },
       frameContents() {
         this.a11yValidate()
+      },
+      mergedData() {
+        this.overrideState()
       }
     },
 
