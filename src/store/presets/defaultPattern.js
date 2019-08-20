@@ -8,7 +8,22 @@ export const defaultState = {
       configuration: {
         visible: true
       }
-    }
+    },
+    viewMode: {
+      single: true,
+      grid: false,
+      random: false
+    },
+    viewSize: {
+      mobile: false,
+      tablet: false,
+      desktop: false,
+      full: true
+    },
+    fullscreen: false,
+    ruler: true,
+    backgroundColor: '',
+    backgroundSolid: false
   },
   sections: {
     docs: {

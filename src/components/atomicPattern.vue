@@ -18,7 +18,7 @@
         v-bind:active-variant.sync="activeVariant"
         v-bind:a11y-invalid.sync="a11yInvalid"
         v-bind:a11y-results.sync="a11yResults" />
-      <div class="tab-content">
+      <div class="tab-content" v-if="renderTab('docs') || renderTab('accessibility') || renderTab('html') || renderTab('twig') || renderTab('json')">
         <div class="tabs">
           <ul>
             <li v-if="renderTab('docs')" :class="isTabActive('docs') ? 'is-active' : null">

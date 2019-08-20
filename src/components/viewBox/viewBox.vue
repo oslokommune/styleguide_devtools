@@ -1,7 +1,7 @@
 <template>
   <div
     class="viewBox"
-    :class="{ 'fullscreen': $store.state.viewBox.fullscreen }">
+    :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
     <view-box-settings :title="pattern.name" />
     <div v-if="patternVariantNames.length > 1" class="tabs is-boxed">
       <ul>
@@ -17,7 +17,7 @@
     </div>
     <div
       class="frame"
-      :class="{ 'solid': $store.state.viewBox.backgroundSolid, 'no-ruler': !$store.state.viewBox.ruler }"
+      :class="{ 'solid': $store.state.pattern.settings.backgroundSolid, 'no-ruler': !$store.state.pattern.settings.ruler }"
       :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 60px);`">
       <div :style="iframeSizeStyle">
         <iframe
@@ -25,7 +25,7 @@
           :srcdoc="frameContents"
           title="Pattern" />
         <div
-          v-if="$store.state.viewBox.ruler"
+          v-if="$store.state.pattern.settings.ruler"
           class="view-width-indicator"
           :style="`width: ${frameWidth}`">
           <div class="arrow-head-left" />
@@ -34,7 +34,7 @@
           </div>
           <div class="arrow-head-right" />
         </div>
-        <div v-if="$store.state.viewBox.ruler"
+        <div v-if="$store.state.pattern.settings.ruler"
           class="view-height-indicator"
           :style="viewHeightIndicatorStyle">
           <div class="arrow-head-left" />
@@ -85,11 +85,11 @@
 
       frameContents() {
         let contents = frameStart
-        if (this.$store.state.viewBox.viewMode.single) {
+        if (this.$store.state.pattern.settings.viewMode.single) {
           contents += frameSingle(this.patternVariantData.template)
-        } else if (this.$store.state.viewBox.viewMode.grid) {
+        } else if (this.$store.state.pattern.settings.viewMode.grid) {
           contents += frameGrid(this.patternVariantData.template)
-        } else if (this.$store.state.viewBox.viewMode.random) {
+        } else if (this.$store.state.pattern.settings.viewMode.random) {
           contents += frameRandom(this.patternVariantData.template)
         }
         contents += frameEnd
@@ -100,28 +100,28 @@
         if (this.mergedData.devtools && this.mergedData.devtools['background-color']) {
           return this.mergedData.devtools['background-color']
         }
-        if (typeof this.$store.state.viewBox.backgroundColor === 'object') {
+        if (typeof this.$store.state.pattern.settings.backgroundColor === 'object') {
           return 'rgba(' +
-            this.$store.state.viewBox.backgroundColor.rgba.r +
+            this.$store.state.pattern.settings.backgroundColor.rgba.r +
             ', ' +
-            this.$store.state.viewBox.backgroundColor.rgba.g +
+            this.$store.state.pattern.settings.backgroundColor.rgba.g +
             ', ' +
-            this.$store.state.viewBox.backgroundColor.rgba.b +
+            this.$store.state.pattern.settings.backgroundColor.rgba.b +
             ', ' +
-            this.$store.state.viewBox.backgroundColor.rgba.a +
+            this.$store.state.pattern.settings.backgroundColor.rgba.a +
             ')'
         }
-        return this.$store.state.viewBox.backgroundColor
+        return this.$store.state.pattern.settings.backgroundColor
       },
 
       frameWidth() {
-        if (this.$store.state.viewBox.viewSize.mobile) {
+        if (this.$store.state.pattern.settings.viewSize.mobile) {
           return '375px'
-        } else if (this.$store.state.viewBox.viewSize.tablet) {
+        } else if (this.$store.state.pattern.settings.viewSize.tablet) {
           return '769px'
-        } else if (this.$store.state.viewBox.viewSize.desktop) {
+        } else if (this.$store.state.pattern.settings.viewSize.desktop) {
           return '1088px'
-        } else if (this.$store.state.viewBox.viewSize.full) {
+        } else if (this.$store.state.pattern.settings.viewSize.full) {
           return '100%'
         }
 
@@ -135,7 +135,7 @@
           this.mergedData.devtools.frame['min-height']
         ) {
           return this.mergedData.devtools.frame['min-height']
-        } else if (this.$store.state.viewBox.viewSize.mobile) {
+        } else if (this.$store.state.pattern.settings.viewSize.mobile) {
           return this.mobileHeight
         }
 
@@ -144,7 +144,7 @@
 
       viewHeightIndicatorStyle() {
         return `
-          left: calc(${this.frameWidth} ${(this.$store.state.viewBox.viewSize.full ? '- 1%' : '+ 40px')});
+          left: calc(${this.frameWidth} ${(this.$store.state.pattern.settings.viewSize.full ? '- 1%' : '+ 40px')});
           width: ${this.frameHeight};
         `
       }
