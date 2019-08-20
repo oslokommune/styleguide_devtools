@@ -39,6 +39,9 @@ export function patternInfo(path) {
     case 'organisms':
       node = findNode(path, atomicStructure.organisms.children)
       break
+    case 'globals':
+      node = findNode(path, atomicStructure.globals.children)
+      break
     default:
   }
 

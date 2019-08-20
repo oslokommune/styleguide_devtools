@@ -9,6 +9,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
+- Zero viewbox padding when solid background is used in the gui settings
+
+### Added
+
+- Support for switching on and off devtools gui features
+
+### Removed
+
+### Changed
+
+## [0.8.1] - 2019-05-01
+
+### Fixed
+
 - iframe autosizing
 - switch from alt-watch to watch
 - only compiling the files of the same type as the one that changed in watch script
@@ -22,7 +36,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - support for listing embedded twig files
-
-### Removed
-
-### Changed

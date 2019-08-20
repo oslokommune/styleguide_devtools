@@ -17,6 +17,10 @@ const nestedStructureList = {
     children: [],
     unprocessedHits: []
   },
+  globals: {
+    children: [],
+    unprocessedHits: []
+  },
   assets: [],
   templates: []
 }
@@ -24,7 +28,7 @@ const nestedStructureList = {
 /**
  * Populate the atomic object
  * @param fileList
- * @returns {{atoms: {children: Array, unprocessedHits: Array}, molecules: {children: Array, unprocessedHits: Array}, organisms: {children: Array, unprocessedHits: Array}, assets: Array, templates: Array}}
+ * @returns {{atoms: {children: Array, unprocessedHits: Array}, molecules: {children: Array, unprocessedHits: Array}, organisms: {children: Array, unprocessedHits: Array}, globals: {children: Array, unprocessedHits: Array}, assets: Array, templates: Array}}
  */
 export function atomicStructure(fileList) {
   fileList.forEach(function (item, index) {
@@ -43,10 +47,12 @@ export function atomicStructure(fileList) {
   findAssetsAndTemplates(nestedStructureList.atoms.children)
   findAssetsAndTemplates(nestedStructureList.molecules.children)
   findAssetsAndTemplates(nestedStructureList.organisms.children)
+  findAssetsAndTemplates(nestedStructureList.globals.children)
 
   nestedStructureList.atoms.unprocessedHits = []
   nestedStructureList.molecules.unprocessedHits = []
   nestedStructureList.organisms.unprocessedHits = []
+  nestedStructureList.globals.unprocessedHits = []
 
   return nestedStructureList
 }
@@ -93,6 +99,8 @@ function organizeFiles(fileList) {
       nestedStructureList.molecules.unprocessedHits.push(file)
     } else if (file.isOrganism) {
       nestedStructureList.organisms.unprocessedHits.push(file)
+    } else if (file.isGlobal) {
+      nestedStructureList.globals.unprocessedHits.push(file)
     }
   }
 }
@@ -104,6 +112,7 @@ function nestFiles() {
   nest(nestedStructureList.atoms.unprocessedHits, nestedStructureList.atoms.children, 'atoms-', 1)
   nest(nestedStructureList.molecules.unprocessedHits, nestedStructureList.molecules.children, 'molecules-', 1)
   nest(nestedStructureList.organisms.unprocessedHits, nestedStructureList.organisms.children, 'organisms-', 1)
+  nest(nestedStructureList.globals.unprocessedHits, nestedStructureList.globals.children, 'globals-', 1)
 }
 
 /**

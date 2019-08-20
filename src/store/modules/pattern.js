@@ -1,27 +1,25 @@
+import _ from 'lodash'
+import {defaultState} from '../presets/defaultPattern'
 import eventBus from '../../bus/bus'
 
-/* VIEWBOX STORE */
-const state = {
-  viewMode: {
-    single: true,
-    grid: false,
-    random: false
-  },
-  viewSize: {
-    mobile: false,
-    tablet: false,
-    desktop: false,
-    full: true
-  },
-  fullscreen: false,
-  ruler: true,
-  backgroundColor: '',
-  backgroundSolid: false
-}
+/* Pattern Store */
+const state = {}
 
 const getters = {}
 
 const actions = {
+  setDefaults({commit}) {
+    commit('setValues', defaultState)
+  },
+
+  setValues({commit}, payload) {
+    commit('setValues', payload)
+  },
+
+  setActiveSection({commit}, section) {
+    commit('setActiveSection', section)
+  },
+
   setFullscreenMode({commit}, mode) {
     commit('setFullscreen', mode)
 
@@ -77,41 +75,51 @@ const actions = {
 }
 
 const mutations = {
+  setActiveSection(state, activeSection) {
+    Object.keys(state.sections).forEach(section => {
+      state.sections[section].active = section === activeSection
+    })
+  },
+
+  setValues(state, payload) {
+    state = _.merge(state, payload)
+  },
+
   setFullscreen(state, mode) {
-    state.fullscreen = mode
+    state.settings.fullscreen = mode
   },
 
   setRuler(state, mode) {
-    state.ruler = mode
+    state.settings.ruler = mode
   },
 
   setSolid(state, mode) {
-    state.backgroundSolid = !!mode
+    state.settings.backgroundSolid = !!mode
   },
 
   setColor(state, color) {
-    state.backgroundColor = color
+    state.settings.backgroundColor = color
   },
 
   setMode(state, mode) {
-    state.viewMode[mode] = true
+    state.settings.viewMode[mode] = true
   },
 
   setSize(state, size) {
-    state.viewSize[size] = true
+    state.settings.viewSize[size] = true
   },
 
   clearSize(state) {
-    state.viewSize.mobile = false
-    state.viewSize.tablet = false
-    state.viewSize.desktop = false
-    state.viewSize.full = false
+    state.settings.viewSize.mobile = false
+    state.settings.viewSize.tablet = false
+    state.settings.viewSize.desktop = false
+    state.settings.viewSize.full = false
   },
 
   clearMode(state) {
-    state.viewMode.single = false
-    state.viewMode.grid = false
-    state.viewMode.random = false
+    state.settings.viewMode.single = false
+    state.settings.viewMode.grid = false
+    state.settings.viewMode.random = false
   }
 }
 

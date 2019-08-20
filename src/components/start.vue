@@ -84,6 +84,12 @@
       existing markup, that needs to be implemented if one wants to migrate from an implementation of another
       major version (eg. from 1.11.0 to 2.0.0).
     </p>
+    <p>
+      These rules are expected to be followed rigourously from the day the package reaches a stable major version (major version over 0). 
+    </p>
+    <p>
+      See the changelog <a href="/docs/changelog/">here</a>.
+    </p>
 
     <h2>Developer specifics</h2>See the styleguide repos docs for reading specifics on how to consume and how to contribute to the
     development of patterns.

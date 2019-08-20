@@ -2,7 +2,14 @@
   <aside class="menu nav">
     <div class="field">
       <div class="control">
-        <input type="text" v-model="search" class="input is-primary" placeholder="Search for patterns" @keyup.enter="addTag" title="Search" />
+        <input
+          type="text"
+          v-model="search"
+          class="input is-primary"
+          placeholder="Search for patterns"
+          @keyup.enter="addTag"
+          title="Search"
+        >
       </div>
     </div>
     <div class="field is-grouped is-grouped-multiline">
@@ -13,6 +20,17 @@
         </div>
       </div>
     </div>
+    <p class="menu-label" v-if="!tags.length">
+      Global
+    </p>
+    <ul class="menu-list" v-if="!tags.length">
+      <atomic-nav-item
+        :item="child"
+        parentName="globals"
+        v-for="(child, index) in atomicStructure.globals.children"
+        v-bind:key="index">
+      </atomic-nav-item>
+    </ul>
     <p class="menu-label" v-if="!tags.length">
       Atoms
     </p>
@@ -51,7 +69,9 @@
     </p>
     <ul class="menu-list" v-if="!tags.length && pagesVisible">
       <li>
-        <router-link :to="{ path: '/pageBuilder' }">Build</router-link>
+        <router-link :to="{ path: '/pageBuilder' }">
+          Build
+        </router-link>
       </li>
     </ul>
     <p class="menu-label" v-if="tags.length">
@@ -88,10 +108,7 @@
 
     computed: {
       patterns() {
-        return this.atoms.concat(
-          this.molecules,
-          this.organisms
-        )
+        return this.atoms.concat(this.molecules, this.organisms)
       },
       atoms() {
         return this.flatten(this.atomicStructure.atoms.children)

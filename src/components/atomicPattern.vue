@@ -18,14 +18,14 @@
         v-bind:active-variant.sync="activeVariant"
         v-bind:a11y-invalid.sync="a11yInvalid"
         v-bind:a11y-results.sync="a11yResults" />
-      <div class="tab-content">
+      <div class="tab-content" v-if="renderTab('docs') || renderTab('accessibility') || renderTab('html') || renderTab('twig') || renderTab('json')">
         <div class="tabs">
           <ul>
-            <li :class="activeTab === 'docs' ? 'is-active' : null">
-              <a @click="activeTab = 'docs'">Docs</a>
+            <li v-if="renderTab('docs')" :class="isTabActive('docs') ? 'is-active' : null">
+              <a @click="setActiveTab('docs')">Docs</a>
             </li>
-            <li :class="activeTab === 'a11y' ? 'is-active' : null">
-              <a @click="activeTab = 'a11y'">
+            <li v-if="renderTab('accessibility')" :class="isTabActive('accessibility') ? 'is-active' : null">
+              <a @click="setActiveTab('accessibility')">
                 <span class="icon">
                   <i class="fas fa-check has-text-success" v-if="! a11yInvalid"></i>
                   <i class="fas fa-exclamation-triangle has-text-warning" v-if="a11yInvalid"></i>
@@ -33,22 +33,22 @@
                 <span>A11Y</span>
               </a>
             </li>
-            <li :class="activeTab === 'html' ? 'is-active' : null">
-              <a @click="activeTab = 'html'">HTML</a>
+            <li v-if="renderTab('html')" :class="isTabActive('html') ? 'is-active' : null">
+              <a @click="setActiveTab('html')">HTML</a>
             </li>
-            <li :class="activeTab === 'twig' ? 'is-active' : null">
-              <a @click="activeTab = 'twig'">Twig</a>
+            <li v-if="renderTab('twig')" :class="isTabActive('twig') ? 'is-active' : null">
+              <a @click="setActiveTab('twig')">Twig</a>
             </li>
-            <li :class="activeTab === 'data' ? 'is-active' : null">
-              <a @click="activeTab = 'data'">Data</a>
+            <li v-if="renderTab('json')" :class="isTabActive('json') ? 'is-active' : null">
+              <a @click="setActiveTab('json')">Data</a>
             </li>
           </ul>
         </div>
-        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'docs'"></docs-section>
-        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'a11y'" :a11yResults="a11yResults"></a11y-section>
-        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'html'"></html-section>
-        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'twig'"></twig-section>
-        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'data'"></json-section>
+        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('docs') && renderTab('docs')"></docs-section>
+        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('accessibility') && renderTab('accessibility')" :a11yResults="a11yResults"></a11y-section>
+        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('html') && renderTab('html')"></html-section>
+        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('twig') && renderTab('twig')"></twig-section>
+        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('json') && renderTab('json')"></json-section>
       </div>
     </div>
   </div>
@@ -79,7 +79,6 @@
       activeVariant: 'default',
       a11yInvalid: false,
       a11yResults: {},
-      activeTab: 'docs',
       errorMessages: [],
       warningMessages: [],
       pattern: {
@@ -119,6 +118,7 @@
 
     methods: {
       updatePattern() {
+        this.$store.dispatch('pattern/setDefaults')
         this.pattern = patternInfo(this.$route.params.id)
       },
 
@@ -137,6 +137,18 @@
             object.splice(index, 1)
           }
         })
+      },
+
+      isTabActive(tab) {
+        return this.$store.state.pattern.sections[tab].active
+      },
+
+      setActiveTab(tab) {
+        this.$store.dispatch('pattern/setActiveSection', tab)
+      },
+
+      renderTab(tab) {
+        return this.$store.state.pattern.sections[tab].visible
       }
     }
   }
