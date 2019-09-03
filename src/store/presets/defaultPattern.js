@@ -23,7 +23,8 @@ export const defaultState = {
     fullscreen: false,
     ruler: true,
     backgroundColor: '',
-    backgroundSolid: false
+    backgroundSolid: false,
+    selectedModifiers: []
   },
   sections: {
     docs: {

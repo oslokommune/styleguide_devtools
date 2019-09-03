@@ -71,6 +71,10 @@ const actions = {
     eventBus.$emit('viewBox.setViewSize', size)
 
     return Promise.resolve(size)
+  },
+
+  toggleModifier({commit}, modifier) {
+    commit('toggleModifier', modifier)
   }
 }
 
@@ -120,6 +124,15 @@ const mutations = {
     state.settings.viewMode.single = false
     state.settings.viewMode.grid = false
     state.settings.viewMode.random = false
+  },
+
+  toggleModifier(state, modifier) {
+    const {settings} = state
+    if(settings.selectedModifiers.includes(modifier)) {
+      settings.selectedModifiers = settings.selectedModifiers.filter(e => e !== modifier)
+    } else {
+      settings.selectedModifiers.push(modifier)
+    }
   }
 }
 

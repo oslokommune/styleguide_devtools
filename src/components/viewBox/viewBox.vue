@@ -2,7 +2,7 @@
   <div
     class="viewBox"
     :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
-    <view-box-settings :title="pattern.name" />
+    <view-box-settings :modifiers="pattern.modifiers" :title="pattern.name" />
     <div v-if="patternVariantNames.length > 1" class="tabs is-boxed">
       <ul>
         <li
