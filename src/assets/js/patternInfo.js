@@ -49,7 +49,7 @@ export function patternInfo(path) {
   if (node !== null) {
     patternData.name = node.name
     for (let file of node.children) {
-      let data
+      let contents
       switch (file.extension) {
         case 'css':
         case 'scss':
@@ -64,9 +64,9 @@ export function patternInfo(path) {
           break
         case 'json':
           // Parse modifiers
-          data = JSON.parse(file.contents)
-          if (data && data.devtools && data.devtools.modifiers) {
-            patternData.modifiers = [...data.devtools.modifiers]
+          contents = JSON.parse(file.contents)
+          if (contents && contents.devtools && contents.devtools.modifiers) {
+            patternData.modifiers = [...contents.devtools.modifiers]
           }
 
           patternData.variants.push(file)

@@ -45,7 +45,7 @@ export default {
       }
 
       // Add the modifiers selected from viewBoxSettings
-      if(this.$store.state.pattern.settings.selectedModifiers.length !== 0) {
+      if (this.$store.state.pattern.settings.selectedModifiers.length !== 0) {
         const modifierString =
           this.$store.state.pattern.settings.selectedModifiers.reduce((acc, curr) => acc + ' ' + curr, '')
         const regex = /class="(osg-[a-z0-9-]* .*)"/

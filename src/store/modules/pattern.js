@@ -128,7 +128,7 @@ const mutations = {
 
   toggleModifier(state, modifier) {
     const {settings} = state
-    if(settings.selectedModifiers.includes(modifier)) {
+    if (settings.selectedModifiers.includes(modifier)) {
       settings.selectedModifiers = settings.selectedModifiers.filter(e => e !== modifier)
     } else {
       settings.selectedModifiers.push(modifier)
