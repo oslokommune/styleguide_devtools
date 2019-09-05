@@ -69,6 +69,31 @@
           </button>
         </div>
       </div>
+
+      <div v-if="modifiers && modifiers.length > 0" class="level-item">
+        <div class="buttons has-addons">
+          <div class="dropdown is-right is-hoverable">
+            <div class="dropdown-trigger">
+              <button class="button">
+                <span>Modifiers</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+
+            <div class="dropdown-menu" id="dropdown-menu7" role="menu">
+              <div class="dropdown-content">
+                <a class="dropdown-item" v-for="modifier in modifiers">
+                  <div class="checkbox">
+                    <input type="checkbox" :checked="modifierSelected(modifier)" @change="toggleModifier(modifier)" /> {{ modifier }}
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="level-item">
         <div class="buttons has-addons">
           <div class="dropdown is-right is-hoverable">
@@ -125,9 +150,19 @@
         type: String,
         required: true
       },
+      modifiers: {
+        type: Array,
+        required: false
+      }
     },
 
     data: () => ({}),
+
+    watch: {
+      $route () {
+        this.$store.state.pattern.settings.selectedModifiers = []
+      }
+    },
 
     computed: {
       color: {
@@ -186,6 +221,14 @@
 
       setViewSize(size) {
         this.$store.dispatch('pattern/setViewSize', size)
+      },
+
+      toggleModifier(modifier) {
+        this.$store.dispatch('pattern/toggleModifier', modifier)
+      },
+
+      modifierSelected(modifier) {
+        return this.$store.state.pattern.settings.selectedModifiers.includes(modifier)
       },
 
       resetToFactoryDefaults() {
