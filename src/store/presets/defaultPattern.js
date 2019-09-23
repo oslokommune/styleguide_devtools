@@ -21,6 +21,7 @@ export const defaultState = {
       full: true
     },
     fullscreen: false,
+    contentPlaceholders: true,
     ruler: true,
     backgroundColor: '',
     backgroundSolid: false,

@@ -124,6 +124,13 @@
                     </label>
                   </div>
                 </a>
+                <a class="dropdown-item" @click="toggleContentPlaceholders">
+                  <div class="checkbox">
+                    <label for="showContentPlaceholders">
+                      <input type="checkbox" id="showContentPlaceholders" v-model="contentPlaceholders" /> Show content placeholders
+                    </label>
+                  </div>
+                </a>
                 <hr class="dropdown-divider">
                 <a class="dropdown-item" @click="resetToFactoryDefaults">
                   Reset to factory defaults
@@ -192,6 +199,15 @@
         }
       },
 
+      contentPlaceholders: {
+        get: function() {
+          return this.$store.state.pattern.settings.contentPlaceholders
+        },
+        set: function(value) {
+          this.$store.dispatch('pattern/setContentPlaceholdersMode', value)
+        }
+      },
+
       fullscreen: {
         get: function() {
           return this.$store.state.pattern.settings.fullscreen
@@ -213,6 +229,10 @@
 
       toggleRuler() {
         this.ruler = !this.ruler
+      },
+
+      toggleContentPlaceholders() {
+        this.contentPlaceholders = !this.contentPlaceholders
       },
 
       setViewMode(mode) {

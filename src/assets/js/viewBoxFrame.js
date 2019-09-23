@@ -23,6 +23,14 @@ export const frameStart = `
             overflow-y: auto;
           }
         }
+        .osgdt-consumer-content {
+          border: dotted #333 medium;
+          padding: 10px;
+          flex: 1;
+          text-align: center;
+          height: 100%;
+          width: 100%;
+        }
       </style>
 `
 
