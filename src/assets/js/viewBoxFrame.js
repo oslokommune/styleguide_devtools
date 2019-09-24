@@ -24,7 +24,7 @@ export const frameStart = `
           }
         }
         .osgdt-consumer-content {
-          border: dotted #333 medium;
+          border: dotted currentColor medium;
           padding: 10px;
           flex: 1;
           text-align: center;
