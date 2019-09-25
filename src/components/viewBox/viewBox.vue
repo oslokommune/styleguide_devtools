@@ -247,8 +247,8 @@
                 this.$store.dispatch('pattern/setDefaults')
             }
           }
-          if (this.mergedData.devtools.pattern) {
-            this.$store.dispatch('pattern/setValues', this.mergedData.devtools.pattern)
+          if (this.mergedData.devtools) {
+            this.$store.dispatch('pattern/setValues', this.mergedData.devtools)
           }
         }
       }
