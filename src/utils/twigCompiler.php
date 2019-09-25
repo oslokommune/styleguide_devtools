@@ -69,7 +69,7 @@ function remove_embed_block_positions($blockPositions, $embedStartPositions, $em
 
   $filteredPositions = $blockPositions;
   // loop embed start/end tags
-  for($i = 0; $i < count($embedStartPositions); $i++) {
+  for ($i = 0; $i < count($embedStartPositions); $i++) {
     $filteredPositions = array_filter($filteredPositions, function($blockPosition) use ($embedStartPositions, $embedEndPositions, $i) {
       // filtering out all block positions between embed start/end positions
       return !($blockPosition > $embedStartPositions[$i] && $blockPosition < $embedEndPositions[$i]);
