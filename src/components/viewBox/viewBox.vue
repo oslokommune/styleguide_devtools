@@ -84,13 +84,23 @@
       },
 
       frameContents() {
+        let template
+        if (this.$store.state.pattern.settings.contentPlaceholders) {
+          template = this.patternVariantData.template.replace(
+            /<!-- your content here -->/gi,
+            '<div class="osgdt-consumer-content">custom content</div>'
+          )
+        } else {
+          template = this.patternVariantData.template
+        }
+
         let contents = frameStart
         if (this.$store.state.pattern.settings.viewMode.single) {
-          contents += frameSingle(this.patternVariantData.template)
+          contents += frameSingle(template)
         } else if (this.$store.state.pattern.settings.viewMode.grid) {
-          contents += frameGrid(this.patternVariantData.template)
+          contents += frameGrid(template)
         } else if (this.$store.state.pattern.settings.viewMode.random) {
-          contents += frameRandom(this.patternVariantData.template)
+          contents += frameRandom(template)
         }
         contents += frameEnd
         return contents

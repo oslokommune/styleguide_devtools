@@ -30,6 +30,10 @@ const actions = {
     commit('setRuler', mode)
   },
 
+  setContentPlaceholdersMode({commit}, mode) {
+    commit('setContentPlaceholders', mode)
+  },
+
   setBackgroundSolid({commit}, mode) {
     commit('setSolid', mode)
   },
@@ -95,6 +99,10 @@ const mutations = {
 
   setRuler(state, mode) {
     state.settings.ruler = mode
+  },
+
+  setContentPlaceholders(state, mode) {
+    state.settings.contentPlaceholders = mode
   },
 
   setSolid(state, mode) {
