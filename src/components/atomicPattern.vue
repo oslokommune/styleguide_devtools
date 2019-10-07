@@ -118,8 +118,28 @@
 
     methods: {
       updatePattern() {
-        this.$store.dispatch('pattern/setDefaults')
-        this.pattern = patternInfo(this.$route.params.id)
+        let prevPattern = this.pattern
+        let nextPattern = patternInfo(this.$route.params.id)
+
+        // If we are moving from a global component to a spesific pattern
+        if (prevPattern.mdFile === null && nextPattern.mdFile !== null) {
+          this.pattern = patternInfo(this.$route.params.id)
+          this.$store.dispatch('pattern/setDefaults')
+
+        // If the previous pattern is the loading component
+        } else if (prevPattern.mdFile === null) {
+          this.pattern = patternInfo(this.$route.params.id)
+
+        // If we are moving from one component to another, reset the modifiers but don't reset the options
+        } else if (prevPattern.name !== nextPattern.name) {
+          this.pattern = patternInfo(this.$route.params.id)
+          this.$store.dispatch('pattern/resetModifiers')
+
+        // Backup case, reset everything
+        } else {
+          this.$store.dispatch('pattern/setDefaults')
+          this.pattern = patternInfo(this.$route.params.id)
+        }
       },
 
       updateWarningsOrErrorsMessages(oldMessages, newMessages, messageType) {

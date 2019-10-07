@@ -79,6 +79,10 @@ const actions = {
 
   toggleModifier({commit}, modifier) {
     commit('toggleModifier', modifier)
+  },
+
+  resetModifiers({commit}) {
+    commit('toggleModifier')
   }
 }
 
@@ -141,6 +145,10 @@ const mutations = {
     } else {
       settings.selectedModifiers.push(modifier)
     }
+  },
+
+  resetModifiers(state) {
+    state.settings.selectedModifiers = []
   }
 }
 
