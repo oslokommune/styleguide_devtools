@@ -48,7 +48,7 @@ export default {
       if (this.$store.state.pattern.settings.selectedModifiers.length !== 0) {
         const modifierString =
           this.$store.state.pattern.settings.selectedModifiers.reduce((acc, curr) => acc + ' ' + curr, '')
-        const regex = /class="(osg-[a-z0-9-]* .*)"/
+        const regex = /class="(osg-[a-z0-9-]*)/
         const replaceText = `class="$1${modifierString}"`
         data.template = data.template.replace(regex, replaceText)
       }
