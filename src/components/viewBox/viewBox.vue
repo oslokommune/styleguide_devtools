@@ -16,6 +16,7 @@
       </ul>
     </div>
     <div
+      v-if="$store.state.pattern.sections.frame.visible"
       class="frame"
       :class="{ 'solid': $store.state.pattern.settings.backgroundSolid, 'no-ruler': !$store.state.pattern.settings.ruler }"
       :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 60px);`">

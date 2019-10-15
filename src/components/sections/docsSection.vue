@@ -1,7 +1,15 @@
 <template>
   <div>
-    <article v-if="$store.state.pattern.sections.docs.sections.documentation.visible && pattern.mdFile" id="markdown-body" class="markdown-body"
-             v-html="marked(pattern.mdFile.contents)">
+    <article 
+      v-if="$store.state.pattern.sections.docs.sections.documentation.visible && pattern.mdFile"
+      id="markdown-body"
+      class="markdown-body"
+      :style="[
+        { backgroundColor: $store.state.pattern.sections.docs.backgroundColor },
+        { padding: $store.state.pattern.sections.docs.padding ? '2em' : '0' }
+      ]"
+      v-html="marked(pattern.mdFile.contents)"
+    >
     </article>
     <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible && !pattern.mdFile" class="notification is-warning">
       There is no documentation available.

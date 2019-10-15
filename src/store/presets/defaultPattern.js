@@ -28,7 +28,15 @@ export const defaultState = {
     selectedModifiers: []
   },
   sections: {
+    frame: {
+      visible: true
+    },
+    tabs: {
+      visible: true
+    },
     docs: {
+      backgroundColor: '#fafafa',
+      padding: true,
       visible: true,
       active: true,
       sections: {

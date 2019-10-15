@@ -19,7 +19,7 @@
         v-bind:a11y-invalid.sync="a11yInvalid"
         v-bind:a11y-results.sync="a11yResults" />
       <div class="tab-content" v-if="renderTab('docs') || renderTab('accessibility') || renderTab('html') || renderTab('twig') || renderTab('json')">
-        <div class="tabs">
+        <div class="tabs" v-if="showTabs()">
           <ul>
             <li v-if="renderTab('docs')" :class="isTabActive('docs') ? 'is-active' : null">
               <a @click="setActiveTab('docs')">Docs</a>
@@ -137,6 +137,10 @@
             object.splice(index, 1)
           }
         })
+      },
+
+      showTabs() {
+        return this.$store.state.pattern.sections.tabs.visible
       },
 
       isTabActive(tab) {
