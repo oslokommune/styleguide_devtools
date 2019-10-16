@@ -15,6 +15,7 @@
         @click="addTag"
         class="osg-button osg-button--yellow osg-button--circle "
         aria-label="Search"
+        title="Add search tag"
       >
         <i class='osg-u-icon-magnifying-glass-small'></i>
       </button>
@@ -23,7 +24,7 @@
       <div class="control" v-for="tag in tags">
         <div class="tags has-addons">
           <a class="tag osg-u-text-6 osg-u-color-bg-blue-dark osg-u-color-text-white">{{ tag }}</a>
-          <a class="tag is-delete osg-u-text-6" @click="removeTag(tag)"></a>
+          <a class="tag is-delete osg-u-text-6" @click="removeTag(tag)" title="Remove tag"></a>
         </div>
       </div>
     </div>
