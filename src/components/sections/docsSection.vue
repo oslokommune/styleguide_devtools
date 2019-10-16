@@ -43,6 +43,7 @@
         >
           <button 
             class="button is-tag is-small osg-u-color-bg-yellow"
+            title="Click to copy path to clipboard"
           >
             TWIG
           </button>
@@ -55,6 +56,7 @@
         >
           <button
             class="button is-tag is-small osg-u-color-bg-blue"
+            title="Click to copy path to clipboard"
           >
             CSS
           </button>
@@ -67,7 +69,7 @@
         >
           <button
             class="button is-tag is-small osg-u-color-bg-green-light"
-            
+            title="Click to copy path to clipboard"
           >
             JS
           </button>

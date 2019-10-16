@@ -84,9 +84,11 @@
 
             <div class="dropdown-menu" id="dropdown-menu7" role="menu">
               <div class="dropdown-content">
-                <a class="dropdown-item" v-for="modifier in modifiers">
+                <a class="dropdown-item" v-for="(modifier, index) in modifiers">
                   <div class="checkbox">
-                    <input type="checkbox" :checked="modifierSelected(modifier)" @change="toggleModifier(modifier)" /> {{ modifier }}
+                    <label :for="'modifier' + index">
+                      <input :id="'modifier' + index" type="checkbox" :checked="modifierSelected(modifier)" @change="toggleModifier(modifier)" /> {{ modifier }}
+                    </label>
                   </div>
                 </a>
               </div>
