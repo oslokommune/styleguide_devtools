@@ -11,43 +11,77 @@
       v-html="marked(pattern.mdFile.contents)"
     >
     </article>
-    <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible && !pattern.mdFile" class="notification is-warning">
+    <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible && !pattern.mdFile" class="notification osg-u-color-bg-yellow">
       There is no documentation available.
     </div>
-    <aside v-if="$store.state.pattern.sections.docs.sections.includes.visible" class="menu">
-      <p class="menu-label">Includes</p>
-      <ul class="menu-list">
-        <li v-for="(item, index) of twigIncludes" v-bind:key="index">
-          <router-link :to="{ path: item.url }"><i class="fas fa-caret-right"></i> {{ item.name }}</router-link>
-        </li>
-        <li v-if="twigIncludes.length <= 0" class="has-text-grey">This pattern does not include other patterns.</li>
-      </ul>
-    </aside>
-    <div v-if="$store.state.pattern.sections.docs.sections.assets.visible" class="content margin-top">
-      <p class="is-uppercase has-text-grey is-size-7">Assets</p>
-      <div v-if="twigFile">
-        <button class="button is-tag is-small is-warning" @click="copy(twigFile.rawPath.replace(patternPath, ''))">
-          TWIG
-        </button>
-        {{ twigFile.rawPath.replace(patternPath, '') }}
+    <aside v-if="$store.state.pattern.sections.docs.sections.includes.visible || $store.state.pattern.sections.docs.sections.assets.visible">
+      <h3 class="osg-u-heading-3 osg-u-padding-bottom-1">
+        Dependencies
+      </h3>
+      <div 
+        v-if="$store.state.pattern.sections.docs.sections.includes.visible"
+        class="menu osg-u-padding-bottom-3"
+      >
+        <p class="osg-u-heading-5 osg-u-padding-bottom-1">Includes</p>
+        <ul class="menu-list">
+          <li v-for="(item, index) of twigIncludes" v-bind:key="index">
+            <router-link :to="{ path: item.url }">
+              <i class="fas fa-caret-right"></i>
+              {{ item.name }}
+            </router-link>
+          </li>
+          <li v-if="twigIncludes.length <= 0" class="has-text-grey">
+            This pattern does not include other patterns.
+          </li>
+        </ul>
       </div>
-      <div v-for="file in pattern.cssFiles" v-bind:key="file.name">
-        <button class="button is-tag is-small is-info" @click="copy(file.rawPath.replace(patternPath, ''))">
-          CSS
-        </button>
-        {{ file.rawPath.replace(patternPath, '') }}
-      </div>
-      <div v-for="file in pattern.jsFiles" v-bind:key="file.name">
-        <button class="button is-tag is-small is-success" @click="copy(file.rawPath.replace(patternPath, ''))">
-          JS
-        </button>
-        {{ file.rawPath.replace(patternPath, '') }}
-      </div>
+      <div v-if="$store.state.pattern.sections.docs.sections.assets.visible">
+        <p class="osg-u-heading-5 osg-u-padding-bottom-1">Assets</p>
+        <div
+          v-if="twigFile"
+          @click="copy(twigFile.rawPath.replace(patternPath, ''))"
+        >
+          <button 
+            class="button is-tag is-small osg-u-color-bg-yellow"
+          >
+            TWIG
+          </button>
+          {{ twigFile.rawPath.replace(patternPath, '') }}
+        </div>
+        <div 
+          v-for="file in pattern.cssFiles" 
+          v-bind:key="file.name" 
+          @click="copy(file.rawPath.replace(patternPath, ''))"
+        >
+          <button
+            class="button is-tag is-small osg-u-color-bg-blue"
+          >
+            CSS
+          </button>
+          {{ file.rawPath.replace(patternPath, '') }}
+        </div>
+        <div
+          v-for="file in pattern.jsFiles"
+          v-bind:key="file.name"
+          @click="copy(file.rawPath.replace(patternPath, ''))"
+        >
+          <button
+            class="button is-tag is-small osg-u-color-bg-green-light"
+            
+          >
+            JS
+          </button>
+          {{ file.rawPath.replace(patternPath, '') }}
+        </div>
 
-      <div v-if="$store.state.pattern.sections.docs.sections.assets.visible && (pattern.jsFiles.length <= 0 && pattern.cssFiles.length <= 0)" class="notification is-warning">
-        There are no CSS or JS assets for this pattern.
+        <div 
+          v-if="$store.state.pattern.sections.docs.sections.assets.visible && (pattern.jsFiles.length <= 0 && pattern.cssFiles.length <= 0)"
+          class="notification osg-u-color-bg-yellow"
+        >
+          There are no CSS or JS assets for this pattern.
+        </div>
       </div>
-    </div>
+    </aside>
   </div>
 </template>
 
