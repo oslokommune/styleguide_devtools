@@ -16,6 +16,10 @@ const actions = {
     commit('setValues', payload)
   },
 
+  setTempSettings({commit}, payload) {
+    commit('setTempSettings', payload)
+  },
+
   setActiveSection({commit}, section) {
     commit('setActiveSection', section)
   },
@@ -79,6 +83,10 @@ const actions = {
 
   toggleModifier({commit}, modifier) {
     commit('toggleModifier', modifier)
+  },
+
+  resetModifiers({commit}) {
+    commit('toggleModifier')
   }
 }
 
@@ -91,6 +99,10 @@ const mutations = {
 
   setValues(state, payload) {
     state = _.merge(state, payload)
+  },
+
+  setTempSettings(state, payload) {
+    state.tempSettings = _.cloneDeep(payload)
   },
 
   setFullscreen(state, mode) {
@@ -141,6 +153,10 @@ const mutations = {
     } else {
       settings.selectedModifiers.push(modifier)
     }
+  },
+
+  resetModifiers(state) {
+    state.settings.selectedModifiers = []
   }
 }
 
