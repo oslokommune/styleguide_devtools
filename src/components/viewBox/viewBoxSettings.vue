@@ -257,8 +257,7 @@
       },
 
       resetToFactoryDefaults() {
-        localStorage.removeItem('oslo_styleguide_store')
-        location.reload()
+        this.$store.dispatch('pattern/setDefaults')
       }
     }
   }
