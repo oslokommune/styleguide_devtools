@@ -22,6 +22,7 @@
       :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 60px);`">
       <div :style="iframeSizeStyle">
         <iframe
+          @load="frameContentHeight = getFrameContentHeight()"
           id="patternBox"
           :srcdoc="frameContents"
           title="Pattern" />
@@ -159,15 +160,6 @@
           width: ${this.frameHeight};
         `
       }
-    },
-
-    mounted() {
-      let frames = [...document.getElementsByTagName('iframe')]
-      frames.forEach((frame) => {
-        frame.addEventListener('load', () => {
-          this.frameContentHeight = this.getFrameContentHeight()
-        }, true)
-      })
     },
 
     beforeCreate() {
