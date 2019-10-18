@@ -128,29 +128,29 @@
           return
         }
         
-        let wasGlobalPattern = prevPattern.variants[0].isGlobal
-        let isGlobalPattern = nextPattern.variants[0].isGlobal
+        let wasStandardPattern = !prevPattern.variants[0].isGlobal
+        let isStandardPattern = !nextPattern.variants[0].isGlobal
 
         // if moving from a standard pattern
-        if (!wasGlobalPattern) {
+        if (wasStandardPattern) {
           // save user settings to memory
           this.$store.dispatch('pattern/setTempSettings', this.$store.state.pattern.settings)
         }
 
         // if moving between standard patterns
-        if (!wasGlobalPattern && !isGlobalPattern) {
+        if (wasStandardPattern && isStandardPattern) {
           // reset modifiers
           this.$store.dispatch('pattern/resetModifiers')
         }
 
         // if moving from standard to global pattern
-        if (!wasGlobalPattern && isGlobalPattern) {
+        if (wasStandardPattern && !isStandardPattern) {
           // override user settings with the default settings
           this.$store.dispatch('pattern/setDefaults')
         }
 
         // if moving from global pattern to standard pattern
-        if (wasGlobalPattern && !isGlobalPattern) {
+        if (!wasStandardPattern && isStandardPattern) {
           // reset global pattern settings
           this.$store.dispatch('pattern/setDefaults')
           if (this.$store.state.pattern.tempSettings) {
