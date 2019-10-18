@@ -35,8 +35,8 @@ export const defaultState = {
       visible: true
     },
     docs: {
-      backgroundColor: '#fafafa',
-      padding: true,
+      backgroundColor: '#ffffff',
+      padding: false,
       visible: true,
       active: true,
       sections: {

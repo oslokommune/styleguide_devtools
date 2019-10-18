@@ -1,7 +1,7 @@
 <template>
   <nav v-if="$store.state.pattern.settings.visible" class="level viewBoxSettings">
     <div v-if="$store.state.pattern.settings.sections.title.visible" class="level-left">
-      <h3 class="level-item title is-3">{{ title|capitalize }}</h3>
+      <h1 class="osg-u-heading-1">{{ title|capitalize }}</h1>
     </div>
     <div v-if="$store.state.pattern.settings.sections.configuration.visible"  class="level-right">
       <div class="level-item chrome">
@@ -9,62 +9,62 @@
         <div class="buttons has-addons">
           <button class="button">
               <span class="icon">
-                <i class="fas fa-palette" title="Palette"></i>
+                <i class="fas fa-palette" title="Background color"></i>
               </span>
               <span class="icon is-small">
-                <i class="fas fa-angle-down"><span class="is-sr-only">Palette</span></i>
+                <i class="fas fa-angle-down"><span class="is-sr-only">Background color</span></i>
               </span>
           </button>
         </div>
       </div>
       <div class="level-item">
         <div class="buttons has-addons">
-          <button :class="'button' + (fullscreen ? ' is-info' : '')" @click="toggleFullscreen">
+          <button :class="'button' + (fullscreen ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="toggleFullscreen">
               <span class="icon">
-                <i class="fas fa-expand" title="Expand view"><span class="is-sr-only">Expand view</span></i>
+                <i class="fas fa-expand" title="Fullscreen mode"><span class="is-sr-only">Fullscreen mode</span></i>
               </span>
           </button>
         </div>
       </div>
       <div class="level-item">
         <div class="buttons has-addons">
-          <button :class="'button' + ($store.state.pattern.settings.viewMode.single ? ' is-info' : '')" @click="setViewMode('single')">
+          <button :class="'button' + ($store.state.pattern.settings.viewMode.single ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewMode('single')">
               <span class="icon">
                 <i class="fas fa-box" title="Normal view"><span class="is-sr-only">Normal view</span></i>
               </span>
           </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewMode.grid ? ' is-info' : '')" @click="setViewMode('grid')">
+          <button :class="'button' + ($store.state.pattern.settings.viewMode.grid ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewMode('grid')">
               <span class="icon">
                 <i class="fas fa-boxes" title="Grid view"><span class="is-sr-only">Grid view</span></i>
               </span>
           </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewMode.random ? ' is-info' : '')" @click="setViewMode('random')">
+          <button :class="'button' + ($store.state.pattern.settings.viewMode.random ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewMode('random')">
               <span class="icon">
-                <i class="fas fa-box-open" title="Pandora box"><span class="is-sr-only">Pandora box</span></i>
+                <i class="fas fa-box-open" title="Pandoras box"><span class="is-sr-only">Pandoras box</span></i>
               </span>
           </button>
         </div>
       </div>
       <div class="level-item">
         <div class="buttons has-addons">
-          <button :class="'button' + ($store.state.pattern.settings.viewSize.mobile ? ' is-info' : '')" @click="setViewSize('mobile')">
+          <button :class="'button' + ($store.state.pattern.settings.viewSize.mobile ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('mobile')">
               <span class="icon">
-                <i class="fas fa-mobile-alt" title="Mobile view"><span class="is-sr-only">Mobile view</span></i>
+                <i class="fas fa-mobile-alt" title="Mobile width"><span class="is-sr-only">Mobile width</span></i>
               </span>
           </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewSize.tablet ? ' is-info' : '')" @click="setViewSize('tablet')">
+          <button :class="'button' + ($store.state.pattern.settings.viewSize.tablet ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('tablet')">
               <span class="icon">
-                <i class="fas fa-tablet-alt" title="Tablet view"><span class="is-sr-only">Tablet view</span></i>
+                <i class="fas fa-tablet-alt" title="Tablet width"><span class="is-sr-only">Tablet width</span></i>
               </span>
           </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewSize.desktop ? ' is-info' : '')" @click="setViewSize('desktop')">
+          <button :class="'button' + ($store.state.pattern.settings.viewSize.desktop ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('desktop')">
               <span class="icon">
-                <i class="fas fa-desktop" title="Desktop view"><span class="is-sr-only">Desktop view</span></i>
+                <i class="fas fa-desktop" title="Desktop width"><span class="is-sr-only">Desktop width</span></i>
               </span>
           </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewSize.full ? ' is-info' : '')" @click="setViewSize('full')">
+          <button :class="'button' + ($store.state.pattern.settings.viewSize.full ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('full')">
               <span class="icon">
-                <i class="fas fa-percentage" title="Full view"><span class="is-sr-only">Full view</span></i>
+                <i class="fas fa-percentage" title="Full width"><span class="is-sr-only">Full width</span></i>
               </span>
           </button>
         </div>
@@ -75,7 +75,10 @@
           <div class="dropdown is-right is-hoverable">
             <div class="dropdown-trigger">
               <button class="button">
-                <span>Modifiers</span>
+                <span class="is-sr-only">Modifiers</span>
+                <span class="icon is-small">
+                  <i class="fas fa-magic" title="Modifiers"></i>
+                </span>
                 <span class="icon is-small">
                   <i class="fas fa-angle-down" aria-hidden="true"></i>
                 </span>
@@ -84,9 +87,11 @@
 
             <div class="dropdown-menu" id="dropdown-menu7" role="menu">
               <div class="dropdown-content">
-                <a class="dropdown-item" v-for="modifier in modifiers">
+                <a class="dropdown-item" v-for="(modifier, index) in modifiers">
                   <div class="checkbox">
-                    <input type="checkbox" :checked="modifierSelected(modifier)" @change="toggleModifier(modifier)" /> {{ modifier }}
+                    <label :for="'modifier' + index">
+                      <input :id="'modifier' + index" type="checkbox" :checked="modifierSelected(modifier)" @change="toggleModifier(modifier)" /> {{ modifier }}
+                    </label>
                   </div>
                 </a>
               </div>

@@ -1,8 +1,8 @@
 <template>
-  <div class="start content">
-    <h1 class="heading-1">Oslo style guide</h1>
+  <div class="start osg-content">
+    <h1>Oslo style guide</h1>
 
-    <p class="ingress">
+    <p class="osg-u-text-1">
       Oslo style guide is a way of viewing all of Oslo kommune's shared digital components, together with documentation for
       designers and developers.
       It is built on
@@ -10,13 +10,13 @@
       split into atoms, molecules and organisms, which make up "patterns" that can be "consumed" by developers when
       working with projects within or related to Oslo kommune.
     </p>
-    <p class="ingress">
+    <p class="osg-u-text-1">
       The style guide is expected to have continual releases with new patterns, code improvements and bugfixes, and
       will follow
       <a href="http://semver.org">the semver standard</a>.
     </p>
 
-    <h2 class="heading-2">Designers</h2>
+    <h2>Designers</h2>
     <p>
       Designers will use the style guide for seeing which designs have been realized as "living" patterns, as well as
       reading designers documentation of it's use.
@@ -38,7 +38,7 @@
       and indirect consumption.
     </p>
 
-    <h3 class="heading-3">Direct consumption</h3>
+    <h3>Direct consumption</h3>
     <p>
       Direct consumption would mean that you hook only the sass files from the patterns that you need directly into your
       build chain.
@@ -58,7 +58,7 @@
       <li>More complex to set up</li>
     </ul>
 
-    <h3 class="heading-3">Indirect consumption</h3>Indirect consumption would mean that you consume the precompiled css (either from a cdn or a local copy), containing
+    <h3>Indirect consumption</h3>Indirect consumption would mean that you consume the precompiled css (either from a cdn or a local copy), containing
     all components styles, in the head of your html.
     <strong>Pros:</strong>
     <ul>

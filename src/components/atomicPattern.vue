@@ -1,16 +1,16 @@
 <template>
   <div>
-    <section class="hero is-primary">
+    <section class="hero osg-u-color-bg-blue-dark osg-u-color-text-white">
       <div class="hero-body">
-        <h6>Developer tools for</h6>
-        <h1 class="title">Patterns</h1>
+        <h6  class="osg-u-heading-5">Developer tools for</h6>
+        <h1 class="osg-u-heading-2">Patterns</h1>
       </div>
     </section>
     <div class="view">
-      <div class="notification is-danger" v-for="(item, index) of errorMessages" :key="index">
+      <div class="notification osg-u-color-bg-red" v-for="(item, index) of errorMessages" :key="index">
         <i class="fas fa-exclamation-triangle"></i> {{ item.message }}
       </div>
-      <div class="notification is-warning" v-for="(item, index) of warningMessages" :key="index">
+      <div class="notification osg-u-color-bg-yellow" v-for="(item, index) of warningMessages" :key="index">
         <i class="fas fa-exclamation-triangle"></i> {{ item.message }}
       </div>
       <view-box

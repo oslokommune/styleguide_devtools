@@ -1,6 +1,6 @@
 <template>
   <div class="pageBuilder">
-    <section class="hero is-primary">
+    <section class="hero osg-u-color-bg-blue-dark osg-u-color-text-white">
       <div class="hero-body">
         <h6>
           Developer tools for
