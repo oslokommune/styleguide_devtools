@@ -1,16 +1,16 @@
 <template>
   <div>
-    <section class="hero is-primary">
+    <section class="hero osg-u-color-bg-blue-dark osg-u-color-text-white">
       <div class="hero-body">
-        <h6>Developer tools for</h6>
-        <h1 class="title">Patterns</h1>
+        <h6  class="osg-u-heading-5">Developer tools for</h6>
+        <h1 class="osg-u-heading-2">Patterns</h1>
       </div>
     </section>
     <div class="view">
-      <div class="notification is-danger" v-for="(item, index) of errorMessages" :key="index">
+      <div class="notification osg-u-color-bg-red" v-for="(item, index) of errorMessages" :key="index">
         <i class="fas fa-exclamation-triangle"></i> {{ item.message }}
       </div>
-      <div class="notification is-warning" v-for="(item, index) of warningMessages" :key="index">
+      <div class="notification osg-u-color-bg-yellow" v-for="(item, index) of warningMessages" :key="index">
         <i class="fas fa-exclamation-triangle"></i> {{ item.message }}
       </div>
       <view-box
@@ -18,14 +18,14 @@
         v-bind:active-variant.sync="activeVariant"
         v-bind:a11y-invalid.sync="a11yInvalid"
         v-bind:a11y-results.sync="a11yResults" />
-      <div class="tab-content">
-        <div class="tabs">
+      <div class="tab-content" v-if="renderTab('docs') || renderTab('accessibility') || renderTab('html') || renderTab('twig') || renderTab('json')">
+        <div class="tabs" v-if="showTabs()">
           <ul>
-            <li :class="activeTab === 'docs' ? 'is-active' : null">
-              <a @click="activeTab = 'docs'">Docs</a>
+            <li v-if="renderTab('docs')" :class="isTabActive('docs') ? 'is-active' : null">
+              <a @click="setActiveTab('docs')">Docs</a>
             </li>
-            <li :class="activeTab === 'a11y' ? 'is-active' : null">
-              <a @click="activeTab = 'a11y'">
+            <li v-if="renderTab('accessibility')" :class="isTabActive('accessibility') ? 'is-active' : null">
+              <a @click="setActiveTab('accessibility')">
                 <span class="icon">
                   <i class="fas fa-check has-text-success" v-if="! a11yInvalid"></i>
                   <i class="fas fa-exclamation-triangle has-text-warning" v-if="a11yInvalid"></i>
@@ -33,22 +33,22 @@
                 <span>A11Y</span>
               </a>
             </li>
-            <li :class="activeTab === 'html' ? 'is-active' : null">
-              <a @click="activeTab = 'html'">HTML</a>
+            <li v-if="renderTab('html')" :class="isTabActive('html') ? 'is-active' : null">
+              <a @click="setActiveTab('html')">HTML</a>
             </li>
-            <li :class="activeTab === 'twig' ? 'is-active' : null">
-              <a @click="activeTab = 'twig'">Twig</a>
+            <li v-if="renderTab('twig')" :class="isTabActive('twig') ? 'is-active' : null">
+              <a @click="setActiveTab('twig')">Twig</a>
             </li>
-            <li :class="activeTab === 'data' ? 'is-active' : null">
-              <a @click="activeTab = 'data'">Data</a>
+            <li v-if="renderTab('json')" :class="isTabActive('json') ? 'is-active' : null">
+              <a @click="setActiveTab('json')">Data</a>
             </li>
           </ul>
         </div>
-        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'docs'"></docs-section>
-        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'a11y'" :a11yResults="a11yResults"></a11y-section>
-        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'html'"></html-section>
-        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'twig'"></twig-section>
-        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="activeTab === 'data'"></json-section>
+        <docs-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('docs') && renderTab('docs')"></docs-section>
+        <a11y-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('accessibility') && renderTab('accessibility')" :a11yResults="a11yResults"></a11y-section>
+        <html-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('html') && renderTab('html')"></html-section>
+        <twig-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('twig') && renderTab('twig')"></twig-section>
+        <json-section :pattern="pattern" v-bind:active-variant.sync="activeVariant" v-if="isTabActive('json') && renderTab('json')"></json-section>
       </div>
     </div>
   </div>
@@ -62,7 +62,7 @@
   import TwigSection from './sections/twigSection'
   import JsonSection from './sections/jsonSection'
   import a11ySection from './sections/a11ySection'
-
+  
   export default {
     name: 'atomicPattern',
 
@@ -79,7 +79,6 @@
       activeVariant: 'default',
       a11yInvalid: false,
       a11yResults: {},
-      activeTab: 'docs',
       errorMessages: [],
       warningMessages: [],
       pattern: {
@@ -119,7 +118,48 @@
 
     methods: {
       updatePattern() {
-        this.pattern = patternInfo(this.$route.params.id)
+        let prevPattern = this.pattern
+        let nextPattern = patternInfo(this.$route.params.id)
+
+        this.pattern = nextPattern
+
+        // if page was refreshed, stop here
+        if (prevPattern.variants.length === 0) {
+          return
+        }
+        
+        let wasStandardPattern = !prevPattern.variants[0].isGlobal
+        let isStandardPattern = !nextPattern.variants[0].isGlobal
+
+        // if moving from a standard pattern
+        if (wasStandardPattern) {
+          // save user settings to memory
+          this.$store.dispatch('pattern/setTempSettings', this.$store.state.pattern.settings)
+        }
+
+        // if moving between standard patterns
+        if (wasStandardPattern && isStandardPattern) {
+          // reset modifiers
+          this.$store.dispatch('pattern/resetModifiers')
+        }
+
+        // if moving from standard to global pattern
+        if (wasStandardPattern && !isStandardPattern) {
+          // override user settings with the default settings
+          this.$store.dispatch('pattern/setDefaults')
+        }
+
+        // if moving from global pattern to standard pattern
+        if (!wasStandardPattern && isStandardPattern) {
+          // reset global pattern settings
+          this.$store.dispatch('pattern/setDefaults')
+          if (this.$store.state.pattern.tempSettings) {
+            // set user settings from memory
+            this.$store.dispatch('pattern/setValues', {
+              settings: this.$store.state.pattern.tempSettings
+            })
+          }
+        }
       },
 
       updateWarningsOrErrorsMessages(oldMessages, newMessages, messageType) {
@@ -137,6 +177,22 @@
             object.splice(index, 1)
           }
         })
+      },
+
+      showTabs() {
+        return this.$store.state.pattern.sections.tabs.visible
+      },
+
+      isTabActive(tab) {
+        return this.$store.state.pattern.sections[tab].active
+      },
+
+      setActiveTab(tab) {
+        this.$store.dispatch('pattern/setActiveSection', tab)
+      },
+
+      renderTab(tab) {
+        return this.$store.state.pattern.sections[tab].visible
       }
     }
   }

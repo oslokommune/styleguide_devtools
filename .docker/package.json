@@ -1,6 +1,6 @@
 {
   "name": "styleguide_devtools",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Oslo Style Guide devtools",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "license": "MIT",
   "homepage": "https://github.com/oslokommune/styleguide_devtools#readme",
   "peerDependencies": {
-    "styleguide": "github:oslokommune/styleguide#semver:0.18.0"
+    "styleguide": "github:oslokommune/styleguide#semver:0.35.3"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.8.1",

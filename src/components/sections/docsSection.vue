@@ -1,45 +1,89 @@
 <template>
   <div>
-    <article v-if="pattern.mdFile" id="markdown-body" class="markdown-body"
-             v-html="marked(pattern.mdFile.contents)">
+    <article 
+      v-if="$store.state.pattern.sections.docs.sections.documentation.visible && pattern.mdFile"
+      id="markdown-body"
+      class="markdown-body"
+      :style="[
+        { backgroundColor: $store.state.pattern.sections.docs.backgroundColor },
+        { padding: $store.state.pattern.sections.docs.padding ? '2em' : '0' }
+      ]"
+      v-html="marked(pattern.mdFile.contents)"
+    >
     </article>
-    <div v-else class="notification is-warning">
+    <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible && !pattern.mdFile" class="notification osg-u-color-bg-yellow">
       There is no documentation available.
     </div>
-    <aside class="menu">
-      <p class="menu-label">Includes</p>
-      <ul class="menu-list">
-        <li v-for="(item, index) of twigIncludes" v-bind:key="index">
-          <router-link :to="{ path: item.url }"><i class="fas fa-caret-right"></i> {{ item.name }}</router-link>
-        </li>
-        <li v-if="twigIncludes.length <= 0" class="has-text-grey">This pattern does not include other patterns.</li>
-      </ul>
-    </aside>
-    <div class="content margin-top">
-      <p class="is-uppercase has-text-grey is-size-7">Assets</p>
-      <div v-if="twigFile">
-        <button class="button is-tag is-small is-warning" @click="copy(twigFile.rawPath.replace(patternPath, ''))">
-          TWIG
-        </button>
-        {{ twigFile.rawPath.replace(patternPath, '') }}
+    <aside v-if="$store.state.pattern.sections.docs.sections.includes.visible || $store.state.pattern.sections.docs.sections.assets.visible">
+      <h3 class="osg-u-heading-3 osg-u-padding-bottom-1">
+        Dependencies
+      </h3>
+      <div 
+        v-if="$store.state.pattern.sections.docs.sections.includes.visible"
+        class="menu osg-u-padding-bottom-3"
+      >
+        <p class="osg-u-heading-5 osg-u-padding-bottom-1">Includes</p>
+        <ul class="menu-list">
+          <li v-for="(item, index) of twigIncludes" v-bind:key="index">
+            <router-link :to="{ path: item.url }">
+              <i class="fas fa-caret-right"></i>
+              {{ item.name }}
+            </router-link>
+          </li>
+          <li v-if="twigIncludes.length <= 0" class="has-text-grey">
+            This pattern does not include other patterns.
+          </li>
+        </ul>
       </div>
-      <div v-for="file in pattern.cssFiles" v-bind:key="file.name">
-        <button class="button is-tag is-small is-info" @click="copy(file.rawPath.replace(patternPath, ''))">
-          CSS
-        </button>
-        {{ file.rawPath.replace(patternPath, '') }}
-      </div>
-      <div v-for="file in pattern.jsFiles" v-bind:key="file.name">
-        <button class="button is-tag is-small is-success" @click="copy(file.rawPath.replace(patternPath, ''))">
-          JS
-        </button>
-        {{ file.rawPath.replace(patternPath, '') }}
-      </div>
+      <div v-if="$store.state.pattern.sections.docs.sections.assets.visible">
+        <p class="osg-u-heading-5 osg-u-padding-bottom-1">Assets</p>
+        <div
+          v-if="twigFile"
+          @click="copy(twigFile.rawPath.replace(patternPath, ''))"
+        >
+          <button 
+            class="button is-tag is-small osg-u-color-bg-yellow"
+            title="Click to copy path to clipboard"
+          >
+            TWIG
+          </button>
+          {{ twigFile.rawPath.replace(patternPath, '') }}
+        </div>
+        <div 
+          v-for="file in pattern.cssFiles" 
+          v-bind:key="file.name" 
+          @click="copy(file.rawPath.replace(patternPath, ''))"
+        >
+          <button
+            class="button is-tag is-small osg-u-color-bg-blue"
+            title="Click to copy path to clipboard"
+          >
+            CSS
+          </button>
+          {{ file.rawPath.replace(patternPath, '') }}
+        </div>
+        <div
+          v-for="file in pattern.jsFiles"
+          v-bind:key="file.name"
+          @click="copy(file.rawPath.replace(patternPath, ''))"
+        >
+          <button
+            class="button is-tag is-small osg-u-color-bg-green-light"
+            title="Click to copy path to clipboard"
+          >
+            JS
+          </button>
+          {{ file.rawPath.replace(patternPath, '') }}
+        </div>
 
-      <div v-if="pattern.jsFiles.length <= 0 && pattern.cssFiles.length <= 0" class="notification is-warning">
-        There are no assets for this pattern.
+        <div 
+          v-if="$store.state.pattern.sections.docs.sections.assets.visible && (pattern.jsFiles.length <= 0 && pattern.cssFiles.length <= 0)"
+          class="notification osg-u-color-bg-yellow"
+        >
+          There are no CSS or JS assets for this pattern.
+        </div>
       </div>
-    </div>
+    </aside>
   </div>
 </template>
 
@@ -63,11 +107,11 @@
         // if there are no include statements then return an empty array
         if (!this.includeStatements || this.includeStatements.length === 0) {
           return []
-        }        
+        }
 
         let statements = this.includeStatements.map((statement) => {
           // statement example: "include 'atoms/decorators/shape/shape.twig"
-          
+
           let name = statement.substring(
             statement.lastIndexOf('/') + 1,
             statement.lastIndexOf('.twig')
@@ -147,7 +191,7 @@
 
         includeStatements.forEach(statement => {
           // statement example: "include 'atoms/decorators/shape/shape.twig"
- 
+
           if (statement.startsWith('include \'/')) {
             errorMsg.push({
               type: 'include',
@@ -159,7 +203,7 @@
               type: 'include',
               message: 'For consistency purposes twig includes should use \' instead of \": ' + statement + '. '
             })
-          }          
+          }
         })
 
         this.$eventHub.$emit('includeErrors', errorMsg)

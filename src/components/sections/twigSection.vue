@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h5 class="is-size-5">Twig</h5>
+    <h5 class="osg-u-heading-4">Twig</h5>
     <pre v-highlightjs="twigFile.contents"><code class="language-twig"></code></pre>
-    <h3 class="is-size-5 margin-top">Include</h3>
+    <h3 class="osg-u-heading-4 margin-top">Include</h3>
     <pre v-highlightjs="'{% include \'' + twigFile.rawPath.replace(patternPath, '') + '\' with ' + mergedDataString + ' only %}'"><code class="language-json"></code></pre>
-    <button class="button is-info margin-top"
+    <button class="osg-button osg-button--yellow osg-u-margin-top-3"
             @click="copy('{% include \'' + twigFile.rawPath.replace(patternPath, '') + '\' with ' + mergedDataString + ' only %}')">
       <span class="icon">
         <i class="fas fa-copy"></i>
       </span>
-      <span>Copy</span>
+      <span class="osg-u-text-4">Copy</span>
     </button>
   </div>
 </template>

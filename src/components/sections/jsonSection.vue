@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 class="is-size-5">JSON</h5>
+    <h5 class="osg-u-heading-4">JSON</h5>
     <pre v-highlightjs="mergedDataString"><code class="language-json"></code></pre>
   </div>
 </template>

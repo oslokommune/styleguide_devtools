@@ -1,9 +1,9 @@
 <template>
   <div
     class="viewBox"
-    :class="{ 'fullscreen': $store.state.viewBox.fullscreen }">
-    <view-box-settings :title="pattern.name" />
-    <div class="tabs is-boxed">
+    :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
+    <view-box-settings :modifiers="pattern.modifiers" :title="pattern.name" />
+    <div v-if="patternVariantNames.length > 1" class="tabs is-boxed">
       <ul>
         <li
           :class="{ 'is-active': variantName === activeVariant }"
@@ -15,17 +15,19 @@
         </li>
       </ul>
     </div>
-    <div 
+    <div
+      v-if="$store.state.pattern.sections.frame.visible"
       class="frame"
-      :class="{ 'solid': $store.state.viewBox.backgroundSolid, 'no-ruler': !$store.state.viewBox.ruler }"
+      :class="{ 'solid': $store.state.pattern.settings.backgroundSolid, 'no-ruler': !$store.state.pattern.settings.ruler }"
       :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 60px);`">
       <div :style="iframeSizeStyle">
         <iframe
+          @load="frameContentHeight = getFrameContentHeight()"
           id="patternBox"
           :srcdoc="frameContents"
           title="Pattern" />
         <div
-          v-if="$store.state.viewBox.ruler"
+          v-if="$store.state.pattern.settings.ruler"
           class="view-width-indicator"
           :style="`width: ${frameWidth}`">
           <div class="arrow-head-left" />
@@ -34,7 +36,7 @@
           </div>
           <div class="arrow-head-right" />
         </div>
-        <div v-if="$store.state.viewBox.ruler"
+        <div v-if="$store.state.pattern.settings.ruler"
           class="view-height-indicator"
           :style="viewHeightIndicatorStyle">
           <div class="arrow-head-left" />
@@ -53,6 +55,7 @@
   import ViewBoxSettings from './viewBoxSettings'
   import shared from '../sections/shared'
   import {frameStart, frameSingle, frameGrid, frameRandom, frameEnd} from '../../assets/js/viewBoxFrame'
+  import {cleanState} from '../../store/presets/cleanPattern'
 
   export default {
     name: 'viewBox',
@@ -69,7 +72,7 @@
       a11yResults: {
         type: Object,
         required: true
-      }
+      },
     },
 
     data: () => ({
@@ -83,44 +86,54 @@
       },
 
       frameContents() {
+        let template
+        if (this.$store.state.pattern.settings.contentPlaceholders) {
+          template = this.patternVariantData.template.replace(
+            /<!-- your content here -->/gi,
+            '<div class="osgdt-consumer-content">custom content</div>'
+          )
+        } else {
+          template = this.patternVariantData.template
+        }
+
         let contents = frameStart
-        if (this.$store.state.viewBox.viewMode.single) {
-          contents += frameSingle(this.patternVariantData.template)
-        } else if (this.$store.state.viewBox.viewMode.grid) {
-          contents += frameGrid(this.patternVariantData.template)
-        } else if (this.$store.state.viewBox.viewMode.random) {
-          contents += frameRandom(this.patternVariantData.template)
+        if (this.$store.state.pattern.settings.viewMode.single) {
+          contents += frameSingle(template)
+        } else if (this.$store.state.pattern.settings.viewMode.grid) {
+          contents += frameGrid(template)
+        } else if (this.$store.state.pattern.settings.viewMode.random) {
+          contents += frameRandom(template)
         }
         contents += frameEnd
         return contents
       },
 
       bgColor() {
-        if (this.mergedData.meta && this.mergedData.meta['background-color']) {
-          return this.mergedData.meta['background-color']
+        if (this.mergedData.devtools && this.mergedData.devtools['background-color']) {
+          return this.mergedData.devtools['background-color']
         }
-        if (typeof this.$store.state.viewBox.backgroundColor === 'object') {
+        if (typeof this.$store.state.pattern.settings.backgroundColor === 'object') {
           return 'rgba(' +
-            this.$store.state.viewBox.backgroundColor.rgba.r +
+            this.$store.state.pattern.settings.backgroundColor.rgba.r +
             ', ' +
-            this.$store.state.viewBox.backgroundColor.rgba.g +
+            this.$store.state.pattern.settings.backgroundColor.rgba.g +
             ', ' +
-            this.$store.state.viewBox.backgroundColor.rgba.b +
+            this.$store.state.pattern.settings.backgroundColor.rgba.b +
             ', ' +
-            this.$store.state.viewBox.backgroundColor.rgba.a +
+            this.$store.state.pattern.settings.backgroundColor.rgba.a +
             ')'
         }
-        return this.$store.state.viewBox.backgroundColor
+        return this.$store.state.pattern.settings.backgroundColor
       },
 
       frameWidth() {
-        if (this.$store.state.viewBox.viewSize.mobile) {
+        if (this.$store.state.pattern.settings.viewSize.mobile) {
           return '375px'
-        } else if (this.$store.state.viewBox.viewSize.tablet) {
+        } else if (this.$store.state.pattern.settings.viewSize.tablet) {
           return '769px'
-        } else if (this.$store.state.viewBox.viewSize.desktop) {
+        } else if (this.$store.state.pattern.settings.viewSize.desktop) {
           return '1088px'
-        } else if (this.$store.state.viewBox.viewSize.full) {
+        } else if (this.$store.state.pattern.settings.viewSize.full) {
           return '100%'
         }
 
@@ -128,9 +141,13 @@
       },
 
       frameHeight() {
-        if (this.mergedData.meta && this.mergedData.meta['min-height']) {
-          return this.mergedData.meta['min-height']
-        } else if (this.$store.state.viewBox.viewSize.mobile) {
+        if (
+          this.mergedData.devtools &&
+          this.mergedData.devtools.frame &&
+          this.mergedData.devtools.frame['min-height']
+        ) {
+          return this.mergedData.devtools.frame['min-height']
+        } else if (this.$store.state.pattern.settings.viewSize.mobile) {
           return this.mobileHeight
         }
 
@@ -139,19 +156,10 @@
 
       viewHeightIndicatorStyle() {
         return `
-          left: calc(${this.frameWidth} ${(this.$store.state.viewBox.viewSize.full ? '- 1%' : '+ 40px')});
+          left: calc(${this.frameWidth} ${(this.$store.state.pattern.settings.viewSize.full ? '- 1%' : '+ 40px')});
           width: ${this.frameHeight};
         `
       }
-    },
-
-    mounted() {
-      let frames = [...document.getElementsByTagName('iframe')]
-      frames.forEach((frame) => {
-        frame.addEventListener('load', () => {
-          this.frameContentHeight = this.getFrameContentHeight()
-        }, true)
-      })
     },
 
     beforeCreate() {
@@ -176,9 +184,13 @@
     watch: {
       '$route.params.id'() {
         this.$emit('update:activeVariant', 'default')
+        this.overrideState()
       },
       frameContents() {
         this.a11yValidate()
+      },
+      mergedData() {
+        this.overrideState()
       }
     },
 
@@ -215,6 +227,23 @@
             }
           }
         )
+      },
+
+      overrideState() {
+        if (this.mergedData && this.mergedData.devtools) {
+          if (this.mergedData.devtools.preset) {
+            switch (this.mergedData.devtools.preset) {
+              case 'clean':
+                this.$store.dispatch('pattern/setValues', cleanState)
+                break
+              default:
+                this.$store.dispatch('pattern/setDefaults')
+            }
+          }
+          if (this.mergedData.devtools) {
+            this.$store.dispatch('pattern/setValues', this.mergedData.devtools)
+          }
+        }
       }
     }
   }
