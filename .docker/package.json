@@ -31,6 +31,7 @@
     "bulma": "0.7.4",
     "dotenv-webpack": "1.7.0",
     "font-face-mixin": "1.1.0",
+    "https-proxy-agent": "^3.0.1",
     "js-beautify": "1.9.1",
     "marked": "^0.7.0",
     "minireset.css": "0.0.3",
