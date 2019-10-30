@@ -21,6 +21,10 @@ const nestedStructureList = {
     children: [],
     unprocessedHits: []
   },
+  gettingStarted: {
+    children: [],
+    unprocessedHits: []
+  },
   assets: [],
   templates: []
 }
@@ -48,11 +52,13 @@ export function atomicStructure(fileList) {
   findAssetsAndTemplates(nestedStructureList.molecules.children)
   findAssetsAndTemplates(nestedStructureList.organisms.children)
   findAssetsAndTemplates(nestedStructureList.globals.children)
+  findAssetsAndTemplates(nestedStructureList.gettingStarted.children)
 
   nestedStructureList.atoms.unprocessedHits = []
   nestedStructureList.molecules.unprocessedHits = []
   nestedStructureList.organisms.unprocessedHits = []
   nestedStructureList.globals.unprocessedHits = []
+  nestedStructureList.gettingStarted.unprocessedHits = []
 
   return nestedStructureList
 }
@@ -101,6 +107,8 @@ function organizeFiles(fileList) {
       nestedStructureList.organisms.unprocessedHits.push(file)
     } else if (file.isGlobal) {
       nestedStructureList.globals.unprocessedHits.push(file)
+    } else if (file.isGettingStarted) {
+      nestedStructureList.gettingStarted.unprocessedHits.push(file)
     }
   }
 }
@@ -113,6 +121,7 @@ function nestFiles() {
   nest(nestedStructureList.molecules.unprocessedHits, nestedStructureList.molecules.children, 'molecules-', 1)
   nest(nestedStructureList.organisms.unprocessedHits, nestedStructureList.organisms.children, 'organisms-', 1)
   nest(nestedStructureList.globals.unprocessedHits, nestedStructureList.globals.children, 'globals-', 1)
+  nest(nestedStructureList.gettingStarted.unprocessedHits, nestedStructureList.gettingStarted.children, 'getting_started-', 1)
 }
 
 /**

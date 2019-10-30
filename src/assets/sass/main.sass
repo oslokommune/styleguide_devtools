@@ -72,9 +72,7 @@ html, body
     text-decoration: none
 
 aside.nav
-  margin-top: 30px
-  margin-left: 20px
-  margin-right: 20px
+  margin: 30px 20px
 
 .margin-top
   margin-top: 30px
@@ -85,3 +83,25 @@ aside.nav
 
 pre
   @extend .osg-u-text-4
+
+.level-left
+  flex-shrink: 1
+
+.level
+  align-items: flex-start
+  line-height: 54px
+
+  .level-item
+    line-height: normal
+
+.osg-text-field__input
+  height: 66px
+
+a:visited
+  color: #4a4a4a
+
+.nav
+  a:hover
+    text-decoration: none
+    background-color: #e0e0e0
+    color: inherit

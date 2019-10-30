@@ -257,7 +257,7 @@
       },
 
       resetToFactoryDefaults() {
-        this.$store.dispatch('pattern/setDefaults')
+        this.$emit('setPatternValues')
       }
     }
   }

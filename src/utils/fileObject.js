@@ -15,6 +15,7 @@ export function fileObject(path) {
     isMolecule: isMolecule(path),
     isOrganism: isOrganism(path),
     isGlobal: isGlobal(path),
+    isGettingStarted: isGettingStarted(path),
     isFolder: isFolder(path),
     isFile: isFile(path),
     isDataFile: isDataFile(path),
@@ -64,6 +65,10 @@ function isOrganism(path) {
 
 function isGlobal(path) {
   return path.indexOf('globals') >= 0
+}
+
+function isGettingStarted(path) {
+  return path.indexOf('getting_started') >= 0
 }
 
 function isFolder(path) {

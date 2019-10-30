@@ -29,6 +29,17 @@
       </div>
     </div>
     <p class="menu-label" v-if="!tags.length">
+      Getting started
+    </p>
+    <ul class="menu-list" v-if="!tags.length">
+      <atomic-nav-item
+        :item="child"
+        parentName="getting_started"
+        v-for="(child, index) in atomicStructure.gettingStarted.children"
+        v-bind:key="index">
+      </atomic-nav-item>
+    </ul>
+    <p class="menu-label" v-if="!tags.length">
       Global
     </p>
     <ul class="menu-list" v-if="!tags.length">
