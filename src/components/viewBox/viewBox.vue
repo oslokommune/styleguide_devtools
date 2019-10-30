@@ -2,7 +2,7 @@
   <div
     class="viewBox"
     :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
-    <view-box-settings :modifiers="pattern.modifiers" :title="pattern.name" />
+    <view-box-settings :modifiers="pattern.modifiers" :title="pattern.name" v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)" />
     <div v-if="patternVariantNames.length > 1" class="tabs is-boxed">
       <ul>
         <li
@@ -55,7 +55,6 @@
   import ViewBoxSettings from './viewBoxSettings'
   import shared from '../sections/shared'
   import {frameStart, frameSingle, frameGrid, frameRandom, frameEnd} from '../../assets/js/viewBoxFrame'
-  import {cleanState} from '../../store/presets/cleanPattern'
 
   export default {
     name: 'viewBox',
@@ -184,66 +183,49 @@
     watch: {
       '$route.params.id'() {
         this.$emit('update:activeVariant', 'default')
-        this.overrideState()
+        this.$store.dispatch('pattern/setPatternValues', this.mergedData)
       },
       frameContents() {
         this.a11yValidate()
       },
       mergedData() {
-        this.overrideState()
+        this.$store.dispatch('pattern/setPatternValues', this.mergedData)
       }
     },
 
     methods: {
       getFrameContentHeight() {
-        return document.getElementById('patternBox').contentDocument.body.scrollHeight + 'px'
+          return document.getElementById('patternBox').contentDocument.body.scrollHeight + 'px'
       },
 
       a11yValidate() {
-        let domParser = new DOMParser();
-        let patternDocument = domParser.parseFromString(this.frameContents, 'text/html');
-        axeCore.run(
-          patternDocument,
-          {
-            runOnly: ["wcag2a", "wcag2aa"],
-            rules: {
-              "valid-lang": { enabled: false },
-              "page-has-heading-one": { enabled: false },
-              "meta-viewport": { enabled: false },
-              "meta-viewport-large": { enabled: false },
-              "html-xml-lang-mismatch": { enabled: false },
-              "html-lang-valid": { enabled: false },
-              "html-has-lang": { enabled: false },
-              "document-title": { enabled: false },
-              "aria-hidden-body": { enabled: false }
-            }
-          },
-          (error, results) => {
-            if (results) {
-              this.$emit('update:a11yResults', results)
-              this.$emit('update:a11yInvalid', results.violations && results.violations.length > 0)
-            } else {
-              this.$emit('update:a11yResults', {})
-            }
-          }
-        )
-      },
-
-      overrideState() {
-        if (this.mergedData && this.mergedData.devtools) {
-          if (this.mergedData.devtools.preset) {
-            switch (this.mergedData.devtools.preset) {
-              case 'clean':
-                this.$store.dispatch('pattern/setValues', cleanState)
-                break
-              default:
-                this.$store.dispatch('pattern/setDefaults')
-            }
-          }
-          if (this.mergedData.devtools) {
-            this.$store.dispatch('pattern/setValues', this.mergedData.devtools)
-          }
-        }
+          let domParser = new DOMParser();
+          let patternDocument = domParser.parseFromString(this.frameContents, 'text/html');
+          axeCore.run(
+              patternDocument,
+              {
+                  runOnly: ["wcag2a", "wcag2aa"],
+                  rules: {
+                      "valid-lang": {enabled: false},
+                      "page-has-heading-one": {enabled: false},
+                      "meta-viewport": {enabled: false},
+                      "meta-viewport-large": {enabled: false},
+                      "html-xml-lang-mismatch": {enabled: false},
+                      "html-lang-valid": {enabled: false},
+                      "html-has-lang": {enabled: false},
+                      "document-title": {enabled: false},
+                      "aria-hidden-body": {enabled: false}
+                  }
+              },
+              (error, results) => {
+                  if (results) {
+                      this.$emit('update:a11yResults', results)
+                      this.$emit('update:a11yInvalid', results.violations && results.violations.length > 0)
+                  } else {
+                      this.$emit('update:a11yResults', {})
+                  }
+              }
+          )
       }
     }
   }

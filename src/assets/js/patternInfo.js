@@ -43,6 +43,9 @@ export function patternInfo(path) {
     case 'globals':
       node = findNode(path, atomicStructure.globals.children)
       break
+    case 'getting_started':
+      node = findNode(path, atomicStructure.gettingStarted.children)
+      break
     default:
   }
 

@@ -35,7 +35,8 @@
     }),
 
     beforeCreate() {
-      this.$eventHub.$on('viewBox.setFullscreen', (val) => {
+        this.$store.dispatch('pattern/setDefaults')
+        this.$eventHub.$on('viewBox.setFullscreen', (val) => {
         this.$nextTick(() => {
           if (val) {
             document.getElementsByTagName('html')[0].style.overflow = 'hidden'

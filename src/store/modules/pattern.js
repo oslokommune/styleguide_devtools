@@ -1,6 +1,9 @@
 import _ from 'lodash'
 import {defaultState} from '../presets/defaultPattern'
+import {cleanState} from '../presets/cleanPattern'
+import {mdState} from '../presets/mdPattern'
 import eventBus from '../../bus/bus'
+
 
 /* Pattern Store */
 const state = {}
@@ -8,16 +11,34 @@ const state = {}
 const getters = {}
 
 const actions = {
+  setPatternValues({commit}, payload) {
+    commit('setValues', defaultState)
+
+    if (payload && payload.devtools) {
+      if (payload.devtools.preset) {
+        switch (payload.devtools.preset) {
+          case 'clean':
+            commit('setValues', cleanState)
+            break
+          case 'md':
+            commit('setValues', mdState)
+            break
+          default:
+            commit('setDefaults', defaultState)
+        }
+      }
+      if (payload.devtools) {
+        commit('setValues', payload.devtools)
+      }
+    }
+  },
+
   setDefaults({commit}) {
     commit('setValues', defaultState)
   },
 
   setValues({commit}, payload) {
     commit('setValues', payload)
-  },
-
-  setTempSettings({commit}, payload) {
-    commit('setTempSettings', payload)
   },
 
   setActiveSection({commit}, section) {
@@ -99,10 +120,6 @@ const mutations = {
 
   setValues(state, payload) {
     state = _.merge(state, payload)
-  },
-
-  setTempSettings(state, payload) {
-    state.tempSettings = _.cloneDeep(payload)
   },
 
   setFullscreen(state, mode) {

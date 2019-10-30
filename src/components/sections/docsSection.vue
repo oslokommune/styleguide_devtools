@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article 
+    <article
       v-if="$store.state.pattern.sections.docs.sections.documentation.visible && pattern.mdFile"
       id="markdown-body"
       class="markdown-body"
@@ -18,7 +18,7 @@
       <h3 class="osg-u-heading-3 osg-u-padding-bottom-1">
         Dependencies
       </h3>
-      <div 
+      <div
         v-if="$store.state.pattern.sections.docs.sections.includes.visible"
         class="menu osg-u-padding-bottom-3"
       >
@@ -41,7 +41,7 @@
           v-if="twigFile"
           @click="copy(twigFile.rawPath.replace(patternPath, ''))"
         >
-          <button 
+          <button
             class="button is-tag is-small osg-u-color-bg-yellow"
             title="Click to copy path to clipboard"
           >
@@ -49,9 +49,9 @@
           </button>
           {{ twigFile.rawPath.replace(patternPath, '') }}
         </div>
-        <div 
-          v-for="file in pattern.cssFiles" 
-          v-bind:key="file.name" 
+        <div
+          v-for="file in pattern.cssFiles"
+          v-bind:key="file.name"
           @click="copy(file.rawPath.replace(patternPath, ''))"
         >
           <button
@@ -76,7 +76,7 @@
           {{ file.rawPath.replace(patternPath, '') }}
         </div>
 
-        <div 
+        <div
           v-if="$store.state.pattern.sections.docs.sections.assets.visible && (pattern.jsFiles.length <= 0 && pattern.cssFiles.length <= 0)"
           class="notification osg-u-color-bg-yellow"
         >
