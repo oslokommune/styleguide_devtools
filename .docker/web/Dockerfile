@@ -22,7 +22,7 @@ RUN npm run build-production
 # Stage 3 - Include distribution files and run web server
 FROM node:11.14
 RUN apt-get update && apt-get -y upgrade
-EXPOSE 8080
+EXPOSE 80
 WORKDIR /app
 COPY ./.docker/web/package.json .
 RUN npm i
