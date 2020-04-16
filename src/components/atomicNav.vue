@@ -17,7 +17,7 @@
         aria-label="Search"
         title="Add search tag"
       >
-        <i class='osg-u-icon-magnifying-glass-small'></i>
+        <span class='osg-icon osg-icon--magnifying-glass-small'></span>
       </button>
     </div>
     <div class="field is-grouped is-grouped-multiline">
