@@ -2,18 +2,18 @@
 FROM composer AS composer
 WORKDIR /app
 COPY . .
-COPY ./.docker/composer.* ./
+COPY ./composer.* ./
 RUN composer install --ignore-platform-reqs --no-scripts
 
 # Stage 2 - Include PHP dependencies, install node dependencies and build distribution files
 FROM node:11.14 AS node
 RUN apt-get update \
-    && apt-get -y upgrade \
-    && apt-get install -y php-cli php-json git
+  && apt-get -y upgrade \
+  && apt-get install -y php-cli php-json git
 
 WORKDIR /app
 COPY . .
-COPY ./.docker/package.* ./
+COPY ./package.* ./
 COPY --from=composer /app/vendor /app/vendor
 RUN npm i
 RUN ./node_modules/.bin/npm-install-peers
