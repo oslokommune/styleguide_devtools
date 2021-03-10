@@ -1,6 +1,6 @@
 <template>
   <li v-if="renderElement">
-    <router-link :class="active" :to="'/pattern/' + url">
+    <router-link :class="active" :to="'/' + url">
       {{ item.baseName|snakeToRegular|capitalize }}
     </router-link>
   </li>
@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: 'atomicTagItem',
+    name: 'TagItem',
     props: ['item', 'tags'],
 
     computed: {

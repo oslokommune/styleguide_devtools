@@ -1,5 +1,5 @@
 import fs from 'fs'
-import {variantSeparator} from './config'
+import { variantSeparator } from './config.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -9,11 +9,9 @@ export function fileObject(path) {
     baseName: getBaseName(path),
     path: getPath(path),
     extension: getExtension(path),
-    urlPath: path.replace(process.env.AD_PATTERN_PATH, '').replace(/-/g, '__').replace(/\//g, '-'),
+    urlPath: path.replace(process.env.COMPONENTS_PATH, '').replace(/-/g, '__').replace(/\//g, '-'),
     rawPath: path,
-    isAtom: isAtom(path),
-    isMolecule: isMolecule(path),
-    isOrganism: isOrganism(path),
+    isComponent: isComponent(path),
     isGlobal: isGlobal(path),
     isGettingStarted: isGettingStarted(path),
     isFolder: isFolder(path),
@@ -40,10 +38,8 @@ function getBaseName(path) {
 
 function getPath(path) {
   return path.substring(0, path.lastIndexOf('/')).
-    replace(process.env.AD_PATTERN_PATH, '').
-    replace('atoms/', '').
-    replace('molecules/', '').
-    replace('organisms/', '').
+    replace(process.env.COMPONENTS_PATH, '').
+    replace('components/', '').
     replace('globals/', '')
 }
 
@@ -51,16 +47,8 @@ function isAsset(path) {
   return path.indexOf('assets') >= 0
 }
 
-function isAtom(path) {
-  return path.indexOf('atoms') >= 0
-}
-
-function isMolecule(path) {
-  return path.indexOf('molecules') >= 0
-}
-
-function isOrganism(path) {
-  return path.indexOf('organisms') >= 0
+function isComponent(path) {
+  return path.indexOf('components') >= 0
 }
 
 function isGlobal(path) {
@@ -88,7 +76,7 @@ function isDataFile(path) {
 }
 
 function isRoot(path) {
-  return path === process.env.AD_PATTERN_PATH + 'atoms' || path === process.env.AD_PATTERN_PATH + 'molecules' || path === process.env.AD_PATTERN_PATH + 'organisms' || path === process.env.AD_PATTERN_PATH + 'globals'
+  return path === process.env.COMPONENTS_PATH + 'components' || path === process.env.COMPONENTS_PATH + 'globals'
 }
 
 function getContents(path) {
@@ -100,10 +88,10 @@ function getContents(path) {
 
 function getTemplate(path) {
   if (getExtension(path) === 'json' && isFile(path)) {
-    let templateCache = path.replace(process.env.AD_PATTERN_PATH, './dist/').replace(/json/, 'html')
+    let templateCache = path.replace(process.env.COMPONENTS_PATH, './dist/').replace(/json/, 'html')
     try {
       return fs.readFileSync(templateCache).toString().trim()
-    } catch (err) {}
+    } catch (err) { }
   }
   return null
 }

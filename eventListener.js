@@ -1,4 +1,4 @@
-import {exec} from 'child_process'
+import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 
@@ -52,8 +52,9 @@ function build() {
     case 'twig':
       console.log(`\n${blueTerminalText}${relativePath} changed - compiling twig and building structure...${resetTerminalColor}\n`)
       cmd = 'php src/utils/twigCompiler.php && npm run build-structure \"true\"'
-      break    
+      break
     case 'sass':
+    case 'scss':
       console.log(`\n${blueTerminalText}${relativePath} changed - compiling sass and building structure...${resetTerminalColor}\n`)
       cmd = 'webpack --config config/modules/webpack.dev.js --mode development && npm run build-structure \"true\"'
       break

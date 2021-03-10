@@ -1,19 +1,11 @@
-import {fileObject} from './fileObject'
+import { fileObject } from './fileObject.js'
 
 /**
  * Atomic Object
- * @type {{atoms: {children: Array, unprocessedHits: Array}, molecules: {children: Array, unprocessedHits: Array}, organisms: {children: Array, unprocessedHits: Array}, assets: Array, templates: Array}}
+ * @type {{components: {children: Array, unprocessedHits: Array}, assets: Array, templates: Array}}
  */
 const nestedStructureList = {
-  atoms: {
-    children: [],
-    unprocessedHits: []
-  },
-  molecules: {
-    children: [],
-    unprocessedHits: []
-  },
-  organisms: {
+  components: {
     children: [],
     unprocessedHits: []
   },
@@ -32,15 +24,15 @@ const nestedStructureList = {
 /**
  * Populate the atomic object
  * @param fileList
- * @returns {{atoms: {children: Array, unprocessedHits: Array}, molecules: {children: Array, unprocessedHits: Array}, organisms: {children: Array, unprocessedHits: Array}, globals: {children: Array, unprocessedHits: Array}, assets: Array, templates: Array}}
+ * @returns {{components: {children: Array, unprocessedHits: Array}, globals: {children: Array, unprocessedHits: Array}, assets: Array, templates: Array}}
  */
-export function atomicStructure(fileList) {
+export function componentStructure(fileList) {
   fileList.forEach(function (item, index) {
     let itemObj = fileObject(item)
-    if (itemObj.isAsset && itemObj.extension === 'sass') {
+    if (itemObj.isAsset && (itemObj.extension === 'sass' || itemObj.extension === 'scss')) {
       nestedStructureList.assets.push(item)
     }
-    if (itemObj.extension === 'sass' || itemObj.extension === 'js' || itemObj.extension === 'md' || itemObj.extension === 'json' || itemObj.extension === 'twig' || itemObj.isFolder) {
+    if (itemObj.extension === 'sass' || itemObj.extension === 'scss' || itemObj.extension === 'js' || itemObj.extension === 'md' || itemObj.extension === 'json' || itemObj.extension === 'twig' || itemObj.isFolder) {
       fileList[index] = itemObj
     }
   })
@@ -48,15 +40,11 @@ export function atomicStructure(fileList) {
   organizeFiles(fileList)
   nestFiles()
 
-  findAssetsAndTemplates(nestedStructureList.atoms.children)
-  findAssetsAndTemplates(nestedStructureList.molecules.children)
-  findAssetsAndTemplates(nestedStructureList.organisms.children)
+  findAssetsAndTemplates(nestedStructureList.components.children)
   findAssetsAndTemplates(nestedStructureList.globals.children)
   findAssetsAndTemplates(nestedStructureList.gettingStarted.children)
 
-  nestedStructureList.atoms.unprocessedHits = []
-  nestedStructureList.molecules.unprocessedHits = []
-  nestedStructureList.organisms.unprocessedHits = []
+  nestedStructureList.components.unprocessedHits = []
   nestedStructureList.globals.unprocessedHits = []
   nestedStructureList.gettingStarted.unprocessedHits = []
 
@@ -79,6 +67,7 @@ function findAssetsAndTemplates(children) {
 
     switch (child.extension) {
       case 'sass':
+      case 'scss':
       case 'js':
         nestedStructureList.assets.push(child.rawPath)
         break
@@ -99,12 +88,8 @@ function findAssetsAndTemplates(children) {
  */
 function organizeFiles(fileList) {
   for (let file of fileList) {
-    if (file.isAtom) {
-      nestedStructureList.atoms.unprocessedHits.push(file)
-    } else if (file.isMolecule) {
-      nestedStructureList.molecules.unprocessedHits.push(file)
-    } else if (file.isOrganism) {
-      nestedStructureList.organisms.unprocessedHits.push(file)
+    if (file.isComponent) {
+      nestedStructureList.components.unprocessedHits.push(file)
     } else if (file.isGlobal) {
       nestedStructureList.globals.unprocessedHits.push(file)
     } else if (file.isGettingStarted) {
@@ -117,9 +102,7 @@ function organizeFiles(fileList) {
  * Build trees
  */
 function nestFiles() {
-  nest(nestedStructureList.atoms.unprocessedHits, nestedStructureList.atoms.children, 'atoms-', 1)
-  nest(nestedStructureList.molecules.unprocessedHits, nestedStructureList.molecules.children, 'molecules-', 1)
-  nest(nestedStructureList.organisms.unprocessedHits, nestedStructureList.organisms.children, 'organisms-', 1)
+  nest(nestedStructureList.components.unprocessedHits, nestedStructureList.components.children, 'components-', 1)
   nest(nestedStructureList.globals.unprocessedHits, nestedStructureList.globals.children, 'globals-', 1)
   nest(nestedStructureList.gettingStarted.unprocessedHits, nestedStructureList.gettingStarted.children, 'getting_started-', 1)
 }
@@ -133,7 +116,7 @@ function nestFiles() {
  */
 function nest(hits, container, path, level) {
   for (let hit of hits) {
-    if (hit.urlPath.includes(path) && (hit.urlPath.match(/-/g) || []).length === level) {
+    if (hit.urlPath.includes(path) && (hit.urlPath.match(/-/g) || []).length === level) {
       if (hit.isFolder) {
         hit.children = []
         nest(hits, hit.children, path + hit.name + '-', level + 1)

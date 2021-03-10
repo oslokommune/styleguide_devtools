@@ -1,4 +1,5 @@
-import {randomNode} from './patternInfo'
+/* eslint-disable */
+import { randomNode } from './patternInfo'
 
 export const frameStart = `
   <!DOCTYPE html>
@@ -7,14 +8,14 @@ export const frameStart = `
       <title>Pattern</title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    ` + (process.env.NODE_ENV === 'production' // eslint-disable-line
-  ? '<link rel="stylesheet" href="/styleguide.css" type="text/css" />'
-  : '') + `
+    ` + (process.env.NODE_ENV === 'production'
+    ? '<link rel="stylesheet" href="/styleguide.css" type="text/css" />'
+    : '') + `
       <script src="/modules.js"></script>
     </head>
     <body>
       <style>
-        html, body { 
+        html, body {
           overflow: hidden; 
           background-color: transparent; 
         }
@@ -23,13 +24,11 @@ export const frameStart = `
             overflow-y: auto;
           }
         }
-        .osgdt-consumer-content {
-          border: dotted currentColor medium;
-          padding: 10px;
-          flex: 1;
-          text-align: center;
-          height: 100%;
-          width: 100%;
+        .osg-container {
+          display: flex;
+        }
+        .osg-container > * {
+          margin-right: 5px;
         }
       </style>
 `
@@ -89,3 +88,4 @@ export function frameRandom(pattern) {
     </div>
   `
 }
+/* eslint-enable */

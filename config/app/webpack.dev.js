@@ -14,7 +14,7 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /\.(sass|css)$/,
+        test: /\.(sass|scss|css)$/,
         use: ['style-loader', 'css-loader', {
           loader: 'postcss-loader',
           options: {
@@ -23,7 +23,7 @@ module.exports = merge(common, {
               require('autoprefixer')()
             ]
           }
-      }, 'resolve-url-loader', 'sass-loader?sourceMap']
+        }, 'resolve-url-loader', 'sass-loader?sourceMap']
       },
     ]
   }

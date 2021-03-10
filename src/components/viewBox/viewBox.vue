@@ -2,7 +2,7 @@
   <div
     class="viewBox"
     :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
-    <view-box-settings :modifiers="pattern.modifiers" :title="pattern.name" v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)" />
+    <view-box-settings :title="pattern.name" v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)" />
     <div v-if="patternVariantNames.length > 1" class="tabs is-boxed">
       <ul>
         <li
@@ -86,13 +86,10 @@
 
       frameContents() {
         let template
-        if (this.$store.state.pattern.settings.contentPlaceholders) {
-          template = this.patternVariantData.template.replace(
-            /<!-- your content here -->/gi,
-            '<div class="osgdt-consumer-content">custom content</div>'
-          )
-        } else {
+        if (this.patternVariantData.template) {
           template = this.patternVariantData.template
+        } else {
+          template = 'No data - check logs'
         }
 
         let contents = frameStart

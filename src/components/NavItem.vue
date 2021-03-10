@@ -1,23 +1,23 @@
 <template>
   <li v-if="item.isFolder">
     <a @click="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}<span v-html="folderStatus"></span></a>
-    <router-link :class="active" v-if="!hasChildFolder()" :to="'/pattern/' + parentName + '-' + item.name">
+    <router-link :class="active" v-if="!hasChildFolder()" :to="'/' + parentName + '-' + item.name">
       {{ item.name|snakeToRegular|capitalize }}
     </router-link>
     <ul v-show="open" v-if="item.children">
-      <atomic-nav-item
+      <nav-item
         :item="child"
         :parentName="parentName + '-' + item.name"
         v-for="child in item.children"
         v-bind:key="child.name">
-      </atomic-nav-item>
+      </nav-item>
     </ul>
   </li>
 </template>
 
 <script>
   export default {
-    name: 'atomicNavItem',
+    name: 'NavItem',
     props: ['item', 'parentName'],
 
     data: () => ({

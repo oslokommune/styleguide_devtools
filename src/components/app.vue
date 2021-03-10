@@ -6,7 +6,7 @@
           <img :src="logo" alt="Oslo logo" class="is-pulled-left" />
         </a>
       </div>
-      <atomicNav></atomicNav>
+      <Navigation></Navigation>
     </div>
     <div class="column is-three-quarters">
       <router-view></router-view>
@@ -19,14 +19,13 @@
 
 <script>
   import logo from '../assets/images/oslo_logo.svg'
-  import logoPNG from '../assets/images/oslo_logo.png'
-  import atomicNav from './atomicNav'
+  import Navigation from './Navigation.vue'
 
   export default {
     name: 'app',
 
     components: {
-      atomicNav
+      Navigation
     },
 
     data: () => ({

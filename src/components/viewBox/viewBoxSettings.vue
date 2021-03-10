@@ -70,35 +70,6 @@
         </div>
       </div>
 
-      <div v-if="modifiers && modifiers.length > 0" class="level-item">
-        <div class="buttons has-addons">
-          <div class="dropdown is-right is-hoverable">
-            <div class="dropdown-trigger">
-              <button class="button">
-                <span class="is-sr-only">Modifiers</span>
-                <span class="icon is-small">
-                  <i class="fas fa-magic" title="Modifiers"></i>
-                </span>
-                <span class="icon is-small">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
-            </div>
-
-            <div class="dropdown-menu" id="dropdown-menu7" role="menu">
-              <div class="dropdown-content">
-                <a class="dropdown-item" v-for="(modifier, index) in modifiers">
-                  <div class="checkbox">
-                    <label :for="'modifier' + index">
-                      <input :id="'modifier' + index" type="checkbox" :checked="modifierSelected(modifier)" @change="toggleModifier(modifier)" /> {{ modifier }}
-                    </label>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="level-item">
         <div class="buttons has-addons">
           <div class="dropdown is-right is-hoverable">
@@ -129,13 +100,6 @@
                     </label>
                   </div>
                 </a>
-                <a class="dropdown-item" @click="toggleContentPlaceholders">
-                  <div class="checkbox">
-                    <label for="showContentPlaceholders">
-                      <input type="checkbox" id="showContentPlaceholders" v-model="contentPlaceholders" /> Show content placeholders
-                    </label>
-                  </div>
-                </a>
                 <hr class="dropdown-divider">
                 <a class="dropdown-item" @click="resetToFactoryDefaults">
                   Reset to factory defaults
@@ -161,20 +125,10 @@
       title: {
         type: String,
         required: true
-      },
-      modifiers: {
-        type: Array,
-        required: false
       }
     },
 
     data: () => ({}),
-
-    watch: {
-      $route () {
-        this.$store.state.pattern.settings.selectedModifiers = []
-      }
-    },
 
     computed: {
       color: {
@@ -204,15 +158,6 @@
         }
       },
 
-      contentPlaceholders: {
-        get: function() {
-          return this.$store.state.pattern.settings.contentPlaceholders
-        },
-        set: function(value) {
-          this.$store.dispatch('pattern/setContentPlaceholdersMode', value)
-        }
-      },
-
       fullscreen: {
         get: function() {
           return this.$store.state.pattern.settings.fullscreen
@@ -236,24 +181,12 @@
         this.ruler = !this.ruler
       },
 
-      toggleContentPlaceholders() {
-        this.contentPlaceholders = !this.contentPlaceholders
-      },
-
       setViewMode(mode) {
         this.$store.dispatch('pattern/setViewMode', mode)
       },
 
       setViewSize(size) {
         this.$store.dispatch('pattern/setViewSize', size)
-      },
-
-      toggleModifier(modifier) {
-        this.$store.dispatch('pattern/toggleModifier', modifier)
-      },
-
-      modifierSelected(modifier) {
-        return this.$store.state.pattern.settings.selectedModifiers.includes(modifier)
       },
 
       resetToFactoryDefaults() {

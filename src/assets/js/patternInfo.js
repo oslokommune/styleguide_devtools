@@ -1,18 +1,12 @@
-import atomicStructure from '../../../build/atomicStructure.json'
+import componentStructure from '../../../build/componentStructure.json'
 
-const treeSize = /*countNodes(atomicStructure.atoms.children) +
-                 countNodes(atomicStructure.molecules.children) +*/
-                 countNodes(atomicStructure.organisms.children)
+const treeSize = countNodes(componentStructure.components.children)
 
 let currentNodeIndex = 0
 export function randomNode() {
   currentNodeIndex = 0
   return getNode(
-    /*atomicStructure.atoms.children.concat(
-      atomicStructure.molecules.children,
-      atomicStructure.organisms.children
-    ),*/
-    atomicStructure.organisms.children,
+    componentStructure.components.children,
     parseInt(Math.random() * treeSize, 10)
   )
 }
@@ -25,26 +19,20 @@ export function patternInfo(path) {
     jsFiles: [],
     mdFile: null,
     variants: [],
-    modifiers: []
+    groups: []
   }
 
   let node = null
   let pathParts = path.split('-')
   switch (pathParts[0]) {
-    case 'atoms':
-      node = findNode(path, atomicStructure.atoms.children)
-      break
-    case 'molecules':
-      node = findNode(path, atomicStructure.molecules.children)
-      break
-    case 'organisms':
-      node = findNode(path, atomicStructure.organisms.children)
+    case 'components':
+      node = findNode(path, componentStructure.components.children)
       break
     case 'globals':
-      node = findNode(path, atomicStructure.globals.children)
+      node = findNode(path, componentStructure.globals.children)
       break
     case 'getting_started':
-      node = findNode(path, atomicStructure.gettingStarted.children)
+      node = findNode(path, componentStructure.gettingStarted.children)
       break
     default:
   }
@@ -66,10 +54,10 @@ export function patternInfo(path) {
           patternData.mdFile = file
           break
         case 'json':
-          // Parse modifiers
+          // Parse groups
           contents = JSON.parse(file.contents)
-          if (contents && contents.devtools && contents.devtools.modifiers) {
-            patternData.modifiers = [...contents.devtools.modifiers]
+          if (contents && contents.devtools && contents.devtools.groups) {
+            patternData.groups = [...contents.devtools.groups]
           }
 
           patternData.variants.push(file)

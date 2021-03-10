@@ -2,8 +2,8 @@
   <div>
     <section class="hero osg-u-color-bg-blue-dark osg-u-color-text-white">
       <div class="hero-body">
-        <h6  class="osg-u-heading-5">Developer tools for</h6>
-        <h1 class="osg-u-heading-2">Patterns</h1>
+        <h6  class="osg-u-heading-5">Oslo style guide</h6>
+        <h1 class="osg-u-heading-2">Component library</h1>
       </div>
     </section>
     <div class="view">
@@ -64,7 +64,7 @@
   import a11ySection from './sections/a11ySection'
 
   export default {
-    name: 'atomicPattern',
+    name: 'ComponentFrame',
 
     components: {
       JsonSection,

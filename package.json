@@ -3,15 +3,15 @@
   "version": "0.9.2",
   "description": "Oslo Style Guide devtools",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "hmr": "webpack-dev-server --hot --config config/app/webpack.dev.js",
     "dev": "rm -rf dist/* && npm run build-structure \"false\" && php src/utils/twigCompiler.php && webpack --config config/modules/webpack.dev.js --mode development && npm run build-structure \"true\"",
     "dev-modules": "webpack --config config/modules/webpack.dev.js --mode development",
-    "build-structure": "./node_modules/.bin/babel-node src/utils/buildAtomicStructure.js",
+    "build-structure": "./node_modules/.bin/babel-node src/utils/buildComponentStructure.js",
     "build-modules": "webpack --config config/modules/webpack.production.js --mode production",
     "build-viewer": "webpack --config config/app/webpack.production.js --mode production",
     "build-production": "rm -rf dist/* && npm run build-structure \"false\" && php src/utils/twigCompiler.php && npm run build-modules && npm run build-structure \"true\" && npm run build-viewer",
-    "mkpat": "babel-node --presets env src/utils/newPattern.js",
     "watch": "onchange --kill --initial --no-exclude \"node_modules/styleguide/src/**/*\" -- ./node_modules/.bin/babel-node eventListener.js {{event}} {{changed}}",
     "hmr-watch": "npm run dev && concurrently \"npm run hmr\" \"npm run watch\" --kill-others --kill-others-on-fail"
   },

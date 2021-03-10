@@ -6,18 +6,18 @@
           class="osg-text-field__input osg-u-text-5"
           type="text"
           v-model="search"
-          placeholder="Search for patterns"
+          placeholder="Search for components"
           @keyup.enter="addTag"
           title="Search"
         />
       </div>
       <button
         @click="addTag"
-        class="osg-button osg-button--yellow osg-button--circle "
+        class="osg-button osg-button--yellow osg-button--circle"
         aria-label="Search"
         title="Add search tag"
       >
-        <span class='osg-icon osg-icon--magnifying-glass-small'></span>
+        <span class="osg-icon osg-icon--magnifying-glass-small"></span>
       </button>
     </div>
     <div class="field is-grouped is-grouped-multiline">
@@ -32,56 +32,34 @@
       Getting started
     </p>
     <ul class="menu-list" v-if="!tags.length">
-      <atomic-nav-item
+      <nav-item
         :item="child"
         parentName="getting_started"
-        v-for="(child, index) in atomicStructure.gettingStarted.children"
+        v-for="(child, index) in componentStructure.gettingStarted.children"
         v-bind:key="index">
-      </atomic-nav-item>
+      </nav-item>
     </ul>
     <p class="menu-label" v-if="!tags.length">
       Global
     </p>
     <ul class="menu-list" v-if="!tags.length">
-      <atomic-nav-item
+      <nav-item
         :item="child"
         parentName="globals"
-        v-for="(child, index) in atomicStructure.globals.children"
+        v-for="(child, index) in componentStructure.globals.children"
         v-bind:key="index">
-      </atomic-nav-item>
+      </nav-item>
     </ul>
     <p class="menu-label" v-if="!tags.length">
-      Atoms
+      Components
     </p>
     <ul class="menu-list" v-if="!tags.length">
-      <atomic-nav-item
+      <nav-item
         :item="child"
-        parentName="atoms"
-        v-for="(child, index) in atomicStructure.atoms.children"
+        parentName="components"
+        v-for="(child, index) in componentStructure.components.children"
         v-bind:key="index">
-      </atomic-nav-item>
-    </ul>
-    <p class="menu-label" v-if="!tags.length">
-      Molecules
-    </p>
-    <ul class="menu-list" v-if="!tags.length">
-      <atomic-nav-item
-        :item="child"
-        parentName="molecules"
-        v-for="(child, index) in atomicStructure.molecules.children"
-        v-bind:key="index">
-      </atomic-nav-item>
-    </ul>
-    <p class="menu-label" v-if="!tags.length">
-      Organisms
-    </p>
-    <ul class="menu-list" v-if="!tags.length">
-      <atomic-nav-item
-        :item="child"
-        parentName="organisms"
-        v-for="(child, index) in atomicStructure.organisms.children"
-        v-bind:key="index">
-      </atomic-nav-item>
+      </nav-item>
     </ul>
     <p class="menu-label" v-if="!tags.length && pagesVisible">
       Pages
@@ -97,47 +75,38 @@
       Tags
     </p>
     <ul class="menu-list" v-if="tags.length">
-      <atomic-tag-item
+      <tag-item
         :item="item"
         :tags="tags"
-        v-for="(item, index) in patterns"
+        v-for="(item, index) in components"
         v-bind:key="index">
-      </atomic-tag-item>
+      </tag-item>
     </ul>
   </aside>
 </template>
 
 <script>
-  import AtomicNavItem from './atomicNavItem'
-  import AtomicTagItem from './atomicTagItem'
-  import atomicStructure from '../../build/atomicStructure.json'
+  import NavItem from './NavItem'
+  import TagItem from './TagItem'
+  import componentStructure from '../../build/componentStructure.json'
 
   export default {
-    name: 'atomicNav',
+    name: 'Navigation',
     components: {
-      AtomicNavItem,
-      AtomicTagItem
+      NavItem,
+      TagItem
     },
     data: () => ({
       pagesVisible: false,
-      atomicStructure,
+      componentStructure,
       search: '',
       tags: []
     }),
 
     computed: {
-      patterns() {
-        return this.atoms.concat(this.molecules, this.organisms)
+      components() {
+        return this.flatten(this.componentStructure.components.children)
       },
-      atoms() {
-        return this.flatten(this.atomicStructure.atoms.children)
-      },
-      molecules() {
-        return this.flatten(this.atomicStructure.molecules.children)
-      },
-      organisms() {
-        return this.flatten(this.atomicStructure.organisms.children)
-      }
     },
 
     methods: {
@@ -173,7 +142,8 @@
 
 <style lang="sass">
 @import "~styleguide/src/assets/sass/resources.sass";
-@import "~styleguide/src/molecules/search/search_bar/search_bar.sass";
-@import "~styleguide/src/atoms/forms/text_field/text_field.sass";
-@import "~styleguide/src/atoms/buttons/button/button.sass";
+@import "~styleguide/src/components/search/search_bar/search_bar.sass";
+@import "~styleguide/src/components/forms/text_field/text_field.sass";
+@import "~styleguide/src/components/buttons/button/button.scss";
+@import "~styleguide/src/components/icons/icon/icon.sass"
 </style>

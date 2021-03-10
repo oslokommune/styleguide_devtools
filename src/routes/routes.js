@@ -1,7 +1,6 @@
 import app from '../components/app'
-import atomicPattern from '../components/atomicPattern'
-import start from '../components/start'
-import pageBuilder from '../components/pageBuilder/pageBuilder'
+import Component from '../components/Component'
+import Start from '../components/Start'
 
 export const routes = [
   {
@@ -9,16 +8,12 @@ export const routes = [
     component: app,
     children: [
       {
-        path: '/pattern/:id',
-        component: atomicPattern
-      },
-      {
-        path: '/pageBuilder',
-        component: pageBuilder
+        path: '/:id',
+        component: Component
       },
       {
         path: '',
-        component: start
+        component: Start
       }
     ]
   }

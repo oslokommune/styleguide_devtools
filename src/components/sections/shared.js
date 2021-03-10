@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import {variantSeparator} from '../../utils/config'
+import { variantSeparator } from '../../utils/config'
 
 export default {
   props: {
@@ -44,13 +44,32 @@ export default {
         }
       }
 
-      // Add the modifiers selected from viewBoxSettings
-      if (this.$store.state.pattern.settings.selectedModifiers.length !== 0) {
-        const modifierString =
-          this.$store.state.pattern.settings.selectedModifiers.reduce((acc, curr) => acc + ' ' + curr, '')
-        const regex = /class="(osg-[a-z0-9-]*)/
-        const replaceText = `class="$1${modifierString}"`
-        data.template = data.template.replace(regex, replaceText)
+      if (this.pattern.groups) {
+        let component = data.template
+        data.template = ''
+        this.pattern.groups.forEach((group, index) => {
+          data.template += '<h2 class="osg-u-heading-4 ' + (index > 0 ? 'osg-u-margin-top-5 ' : '') + 'osg-u-margin-bottom-1">' + group.title + '</h2><div class="osg-container">\n'
+
+          group.items.forEach(item => {
+            const regex = /class="(osg-[a-z0-9-]*)/
+            const replaceText = `class="$1${item.class ? ' ' + item.class : ''}`
+            let componentData = component.replace(regex, replaceText)
+            let dataContents = JSON.parse(data.contents)
+            if (item.content) {
+              componentData = componentData.replace(dataContents.component.content, item.content)
+            }
+            if (item.attrs) {
+              let newAttrs = item.attrs.map(item => {
+                return item.key + '="' + item.val + '"'
+              })
+              componentData = componentData.replace(/>/, newAttrs.join(' ') + '>')
+            }
+
+            data.template += componentData + ' \n'
+          })
+
+          data.template += '</div>\n'
+        })
       }
 
       return data
@@ -95,7 +114,7 @@ export default {
     },
 
     patternPath() {
-      return process.env.AD_PATTERN_PATH // eslint-disable-line
+      return process.env.COMPONENTS_PATH // eslint-disable-line
     }
   }
 }

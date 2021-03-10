@@ -1,7 +1,7 @@
 import _ from 'lodash'
-import {defaultState} from '../presets/defaultPattern'
-import {cleanState} from '../presets/cleanPattern'
-import {mdState} from '../presets/mdPattern'
+import { defaultState } from '../presets/defaultPattern'
+import { cleanState } from '../presets/cleanPattern'
+import { mdState } from '../presets/mdPattern'
 import eventBus from '../../bus/bus'
 
 
@@ -11,7 +11,7 @@ const state = {}
 const getters = {}
 
 const actions = {
-  setPatternValues({commit}, payload) {
+  setPatternValues({ commit }, payload) {
     commit('setValues', defaultState)
 
     if (payload && payload.devtools) {
@@ -33,41 +33,37 @@ const actions = {
     }
   },
 
-  setDefaults({commit}) {
+  setDefaults({ commit }) {
     commit('setValues', defaultState)
   },
 
-  setValues({commit}, payload) {
+  setValues({ commit }, payload) {
     commit('setValues', payload)
   },
 
-  setActiveSection({commit}, section) {
+  setActiveSection({ commit }, section) {
     commit('setActiveSection', section)
   },
 
-  setFullscreenMode({commit}, mode) {
+  setFullscreenMode({ commit }, mode) {
     commit('setFullscreen', mode)
 
     eventBus.$emit('viewBox.setFullscreen', mode)
   },
 
-  setRulerMode({commit}, mode) {
+  setRulerMode({ commit }, mode) {
     commit('setRuler', mode)
   },
 
-  setContentPlaceholdersMode({commit}, mode) {
-    commit('setContentPlaceholders', mode)
-  },
-
-  setBackgroundSolid({commit}, mode) {
+  setBackgroundSolid({ commit }, mode) {
     commit('setSolid', mode)
   },
 
-  setBackgroundColor({commit}, color) {
+  setBackgroundColor({ commit }, color) {
     commit('setColor', color)
   },
 
-  setViewMode({commit}, mode) {
+  setViewMode({ commit }, mode) {
     commit('clearMode')
 
     switch (mode) {
@@ -83,7 +79,7 @@ const actions = {
     return Promise.resolve(mode)
   },
 
-  setViewSize({commit}, size) {
+  setViewSize({ commit }, size) {
     commit('clearSize')
 
     switch (size) {
@@ -100,14 +96,6 @@ const actions = {
     eventBus.$emit('viewBox.setViewSize', size)
 
     return Promise.resolve(size)
-  },
-
-  toggleModifier({commit}, modifier) {
-    commit('toggleModifier', modifier)
-  },
-
-  resetModifiers({commit}) {
-    commit('toggleModifier')
   }
 }
 
@@ -128,10 +116,6 @@ const mutations = {
 
   setRuler(state, mode) {
     state.settings.ruler = mode
-  },
-
-  setContentPlaceholders(state, mode) {
-    state.settings.contentPlaceholders = mode
   },
 
   setSolid(state, mode) {
@@ -161,19 +145,6 @@ const mutations = {
     state.settings.viewMode.single = false
     state.settings.viewMode.grid = false
     state.settings.viewMode.random = false
-  },
-
-  toggleModifier(state, modifier) {
-    const {settings} = state
-    if (settings.selectedModifiers.includes(modifier)) {
-      settings.selectedModifiers = settings.selectedModifiers.filter(e => e !== modifier)
-    } else {
-      settings.selectedModifiers.push(modifier)
-    }
-  },
-
-  resetModifiers(state) {
-    state.settings.selectedModifiers = []
   }
 }
 
