@@ -15,14 +15,14 @@
       There is no documentation available.
     </div>
     <aside v-if="$store.state.pattern.sections.docs.sections.includes.visible || $store.state.pattern.sections.docs.sections.assets.visible">
-      <h3 class="osg-u-heading-3 osg-u-padding-bottom-1">
+      <h4 class="osg-u-heading-5 osg-u-padding-bottom-1">
         Dependencies
-      </h3>
+      </h4>
       <div
         v-if="$store.state.pattern.sections.docs.sections.includes.visible"
         class="menu osg-u-padding-bottom-3"
       >
-        <p class="osg-u-heading-5 osg-u-padding-bottom-1">Includes</p>
+        <p class="osg-u-heading-6 osg-u-padding-bottom-1">Includes</p>
         <ul class="menu-list">
           <li v-for="(item, index) of twigIncludes" v-bind:key="index">
             <router-link :to="{ path: item.url }">
@@ -31,12 +31,12 @@
             </router-link>
           </li>
           <li v-if="twigIncludes.length <= 0" class="has-text-grey">
-            This pattern does not include other patterns.
+            This component does not include other components.
           </li>
         </ul>
       </div>
       <div v-if="$store.state.pattern.sections.docs.sections.assets.visible">
-        <p class="osg-u-heading-5 osg-u-padding-bottom-1">Assets</p>
+        <p class="osg-u-heading-6 osg-u-padding-bottom-1">Assets</p>
         <div
           v-if="twigFile"
           @click="copy(twigFile.rawPath.replace(patternPath, ''))"

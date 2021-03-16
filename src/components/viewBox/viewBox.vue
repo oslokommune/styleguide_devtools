@@ -3,18 +3,6 @@
     class="viewBox"
     :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
     <view-box-settings :title="pattern.name" v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)" />
-    <div v-if="patternVariantNames.length > 1" class="tabs is-boxed">
-      <ul>
-        <li
-          :class="{ 'is-active': variantName === activeVariant }"
-          v-for="variantName in patternVariantNames"
-          v-bind:key="variantName">
-          <a @click="$emit('update:activeVariant', variantName)">
-            {{ variantName|snakeToRegular|capitalize }}
-          </a>
-        </li>
-      </ul>
-    </div>
     <div
       v-if="$store.state.pattern.sections.frame.visible"
       class="frame"

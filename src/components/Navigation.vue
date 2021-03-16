@@ -143,7 +143,7 @@
 <style lang="sass">
 @import "~styleguide/src/assets/sass/resources.sass";
 @import "~styleguide/src/components/search/search_bar/search_bar.sass";
-@import "~styleguide/src/components/forms/text_field/text_field.sass";
+@import "~styleguide/src/components/forms/input/text_field.sass";
 @import "~styleguide/src/components/buttons/button/button.scss";
-@import "~styleguide/src/components/icons/icon/icon.sass"
+@import "~styleguide/src/components/decorators/icon/icon.sass"
 </style>

@@ -14,62 +14,14 @@ export default {
   },
 
   computed: {
-    patternVariantNames() {
-      return this.pattern.variants.map(item => {
-        if (item.name.indexOf(variantSeparator) > 0) {
-          return item.name.substring(item.name.indexOf(variantSeparator) + 1, item.name.lastIndexOf('.'))
-        }
-        return 'default'
-      }).reverse()
-    },
-
     patternVariantData() {
       let data = {
         template: '',
         contents: '{}'
       }
-      for (let variant of this.pattern.variants) {
-        let variantName = variant.name.substring(
-          variant.name.indexOf(variantSeparator) + 1,
-          variant.name.lastIndexOf('.')
-        )
-        if (variantName === this.activeVariant) {
-          data.template = variant.template
-          data.contents = variant.contents
-          break
-        }
-        if (variant.name.indexOf(variantSeparator) < 0) {
-          data.template = variant.template
-          data.contents = variant.contents
-        }
-      }
-
-      if (this.pattern.groups) {
-        let component = data.template
-        data.template = ''
-        this.pattern.groups.forEach((group, index) => {
-          data.template += '<h2 class="osg-u-heading-4 ' + (index > 0 ? 'osg-u-margin-top-5 ' : '') + 'osg-u-margin-bottom-1">' + group.title + '</h2><div class="osg-container">\n'
-
-          group.items.forEach(item => {
-            const regex = /class="(osg-[a-z0-9-]*)/
-            const replaceText = `class="$1${item.class ? ' ' + item.class : ''}`
-            let componentData = component.replace(regex, replaceText)
-            let dataContents = JSON.parse(data.contents)
-            if (item.content) {
-              componentData = componentData.replace(dataContents.component.content, item.content)
-            }
-            if (item.attrs) {
-              let newAttrs = item.attrs.map(item => {
-                return item.key + '="' + item.val + '"'
-              })
-              componentData = componentData.replace(/>/, newAttrs.join(' ') + '>')
-            }
-
-            data.template += componentData + ' \n'
-          })
-
-          data.template += '</div>\n'
-        })
+      if (this.pattern.variants[0]) {
+        data.template = this.pattern.variants[0].template
+        data.contents = this.pattern.variants[0].contents
       }
 
       return data

@@ -22,7 +22,7 @@
         <div class="tabs" v-if="showTabs()">
           <ul>
             <li v-if="renderTab('docs')" :class="isTabActive('docs') ? 'is-active' : null">
-              <a @click="setActiveTab('docs')">Docs</a>
+              <a @click="setActiveTab('docs')">Documentation</a>
             </li>
             <li v-if="renderTab('accessibility')" :class="isTabActive('accessibility') ? 'is-active' : null">
               <a @click="setActiveTab('accessibility')">
