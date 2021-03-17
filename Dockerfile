@@ -24,4 +24,7 @@ COPY ./config ./config
 COPY ./dist ./dist
 COPY ./src ./src
 COPY ./package.* ./
+COPY ./eventListener.js ./
+COPY ./.eslintrc.json ./
+COPY ./.babelrc ./
 COPY --from=composer /app/vendor /app/vendor

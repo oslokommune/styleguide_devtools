@@ -103,5 +103,6 @@ a:visited
 .nav
   a:hover
     text-decoration: none
-    background-color: #e0e0e0
-    color: inherit
+    @extend %osg-state-hover
+  a.is-active
+    @extend %osg-state-active

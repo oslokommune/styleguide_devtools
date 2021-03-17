@@ -25,17 +25,19 @@ let cssFiles = ''
 let jsFiles = "import './modules.sass'\n"
 for (let file of componentStruc.assets) {
   if (file.substring(file.lastIndexOf('/') + 1).substring(0, 1) !== variantSeparator) {
+    file = file.substring(2)
     switch (file.substring(file.lastIndexOf('.') + 1)) {
       case 'scss':
       case 'sass':
-        cssFiles += "@import '../" + file + "'\n"
+        if (file.indexOf('/_') <= 0) {
+          cssFiles += "@import '../" + file + "'\n"
+        }
         break
       case 'js':
         jsFiles += "import '../" + file + "'\n"
         break
     }
   }
-
 }
 
 let templatesData = []

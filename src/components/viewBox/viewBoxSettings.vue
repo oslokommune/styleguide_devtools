@@ -28,25 +28,6 @@
       </div>
       <div class="level-item">
         <div class="buttons has-addons">
-          <button :class="'button' + ($store.state.pattern.settings.viewMode.single ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewMode('single')">
-              <span class="icon">
-                <i class="fas fa-box" title="Normal view"><span class="is-sr-only">Normal view</span></i>
-              </span>
-          </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewMode.grid ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewMode('grid')">
-              <span class="icon">
-                <i class="fas fa-boxes" title="Grid view"><span class="is-sr-only">Grid view</span></i>
-              </span>
-          </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewMode.random ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewMode('random')">
-              <span class="icon">
-                <i class="fas fa-box-open" title="Pandoras box"><span class="is-sr-only">Pandoras box</span></i>
-              </span>
-          </button>
-        </div>
-      </div>
-      <div class="level-item">
-        <div class="buttons has-addons">
           <button :class="'button' + ($store.state.pattern.settings.viewSize.mobile ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('mobile')">
               <span class="icon">
                 <i class="fas fa-mobile-alt" title="Mobile width"><span class="is-sr-only">Mobile width</span></i>

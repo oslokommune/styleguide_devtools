@@ -2,8 +2,8 @@ import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 
-let lockFile = path.resolve(__dirname + '/eventListener.lock')
-let rebuildFile = path.resolve(__dirname + '/eventListener.rebuild')
+let lockFile = path.resolve(path.resolve() + '/eventListener.lock')
+let rebuildFile = path.resolve(path.resolve() + '/eventListener.rebuild')
 
 fs.access(lockFile, fs.constants.F_OK | fs.constants.W_OK, (aerr) => {
   if (aerr) {
@@ -56,7 +56,7 @@ function build() {
     case 'sass':
     case 'scss':
       console.log(`\n${blueTerminalText}${relativePath} changed - compiling sass and building structure...${resetTerminalColor}\n`)
-      cmd = 'webpack --config config/modules/webpack.dev.js --mode development && npm run build-structure \"true\"'
+      cmd = 'webpack --config config/modules/webpack.dev.cjs --mode development && npm run build-structure \"true\"'
       break
     default:
       cmd = 'npm run dev'
