@@ -1,7 +1,7 @@
 <template>
   <nav v-if="$store.state.pattern.settings.visible" class="level viewBoxSettings">
     <div v-if="$store.state.pattern.settings.sections.title.visible" class="level-left">
-      <h1 class="osg-u-heading-1">{{ title|capitalize }}</h1>
+      <h1 class="osg-heading-1">{{ title|capitalize }}</h1>
     </div>
     <div v-if="$store.state.pattern.settings.sections.configuration.visible"  class="level-right">
       <div class="level-item chrome">
@@ -19,7 +19,7 @@
       </div>
       <div class="level-item">
         <div class="buttons has-addons">
-          <button :class="'button' + (fullscreen ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="toggleFullscreen">
+          <button :class="'button' + (fullscreen ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="toggleFullscreen">
               <span class="icon">
                 <i class="fas fa-expand" title="Fullscreen mode"><span class="is-sr-only">Fullscreen mode</span></i>
               </span>

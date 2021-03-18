@@ -132,7 +132,6 @@
 
 <style lang="sass">
 @import "~styleguide/src/assets/sass/resources.sass";
-@import "~styleguide/src/assets/sass/common/_utils.sass";
 @import "~styleguide/src/components/search/search_bar/search_bar.sass";
 @import "~styleguide/src/components/forms/input/text_field.sass";
 @import "~styleguide/src/components/button/button.scss";
