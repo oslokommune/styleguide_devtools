@@ -1,6 +1,4 @@
 /* eslint-disable */
-import { randomNode } from './patternInfo'
-
 export const frameStart = `
   <!DOCTYPE html>
   <html lang="en">
@@ -49,43 +47,4 @@ export const frameEnd = `
   </html>
 `
 
-export function frameSingle(pattern) {
-  return pattern
-}
-
-export function frameGrid(pattern) {
-  return `
-    <link href="/assets/css/grid.css" type="text/css" rel="stylesheet">
-    <div class="columns">
-      <div class="column">${pattern}</div>
-    </div>
-    <div class="columns">
-      <div class="column">${pattern}</div>
-      <div class="column">${pattern}</div>
-    </div>
-    <div class="columns">
-      <div class="column">${pattern}</div>
-      <div class="column">${pattern}</div>
-      <div class="column">${pattern}</div>
-    </div>
-  `
-}
-
-export function frameRandom(pattern) {
-  return `
-    <link href="/assets/css/grid.css" type="text/css" rel="stylesheet">
-    <div class="columns">
-      <div class="column">${randomNode().template}</div>
-      <div class="column">${randomNode().template}</div>
-    </div>
-    <div class="columns">
-      <div class="column">${pattern}</div>
-    </div>
-    <div class="columns">
-      <div class="column">${randomNode().template}</div>
-      <div class="column">${randomNode().template}</div>
-      <div class="column">${randomNode().template}</div>
-    </div>
-  `
-}
 /* eslint-enable */

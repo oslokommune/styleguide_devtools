@@ -70,14 +70,14 @@
                 <a class="dropdown-item" @click="toggleSolidState">
                   <div class="checkbox">
                     <label for="solidBackground">
-                      <input type="checkbox" id="solidBackground" v-model="backgroundSolid" /> Solid background
+                      <input type="checkbox" name="solidBackground" v-model="backgroundSolid" /> Solid background
                     </label>
                   </div>
                 </a>
                 <a class="dropdown-item" @click="toggleRuler">
                   <div class="checkbox">
                     <label for="showRuler">
-                      <input type="checkbox" id="showRuler" v-model="ruler" /> Show ruler
+                      <input type="checkbox" name="showRuler" v-model="ruler" /> Show ruler
                     </label>
                   </div>
                 </a>

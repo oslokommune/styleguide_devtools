@@ -38,14 +38,6 @@ export default {
       return variantJson
     },
 
-    mergedDataString() {
-      let mergedData = Object.assign({}, this.mergedData)
-      if (mergedData.devtools) {
-        delete mergedData.devtools
-      }
-      return typeof mergedData === 'object' ? JSON.stringify(mergedData, undefined, 2) : mergedData
-    },
-
     defaultData() {
       for (let variant of this.pattern.variants) {
         if (variant.name.indexOf(variantSeparator) < 0) {
@@ -53,16 +45,6 @@ export default {
         }
       }
       return {}
-    },
-
-    twigFile() {
-      for (let file of this.pattern.files) {
-        if (file.extension === 'twig') {
-          return file
-        }
-      }
-
-      return null
     },
 
     patternPath() {

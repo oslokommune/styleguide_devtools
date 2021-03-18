@@ -42,7 +42,7 @@
   import axeCore from 'axe-core'
   import ViewBoxSettings from './viewBoxSettings'
   import shared from '../sections/shared'
-  import {frameStart, frameSingle, frameGrid, frameRandom, frameEnd} from '../../assets/js/viewBoxFrame'
+  import {frameStart, frameEnd} from '../../assets/js/viewBoxFrame'
 
   export default {
     name: 'viewBox',
@@ -80,16 +80,7 @@
           template = 'No data - check logs'
         }
 
-        let contents = frameStart
-        if (this.$store.state.pattern.settings.viewMode.single) {
-          contents += frameSingle(template)
-        } else if (this.$store.state.pattern.settings.viewMode.grid) {
-          contents += frameGrid(template)
-        } else if (this.$store.state.pattern.settings.viewMode.random) {
-          contents += frameRandom(template)
-        }
-        contents += frameEnd
-        return contents
+        return frameStart + template + frameEnd
       },
 
       bgColor() {

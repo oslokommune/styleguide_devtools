@@ -7,18 +7,12 @@
       </div>
     </section>
     <div class="view">
-      <div class="notification osg-color-bg-red" v-for="(item, index) of errorMessages" :key="index">
-        <i class="fas fa-exclamation-triangle"></i> {{ item.message }}
-      </div>
-      <div class="notification osg-color-bg-yellow" v-for="(item, index) of warningMessages" :key="index">
-        <i class="fas fa-exclamation-triangle"></i> {{ item.message }}
-      </div>
       <view-box
         :pattern="pattern"
         v-bind:active-variant.sync="activeVariant"
         v-bind:a11y-invalid.sync="a11yInvalid"
         v-bind:a11y-results.sync="a11yResults" />
-      <div class="tab-content" v-if="renderTab('docs') || renderTab('accessibility') || renderTab('html') || renderTab('twig') || renderTab('json')">
+      <div class="tab-content" v-if="renderTab('docs') || renderTab('accessibility') || renderTab('html')">
         <div class="tabs" v-if="showTabs()">
           <ul>
             <li v-if="renderTab('docs')" :class="isTabActive('docs') ? 'is-active' : null">
@@ -67,8 +61,6 @@
       activeVariant: 'default',
       a11yInvalid: false,
       a11yResults: {},
-      errorMessages: [],
-      warningMessages: [],
       pattern: {
         name: 'Loading...',
         files: [],
@@ -81,25 +73,10 @@
 
     mounted() {
       this.updatePattern()
-      this.$eventHub.$on('includeErrors', val => {
-        this.errorMessages = this.updateWarningsOrErrorsMessages(this.errorMessages, val, 'include')
-      })
-
-      this.$eventHub.$on('includeWarnings', val => {
-        this.warningMessages = this.updateWarningsOrErrorsMessages(this.warningMessages, val, 'include')
-      })
-    },
-
-    beforeDestroy() {
-      this.$eventHub.$off('includeErrors')
-      this.$eventHub.$off('includeWarnings')
     },
 
     watch: {
       '$route'() {
-        this.errorMessages = []
-        this.warningMessages = []
-
         this.updatePattern()
       }
     },
@@ -107,23 +84,6 @@
     methods: {
       updatePattern() {
         this.pattern = patternInfo(this.$route.params.id)
-      },
-
-      updateWarningsOrErrorsMessages(oldMessages, newMessages, messageType) {
-        this.removeMessagesByType(oldMessages, messageType)
-
-        return oldMessages.concat(newMessages)
-      },
-
-      removeMessagesByType(items, type) {
-        if (!items) {
-          return
-        }
-        items.forEach((item, index, object) => {
-          if (item.type === type) {
-            object.splice(index, 1)
-          }
-        })
       },
 
       showTabs() {

@@ -66,10 +66,21 @@ html, body
       color: rgb(39, 42, 86)
       margin-top: 20px
 
+    &:hover
+      background-color: inherit !important
+
 .tab-content
   margin-top: 20px
+
   a:hover
-    text-decoration: none
+    @extend %osg-state-hover
+
+  li.is-active
+    @extend %osg-state-active
+
+    a
+      color: inherit
+      border-bottom-color: $osg-color-blue-contrast
 
 aside.nav
   margin: 30px 20px
@@ -97,12 +108,16 @@ pre
 .osg-text-field__input
   height: 66px
 
-a:visited
-  color: #4a4a4a
+.menu-list a
+  border-radius: 0
 
-.nav
+.nav, .dropdown-content
   a:hover
     text-decoration: none
     @extend %osg-state-hover
   a.is-active
     @extend %osg-state-active
+
+.checkbox, .radio
+  &:hover
+    color: inherit

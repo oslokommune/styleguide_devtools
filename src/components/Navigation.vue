@@ -61,16 +61,6 @@
         v-bind:key="index">
       </nav-item>
     </ul>
-    <p class="menu-label" v-if="!tags.length && pagesVisible">
-      Pages
-    </p>
-    <ul class="menu-list" v-if="!tags.length && pagesVisible">
-      <li>
-        <router-link :to="{ path: '/pageBuilder' }">
-          Build
-        </router-link>
-      </li>
-    </ul>
     <p class="menu-label" v-if="tags.length">
       Tags
     </p>

@@ -29,8 +29,7 @@
     },
 
     data: () => ({
-      logo,
-      atomicStructure: {}
+      logo
     }),
 
     beforeCreate() {
