@@ -3,7 +3,7 @@
     <div class="osg-searchbar osg-u-padding-bottom-3">
       <div class="osg-text-field osg-text-field--outline">
         <input
-          class="osg-text-field__input osg-u-text-5"
+          class="osg-text-field__input osg-text-7"
           type="text"
           v-model="search"
           placeholder="Search for components"
@@ -23,8 +23,8 @@
     <div class="field is-grouped is-grouped-multiline">
       <div class="control" v-for="tag in tags">
         <div class="tags has-addons">
-          <a class="tag osg-u-text-6 osg-u-color-bg-blue-dark osg-u-color-text-white">{{ tag }}</a>
-          <a class="tag is-delete osg-u-text-6" @click="removeTag(tag)" title="Remove tag"></a>
+          <a class="tag osg-text-6 osg-color-bg-blue-dark osg-color-text-white">{{ tag }}</a>
+          <a class="tag is-delete osg-text-6" @click="removeTag(tag)" title="Remove tag"></a>
         </div>
       </div>
     </div>
@@ -40,13 +40,13 @@
       </nav-item>
     </ul>
     <p class="menu-label" v-if="!tags.length">
-      Global
+      General
     </p>
     <ul class="menu-list" v-if="!tags.length">
       <nav-item
         :item="child"
-        parentName="globals"
-        v-for="(child, index) in componentStructure.globals.children"
+        parentName="general"
+        v-for="(child, index) in componentStructure.general.children"
         v-bind:key="index">
       </nav-item>
     </ul>
@@ -129,11 +129,3 @@
     }
   }
 </script>
-
-<style lang="sass">
-@import "~styleguide/src/assets/sass/resources";
-@import "~styleguide/src/components/search/search_bar/search_bar.sass";
-@import "~styleguide/src/components/forms/input/text_field.sass";
-@import "~styleguide/src/components/button/button.scss";
-@import "~styleguide/src/components/decorators/icon/icon.sass"
-</style>

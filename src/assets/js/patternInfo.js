@@ -28,8 +28,8 @@ export function patternInfo(path) {
     case 'components':
       node = findNode(path, componentStructure.components.children)
       break
-    case 'globals':
-      node = findNode(path, componentStructure.globals.children)
+    case 'general':
+      node = findNode(path, componentStructure.general.children)
       break
     case 'getting_started':
       node = findNode(path, componentStructure.gettingStarted.children)

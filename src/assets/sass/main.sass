@@ -3,7 +3,11 @@ $gap: 10px
 $primary: rgb(39, 42, 86)
 $osg-font-path: "~styleguide/src/assets/fonts"
 @import '~bulma'
-@import '~styleguide/src/assets/sass/common.sass'
+@import '~styleguide/src/assets/sass/complete'
+@import "~styleguide/src/components/search/search_bar/search_bar.sass";
+@import "~styleguide/src/components/forms/input/text_field.sass";
+@import "~styleguide/src/components/button/button.scss";
+@import "~styleguide/src/components/decorators/icon/icon.sass"
 
 /* Components */
 @import 'fonts'
@@ -106,7 +110,7 @@ pre
     line-height: normal
 
 .osg-text-field__input
-  height: 66px
+  height: 60px
 
 .menu-list a
   border-radius: 0

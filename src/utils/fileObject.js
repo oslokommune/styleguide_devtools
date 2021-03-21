@@ -40,7 +40,7 @@ function getPath(path) {
   return path.substring(0, path.lastIndexOf('/')).
     replace(process.env.COMPONENTS_PATH, '').
     replace('components/', '').
-    replace('globals/', '')
+    replace('general/', '')
 }
 
 function isAsset(path) {
@@ -52,7 +52,7 @@ function isComponent(path) {
 }
 
 function isGlobal(path) {
-  return path.indexOf('globals') >= 0
+  return path.indexOf('general') >= 0
 }
 
 function isGettingStarted(path) {
@@ -76,7 +76,7 @@ function isDataFile(path) {
 }
 
 function isRoot(path) {
-  return path === process.env.COMPONENTS_PATH + 'components' || path === process.env.COMPONENTS_PATH + 'globals'
+  return path === process.env.COMPONENTS_PATH + 'components' || path === process.env.COMPONENTS_PATH + 'general'
 }
 
 function getContents(path) {

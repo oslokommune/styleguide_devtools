@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h5 class="osg-u-heading-4">HTML</h5>
+    <h5 class="osg-heading-4">HTML</h5>
     <pre v-highlightjs="template"><code class="language-html"></code></pre>
-    <button class="osg-button osg-button--yellow osg-u-margin-top-3" @click="copy(template)">
+    <button class="osg-button osg-button--yellow osg-margin-top-3" @click="copy(template)">
       <span class="icon">
         <i class="fas fa-copy"></i>
       </span>
-      <span class="osg-u-text-4">Copy</span>
+      <span class="osg-text-4">Copy</span>
     </button>
   </div>
 </template>

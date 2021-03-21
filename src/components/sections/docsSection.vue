@@ -15,7 +15,7 @@
       There is no documentation available.
     </div>
     <aside v-if="$store.state.pattern.sections.docs.sections.assets.visible">
-      <p class="osg-u-heading-6 osg-u-padding-bottom-1">Assets</p>
+      <p class="osg-heading-6 osg-padding-bottom-1">Assets</p>
       <div
         v-for="file in pattern.cssFiles"
         v-bind:key="file.name"
@@ -45,7 +45,7 @@
 
       <div
         v-if="pattern.jsFiles.length <= 0 && pattern.cssFiles.length <= 0"
-        class="notification osg-u-color-bg-yellow"
+        class="notification osg-color-bg-yellow"
       >
         There are no CSS or JS assets for this pattern.
       </div>

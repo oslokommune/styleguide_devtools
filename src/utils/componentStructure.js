@@ -9,7 +9,7 @@ const nestedStructureList = {
     children: [],
     unprocessedHits: []
   },
-  globals: {
+  general: {
     children: [],
     unprocessedHits: []
   },
@@ -24,7 +24,7 @@ const nestedStructureList = {
 /**
  * Populate the atomic object
  * @param fileList
- * @returns {{components: {children: Array, unprocessedHits: Array}, globals: {children: Array, unprocessedHits: Array}, assets: Array, templates: Array}}
+ * @returns {{components: {children: Array, unprocessedHits: Array}, general: {children: Array, unprocessedHits: Array}, assets: Array, templates: Array}}
  */
 export function componentStructure(fileList) {
   fileList.forEach(function (item, index) {
@@ -41,11 +41,11 @@ export function componentStructure(fileList) {
   nestFiles()
 
   findAssetsAndTemplates(nestedStructureList.components.children)
-  findAssetsAndTemplates(nestedStructureList.globals.children)
+  findAssetsAndTemplates(nestedStructureList.general.children)
   findAssetsAndTemplates(nestedStructureList.gettingStarted.children)
 
   nestedStructureList.components.unprocessedHits = []
-  nestedStructureList.globals.unprocessedHits = []
+  nestedStructureList.general.unprocessedHits = []
   nestedStructureList.gettingStarted.unprocessedHits = []
 
   return nestedStructureList
@@ -91,7 +91,7 @@ function organizeFiles(fileList) {
     if (file.isComponent) {
       nestedStructureList.components.unprocessedHits.push(file)
     } else if (file.isGlobal) {
-      nestedStructureList.globals.unprocessedHits.push(file)
+      nestedStructureList.general.unprocessedHits.push(file)
     } else if (file.isGettingStarted) {
       nestedStructureList.gettingStarted.unprocessedHits.push(file)
     }
@@ -103,7 +103,7 @@ function organizeFiles(fileList) {
  */
 function nestFiles() {
   nest(nestedStructureList.components.unprocessedHits, nestedStructureList.components.children, 'components-', 1)
-  nest(nestedStructureList.globals.unprocessedHits, nestedStructureList.globals.children, 'globals-', 1)
+  nest(nestedStructureList.general.unprocessedHits, nestedStructureList.general.children, 'general-', 1)
   nest(nestedStructureList.gettingStarted.unprocessedHits, nestedStructureList.gettingStarted.children, 'getting_started-', 1)
 }
 
