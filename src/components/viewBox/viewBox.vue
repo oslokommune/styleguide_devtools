@@ -6,33 +6,14 @@
     <div
       v-if="$store.state.pattern.sections.frame.visible"
       class="frame"
-      :class="{ 'solid': $store.state.pattern.settings.backgroundSolid, 'no-ruler': !$store.state.pattern.settings.ruler }"
-      :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 60px);`">
+      :class="{ 'solid': $store.state.pattern.settings.backgroundSolid }"
+      :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 20px);`">
       <div :style="iframeSizeStyle">
         <iframe
           @load="frameContentHeight = getFrameContentHeight()"
           id="patternBox"
           :srcdoc="frameContents"
           title="Pattern" />
-        <div
-          v-if="$store.state.pattern.settings.ruler"
-          class="view-width-indicator"
-          :style="`width: ${frameWidth}`">
-          <div class="arrow-head-left" />
-          <div class="width-indicator">
-            {{ frameWidth }}
-          </div>
-          <div class="arrow-head-right" />
-        </div>
-        <div v-if="$store.state.pattern.settings.ruler"
-          class="view-height-indicator"
-          :style="viewHeightIndicatorStyle">
-          <div class="arrow-head-left" />
-          <div class="height-indicator">
-            {{ frameHeight }}
-          </div>
-          <div class="arrow-head-right" />
-        </div>
       </div>
     </div>
   </div>
@@ -127,13 +108,6 @@
         }
 
         return this.frameContentHeight
-      },
-
-      viewHeightIndicatorStyle() {
-        return `
-          left: calc(${this.frameWidth} ${(this.$store.state.pattern.settings.viewSize.full ? '- 1%' : '+ 40px')});
-          width: ${this.frameHeight};
-        `
       }
     },
 

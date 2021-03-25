@@ -1,127 +1,28 @@
-/* Vendor */
+/* Bulma grid */
 $gap: 10px
-$primary: rgb(39, 42, 86)
-$osg-font-path: "~styleguide/src/assets/fonts"
-@import '~bulma'
+@import '~bulma/sass/grid/all'
+
+// Font Awesome
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts'
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss'
+@import '~@fortawesome/fontawesome-free/scss/solid.scss'
+
+// OSG Main
+$osg-font-path: '~styleguide/src/assets/fonts'
 @import '~styleguide/src/assets/sass/complete.scss'
+
+// OSG Components
 @import "~styleguide/src/components/search/search_bar/search_bar.sass"
 @import "~styleguide/src/components/forms/input/text_field.sass"
 @import "~styleguide/src/components/button/button.scss"
 @import "~styleguide/src/components/decorators/icon/icon.sass"
+@import "~styleguide/src/components/list/list.scss"
+@import "~styleguide/src/components/link/link.scss"
 
 /* Components */
-@import 'fonts'
 @import 'highlight'
 @import 'markdown'
 @import 'viewBox/viewBox'
 
-/* General */
-html, body
-  font-family: 'OsloSans', sans-serif
-
-.has-background-grey-custom
-  background-color: rgb(240, 241, 242)
-
-  &:after
-    content: "beta"
-    position: fixed
-    width: 80px
-    height: 25px
-    background-color: #EE8E4A
-    top: 7px
-    left: -20px
-    text-align: center
-    font-size: 13px
-    font-family: sans-serif
-    text-transform: uppercase
-    font-weight: bold
-    color: #fff
-    line-height: 27px
-    -ms-transform: rotate(-45deg)
-    -webkit-transform: rotate(-45deg)
-    transform: rotate(-45deg)
-
-.start
-  padding: 40px
-  +tablet
-    width: 80%
-  +fullhd
-    width: 60%
-
-.view
-  margin: 60px
-
-.brand
-  margin: 30px 40px 30px 40px
-
-  img
-    margin-right: 20px
-
-  .title
-    font-size: 24px
-    padding-top: 35px
-
-  .logo
-    align-items: center
-    display: flex
-    flex-wrap: wrap
-    justify-content: space-between
-    .subtitle
-      color: rgb(39, 42, 86)
-      margin-top: 20px
-
-    &:hover
-      background-color: inherit !important
-
-.tab-content
-  margin-top: 20px
-
-  a:hover
-    @extend %osg-state-hover
-
-  li.is-active
-    @extend %osg-state-active
-
-    a
-      color: inherit
-      border-bottom-color: $osg-color-blue-contrast
-
-aside.nav
-  margin: 30px 20px
-
-.margin-top
-  margin-top: 30px
-
-.button.is-tag
-  min-width: 70px
-  margin-bottom: 5px
-
-pre
-  @extend .osg-text-4
-
-.level-left
-  flex-shrink: 1
-
-.level
-  align-items: flex-start
-  line-height: 54px
-
-  .level-item
-    line-height: normal
-
-.osg-text-field__input
-  height: 60px
-
-.menu-list a
-  border-radius: 0
-
-.nav, .dropdown-content
-  a:hover
-    text-decoration: none
-    @extend %osg-state-hover
-  a.is-active
-    @extend %osg-state-active
-
-.checkbox, .radio
-  &:hover
-    color: inherit
+body
+  background-color: $osg-color-gray

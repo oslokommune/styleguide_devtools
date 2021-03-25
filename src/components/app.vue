@@ -1,17 +1,17 @@
 <template>
-  <div class="columns is-gapless main-grid">
-    <div class="column is-one-quarter has-background-grey-custom">
-      <div class="brand">
-        <a class="logo" href="/#/">
-          <img :src="logo" alt="Oslo logo" class="is-pulled-left" />
+  <div class="columns is-gapless">
+    <div class="column is-one-quarter">
+      <div class="osg-margin-horizontal-5 osg-margin-top-5 osg-margin-bottom-4">
+        <a href="/#/getting_started-introduction">
+          <img :src="logo" alt="Oslo logo" />
         </a>
       </div>
       <Navigation></Navigation>
     </div>
     <div class="column is-three-quarters">
       <router-view></router-view>
-      <div class="footer has-text-centered">
-        Made with &hearts; by<br><strong>Utviklings- og kompetanseetaten</strong><br>Oslo kommune<br><a href="mailto:devnull@uke.oslo.kommune.no">Contact us</a>
+      <div class="osg-text-center osg-margin-vertical-4">
+        Made with &hearts; by<br><strong>Utviklings- og kompetanseetaten</strong><br>Oslo kommune<br><a class="osg-link" href="mailto:devnull@uke.oslo.kommune.no">Contact us</a>
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
   import Navigation from './Navigation.vue'
 
   export default {
-    name: 'app',
+    name: 'App',
 
     components: {
       Navigation

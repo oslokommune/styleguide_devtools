@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <section class="hero osg-color-bg-blue-dark osg-color-text-white">
-      <div class="hero-body">
-        <h6  class="osg-heading-5">Oslo style guide</h6>
-        <h1 class="osg-heading-2">Grid, styles & component library</h1>
-      </div>
+  <div class="component osg-color-bg-white">
+    <section class="osg-color-bg-blue-dark osg-color-text-white osg-padding-4">
+      <h6 class="osg-heading-6 osg-margin-top-3 osg-margin-bottom-none">Oslo style guide</h6>
+      <h1 class="osg-heading-2 osg-margin-bottom-none">Styles &amp; Component library</h1>
     </section>
-    <div class="view">
+    <div class="view osg-padding-4">
       <view-box
         :pattern="pattern"
         v-bind:active-variant.sync="activeVariant"

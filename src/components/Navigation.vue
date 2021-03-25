@@ -1,6 +1,6 @@
 <template>
-  <aside class="menu nav">
-    <div class="osg-searchbar osg-u-padding-bottom-3">
+  <aside class="menu osg-padding-horizontal-4">
+    <div class="osg-searchbar osg-margin-bottom-4">
       <div class="osg-text-field osg-text-field--outline">
         <input
           class="osg-text-field__input osg-text-7"
@@ -28,50 +28,54 @@
         </div>
       </div>
     </div>
-    <p class="menu-label" v-if="!tags.length">
-      Getting started
-    </p>
-    <ul class="menu-list" v-if="!tags.length">
-      <nav-item
-        :item="child"
-        parentName="getting_started"
-        v-for="(child, index) in componentStructure.gettingStarted.children"
-        v-bind:key="index">
-      </nav-item>
-    </ul>
-    <p class="menu-label" v-if="!tags.length">
-      General
-    </p>
-    <ul class="menu-list" v-if="!tags.length">
-      <nav-item
-        :item="child"
-        parentName="general"
-        v-for="(child, index) in componentStructure.general.children"
-        v-bind:key="index">
-      </nav-item>
-    </ul>
-    <p class="menu-label" v-if="!tags.length">
-      Components
-    </p>
-    <ul class="menu-list" v-if="!tags.length">
-      <nav-item
-        :item="child"
-        parentName="components"
-        v-for="(child, index) in componentStructure.components.children"
-        v-bind:key="index">
-      </nav-item>
-    </ul>
-    <p class="menu-label" v-if="tags.length">
-      Tags
-    </p>
-    <ul class="menu-list" v-if="tags.length">
-      <tag-item
-        :item="item"
-        :tags="tags"
-        v-for="(item, index) in components"
-        v-bind:key="index">
-      </tag-item>
-    </ul>
+    <div v-if="!tags.length">
+      <h6 class="osg-heading-6">
+        Getting started
+      </h6>
+      <ul class="osg-list osg-margin-bottom-3">
+        <nav-item
+          :item="child"
+          parentName="getting_started"
+          v-for="(child, index) in componentStructure.gettingStarted.children"
+          v-bind:key="index">
+        </nav-item>
+      </ul>
+      <h6 class="osg-heading-6">
+        General
+      </h6>
+      <ul class="osg-list osg-margin-bottom-3">
+        <nav-item
+          :item="child"
+          parentName="general"
+          v-for="(child, index) in componentStructure.general.children"
+          v-bind:key="index">
+        </nav-item>
+      </ul>
+      <h6 class="osg-heading-6">
+        Components
+      </h6>
+      <ul class="osg-list">
+        <nav-item
+          :item="child"
+          parentName="components"
+          v-for="(child, index) in componentStructure.components.children"
+          v-bind:key="index">
+        </nav-item>
+      </ul>
+    </div>
+    <div v-else>
+      <p class="menu-label">
+        Tags
+      </p>
+      <ul class="menu-list">
+        <tag-item
+          :item="item"
+          :tags="tags"
+          v-for="(item, index) in components"
+          v-bind:key="index">
+        </tag-item>
+      </ul>
+    </div>
   </aside>
 </template>
 

@@ -1,94 +1,35 @@
 <template>
   <nav v-if="$store.state.pattern.settings.visible" class="level viewBoxSettings">
-    <div v-if="$store.state.pattern.settings.sections.title.visible" class="level-left">
-      <h1 class="osg-heading-1">{{ title|capitalize }}</h1>
-    </div>
-    <div v-if="$store.state.pattern.settings.sections.configuration.visible"  class="level-right">
-      <div class="level-item chrome">
+    <div class="columns">
+      <div class="column">
+        <h1 class="osg-heading-1" v-if="$store.state.pattern.settings.sections.title.visible">{{ title|capitalize }}</h1>
+      </div>
+      <div class="column is-two-thirds osg-text-right chrome" v-if="$store.state.pattern.settings.sections.configuration.visible">
         <chrome v-model="color" />
-        <div class="buttons has-addons">
-          <button class="button">
-              <span class="icon">
-                <i class="fas fa-palette" title="Background color"></i>
-              </span>
-              <span class="icon is-small">
-                <i class="fas fa-angle-down"><span class="is-sr-only">Background color</span></i>
-              </span>
-          </button>
-        </div>
-      </div>
-      <div class="level-item">
-        <div class="buttons has-addons">
-          <button :class="'button' + (fullscreen ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="toggleFullscreen">
-              <span class="icon">
-                <i class="fas fa-expand" title="Fullscreen mode"><span class="is-sr-only">Fullscreen mode</span></i>
-              </span>
-          </button>
-        </div>
-      </div>
-      <div class="level-item">
-        <div class="buttons has-addons">
-          <button :class="'button' + ($store.state.pattern.settings.viewSize.mobile ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('mobile')">
-              <span class="icon">
-                <i class="fas fa-mobile-alt" title="Mobile width"><span class="is-sr-only">Mobile width</span></i>
-              </span>
-          </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewSize.tablet ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('tablet')">
-              <span class="icon">
-                <i class="fas fa-tablet-alt" title="Tablet width"><span class="is-sr-only">Tablet width</span></i>
-              </span>
-          </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewSize.desktop ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('desktop')">
-              <span class="icon">
-                <i class="fas fa-desktop" title="Desktop width"><span class="is-sr-only">Desktop width</span></i>
-              </span>
-          </button>
-          <button :class="'button' + ($store.state.pattern.settings.viewSize.full ? ' osg-u-color-bg-blue-dark osg-u-color-text-white' : '')" @click="setViewSize('full')">
-              <span class="icon">
-                <i class="fas fa-percentage" title="Full width"><span class="is-sr-only">Full width</span></i>
-              </span>
-          </button>
-        </div>
-      </div>
-
-      <div class="level-item">
-        <div class="buttons has-addons">
-          <div class="dropdown is-right is-hoverable">
-            <div class="dropdown-trigger">
-              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu6">
-                <span class="is-sr-only">Settings</span>
-                <span class="icon is-small">
-                  <i class="fas fa-cog" title="Settings"></i>
-                </span>
-                <span class="icon is-small">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
-            </div>
-            <div class="dropdown-menu" id="dropdown-menu6" role="menu">
-              <div class="dropdown-content">
-                <a class="dropdown-item" @click="toggleSolidState">
-                  <div class="checkbox">
-                    <label for="solidBackground">
-                      <input type="checkbox" name="solidBackground" v-model="backgroundSolid" /> Solid background
-                    </label>
-                  </div>
-                </a>
-                <a class="dropdown-item" @click="toggleRuler">
-                  <div class="checkbox">
-                    <label for="showRuler">
-                      <input type="checkbox" name="showRuler" v-model="ruler" /> Show ruler
-                    </label>
-                  </div>
-                </a>
-                <hr class="dropdown-divider">
-                <a class="dropdown-item" @click="resetToFactoryDefaults">
-                  Reset to factory defaults
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <button class="osg-button osg-button--blue-light">
+          <i class="fas fa-palette"></i>
+        </button>
+        <button class="osg-button" :class="{'osg-button--active': backgroundSolid}" @click="toggleSolidState">
+          <i class="fas fa-fill"></i>
+        </button>
+        <button :class="'osg-margin-left-3 osg-button' + (fullscreen ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="toggleFullscreen">
+          <i class="fas fa-expand" title="Fullscreen mode"></i>
+        </button>
+        <button :class="'osg-margin-left-3 osg-button' + ($store.state.pattern.settings.viewSize.mobile ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('mobile')">
+          <i class="fas fa-mobile-alt" title="Mobile width"></i>
+        </button>
+        <button :class="'osg-button' + ($store.state.pattern.settings.viewSize.tablet ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('tablet')">
+          <i class="fas fa-tablet-alt" title="Tablet width"></i>
+        </button>
+        <button :class="'osg-button' + ($store.state.pattern.settings.viewSize.desktop ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('desktop')">
+          <i class="fas fa-desktop" title="Desktop width"></i>
+        </button>
+        <button :class="'osg-button' + ($store.state.pattern.settings.viewSize.full ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('full')">
+          <i class="fas fa-percentage" title="Full width"></i>
+        </button>
+        <button class="osg-margin-left-3 osg-button" @click="resetToFactoryDefaults">
+          <i class="fas fa-industry"></i>
+        </button>
       </div>
     </div>
   </nav>
@@ -130,15 +71,6 @@
         }
       },
 
-      ruler: {
-        get: function() {
-          return this.$store.state.pattern.settings.ruler
-        },
-        set: function(value) {
-          this.$store.dispatch('pattern/setRulerMode', value)
-        }
-      },
-
       fullscreen: {
         get: function() {
           return this.$store.state.pattern.settings.fullscreen
@@ -156,10 +88,6 @@
 
       toggleSolidState() {
         this.backgroundSolid = !this.backgroundSolid
-      },
-
-      toggleRuler() {
-        this.ruler = !this.ruler
       },
 
       setViewMode(mode) {

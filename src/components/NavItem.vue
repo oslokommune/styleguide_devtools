@@ -1,10 +1,10 @@
 <template>
   <li v-if="item.isFolder">
-    <a @click="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}<span v-html="folderStatus"></span></a>
+    <a href="#" class="osg-link" @click.prevent="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}<span v-html="folderStatus"></span></a>
     <router-link :class="active" v-if="!hasChildFolder()" :to="'/' + parentName + '-' + item.name">
       {{ item.name|snakeToRegular|capitalize }}
     </router-link>
-    <ul v-show="open" v-if="item.children">
+    <ul class="osg-list" v-show="open" v-if="item.children">
       <nav-item
         :item="child"
         :parentName="parentName + '-' + item.name"
@@ -26,10 +26,10 @@
 
     computed: {
       folderStatus() {
-        return this.open ? ' <i class="fa fa-angle-down"></i>' : ' <i class="fa fa-angle-right"></i>'
+        return this.open ? ' <i class="fas fa-angle-down"></i>' : ' <i class="fas fa-angle-right"></i>'
       },
       active() {
-        return this.item.urlPath === this.$route.params.id ? 'is-active' : ''
+        return this.item.urlPath === this.$route.params.id ? 'osg-link osg-link--active' : 'osg-link'
       }
     },
 

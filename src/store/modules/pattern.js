@@ -51,32 +51,12 @@ const actions = {
     eventBus.$emit('viewBox.setFullscreen', mode)
   },
 
-  setRulerMode({ commit }, mode) {
-    commit('setRuler', mode)
-  },
-
   setBackgroundSolid({ commit }, mode) {
     commit('setSolid', mode)
   },
 
   setBackgroundColor({ commit }, color) {
     commit('setColor', color)
-  },
-
-  setViewMode({ commit }, mode) {
-    commit('clearMode')
-
-    switch (mode) {
-      case 'single':
-      case 'grid':
-      case 'random':
-        commit('setMode', mode)
-        break
-      default:
-        return Promise.reject(new Error('Unknown mode'))
-    }
-
-    return Promise.resolve(mode)
   },
 
   setViewSize({ commit }, size) {
@@ -114,20 +94,12 @@ const mutations = {
     state.settings.fullscreen = mode
   },
 
-  setRuler(state, mode) {
-    state.settings.ruler = mode
-  },
-
   setSolid(state, mode) {
     state.settings.backgroundSolid = !!mode
   },
 
   setColor(state, color) {
     state.settings.backgroundColor = color
-  },
-
-  setMode(state, mode) {
-    state.settings.viewMode[mode] = true
   },
 
   setSize(state, size) {
@@ -139,12 +111,6 @@ const mutations = {
     state.settings.viewSize.tablet = false
     state.settings.viewSize.desktop = false
     state.settings.viewSize.full = false
-  },
-
-  clearMode(state) {
-    state.settings.viewMode.single = false
-    state.settings.viewMode.grid = false
-    state.settings.viewMode.random = false
   }
 }
 

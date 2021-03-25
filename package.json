@@ -34,7 +34,7 @@
     "dotenv-webpack": "7.0.2",
     "js-beautify": "^1.13.5",
     "marked": "2.0.1",
-    "minireset.css": "0.0.3",
+    "minireset.css": "0.0.6",
     "stream-browserify": "^3.0.0",
     "vue": "2.6.12",
     "vue-color": "2.8.1",

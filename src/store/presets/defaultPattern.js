@@ -9,11 +9,6 @@ export const defaultState = {
         visible: true
       }
     },
-    viewMode: {
-      single: true,
-      grid: false,
-      random: false
-    },
     viewSize: {
       mobile: false,
       tablet: false,
@@ -21,7 +16,6 @@ export const defaultState = {
       full: true
     },
     fullscreen: false,
-    ruler: true,
     backgroundColor: '',
     backgroundSolid: false
   },
@@ -54,14 +48,6 @@ export const defaultState = {
       active: false
     },
     html: {
-      visible: true,
-      active: false
-    },
-    twig: {
-      visible: true,
-      active: false
-    },
-    json: {
       visible: true,
       active: false
     }

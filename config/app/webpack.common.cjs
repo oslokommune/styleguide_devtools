@@ -44,10 +44,10 @@ module.exports = {
         }
       },
       {
-        test: /\.(woff)/,
+        test: /\.(eot|woff|woff2|ttf)/,
         loader: 'file-loader',
         options: {
-          name: '[name].[contentHash].[ext]',
+          name: '[name].[ext]',
           outputPath: 'assets/fonts/',
           publicPath: '/assets/fonts/'
         }
