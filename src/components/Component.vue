@@ -3,7 +3,7 @@
     <section class="hero osg-color-bg-blue-dark osg-color-text-white">
       <div class="hero-body">
         <h6  class="osg-heading-5">Oslo style guide</h6>
-        <h1 class="osg-heading-2">Component library</h1>
+        <h1 class="osg-heading-2">Grid, styles & component library</h1>
       </div>
     </section>
     <div class="view">

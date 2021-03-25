@@ -12,8 +12,8 @@
 </template>
 
 <script>
-  import copyToClipboardMixin from '../../mixins/copyToClipboard'
-  import shared from './shared'
+  import copyToClipboardMixin from '../../mixins/copyToClipboard.js'
+  import shared from './shared.js'
   import * as beautify from 'js-beautify'
 
   export default {

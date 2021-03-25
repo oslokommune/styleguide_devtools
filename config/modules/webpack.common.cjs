@@ -10,11 +10,11 @@ module.exports = {
   },
   plugins: [
     new CaseSensitivePathsPlugin(),
-    new CopyWebpackPlugin([
-      {
-        from: 'src/assets/css/grid.css', to: 'assets/css/grid.css'
-      }
-    ])
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/assets/css/grid.css', to: 'assets/css/grid.css' }
+      ]
+    })
   ],
   resolve: {
     symlinks: false,

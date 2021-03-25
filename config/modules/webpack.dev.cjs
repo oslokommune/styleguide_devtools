@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const common = require('./webpack.common.cjs')
 
 module.exports = merge(common, {
@@ -14,15 +14,28 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.(sass|scss|css)$/,
-        use: ['style-loader', 'css-loader', {
-          loader: 'postcss-loader',
-          options: {
-            ident: 'postcss',
-            plugins: [
-              require('autoprefixer')()
-            ]
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                ident: 'postcss',
+                plugins: [
+                  require('autoprefixer')()
+                ]
+              }
+            }
+          },
+          'resolve-url-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
           }
-        }, 'resolve-url-loader', 'sass-loader?sourceMap']
+        ]
       },
     ]
   }

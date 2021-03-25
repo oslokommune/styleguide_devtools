@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { variantSeparator } from '../../utils/config'
+import { variantSeparator } from '../../utils/config.js'
 
 export default {
   props: {

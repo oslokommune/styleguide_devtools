@@ -1,4 +1,4 @@
-import {defaultState} from './defaultPattern'
+import { defaultState } from './defaultPattern.js'
 
 let mdState = JSON.parse(JSON.stringify(defaultState))
 mdState.settings.backgroundColor = '#ffffff'

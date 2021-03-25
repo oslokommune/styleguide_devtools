@@ -1,6 +1,7 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const DotEnv = require('dotenv-webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -15,20 +16,15 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.vue', '.json'],
-    symlinks: false
+    symlinks: false,
+    fallback: {
+      "buffer": require.resolve("buffer/"),
+      "crypto": require.resolve("crypto-browserify"),
+      "stream": require.resolve("stream-browserify")
+    }
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          failOnWarning: true,
-          failOnError: true
-        }
-      },
       {
         test: /\.vue$/,
         loader: 'vue-loader'
@@ -51,7 +47,7 @@ module.exports = {
         test: /\.(woff)/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]',
+          name: '[name].[contentHash].[ext]',
           outputPath: 'assets/fonts/',
           publicPath: '/assets/fonts/'
         }
@@ -63,6 +59,10 @@ module.exports = {
     new DotEnv(),
     new HtmlWebpackPlugin({
       template: 'src/app.html'
-    })
+    }),
+    new ESLintPlugin({
+      failOnWarning: true,
+      failOnError: true
+    }),
   ]
 }

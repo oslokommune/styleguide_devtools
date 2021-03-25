@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import { defaultState } from '../presets/defaultPattern'
-import { cleanState } from '../presets/cleanPattern'
-import { mdState } from '../presets/mdPattern'
-import eventBus from '../../bus/bus'
+import { defaultState } from '../presets/defaultPattern.js'
+import { cleanState } from '../presets/cleanPattern.js'
+import { mdState } from '../presets/mdPattern.js'
+import eventBus from '../../bus/bus.js'
 
 
 /* Pattern Store */

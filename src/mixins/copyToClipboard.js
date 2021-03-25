@@ -1,4 +1,4 @@
-import copyToClipboard from '../lib/copyToClipboard'
+import copyToClipboard from '../lib/copyToClipboard.js'
 
 export default {
   methods: {

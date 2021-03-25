@@ -1,6 +1,6 @@
-import app from '../components/app'
-import Component from '../components/Component'
-import Start from '../components/Start'
+import app from '../components/app.vue'
+import Component from '../components/Component.vue'
+import Start from '../components/Start.vue'
 
 export const routes = [
   {

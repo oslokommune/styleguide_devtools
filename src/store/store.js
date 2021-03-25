@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 
-import pattern from './modules/pattern'
+import pattern from './modules/pattern.js'
 
 Vue.use(Vuex)
 

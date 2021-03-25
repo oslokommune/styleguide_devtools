@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import shared from './shared'
+  import shared from './shared.js'
 
   export default {
     name: 'a11y-section',
