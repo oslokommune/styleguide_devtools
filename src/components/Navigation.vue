@@ -133,3 +133,17 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+.menu {
+  ul.osg-list {
+    list-style: none;
+    li {
+      a.osg-link {
+        background: none;
+        text-decoration: none;
+      }
+    }
+  }
+}
+</style>
