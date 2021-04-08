@@ -19,8 +19,8 @@
             <li v-if="renderTab('accessibility')" :class="isTabActive('accessibility') ? 'is-active' : null">
               <a @click="setActiveTab('accessibility')">
                 <span class="icon">
-                  <i class="fas fa-check has-text-success" v-if="! a11yInvalid"></i>
-                  <i class="fas fa-exclamation-triangle has-text-warning" v-if="a11yInvalid"></i>
+                  <i class="fas fa-check osg-state-text-success" v-if="! a11yInvalid"></i>
+                  <i class="fas fa-exclamation-triangle osg-state-text-warning" v-if="a11yInvalid"></i>
                 </span>
                 <span>A11Y</span>
               </a>
