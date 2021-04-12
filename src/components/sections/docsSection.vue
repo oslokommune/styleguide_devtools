@@ -11,10 +11,10 @@
       v-html="marked(pattern.mdFile.contents)"
     >
     </article>
-    <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible && !pattern.mdFile" class="notification osg-u-color-bg-yellow">
+    <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible && !pattern.mdFile" class="notification osg-u-color-bg-yellow osg-margin-top-3">
       There is no documentation available.
     </div>
-    <aside v-if="$store.state.pattern.sections.docs.sections.assets.visible">
+    <aside class="osg-margin-top-3" v-if="$store.state.pattern.sections.docs.sections.assets.visible">
       <p class="osg-heading-6 osg-padding-bottom-1">Assets</p>
       <div
         v-for="file in pattern.cssFiles"

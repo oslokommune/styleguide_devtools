@@ -102,34 +102,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-@import '~styleguide/src/assets/sass/complete.scss';
-
-.tab-content {
-  @extend %osg-text-5;
-  .tabs {
-    border-bottom: 1px solid black;
-    color: $osg-color-gray-dark;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-
-    ul {
-      display: flex;
-      margin-top: 20px;
-    }
-
-    li {
-      padding-right: 20px;
-
-      &.is-active {
-        color: $osg-color-blue-contrast;
-      }
-
-      a {
-        cursor: pointer;
-      }
-    }
-  }
-}
-</style>
