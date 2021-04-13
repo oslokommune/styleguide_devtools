@@ -9,6 +9,7 @@ export const frameStart = `
     ` + (process.env.NODE_ENV === 'production'
     ? '<link rel="stylesheet" href="/styleguide.css" type="text/css" />'
     : '') + `
+      <link href="/assets/css/grid.css" type="text/css" rel="stylesheet">
       <script src="/modules.js"></script>
     </head>
     <body>
@@ -21,12 +22,6 @@ export const frameStart = `
           html {
             overflow-y: auto;
           }
-        }
-        .osg-container {
-          display: flex;
-        }
-        .osg-container > * {
-          margin-right: 5px;
         }
       </style>
 `
