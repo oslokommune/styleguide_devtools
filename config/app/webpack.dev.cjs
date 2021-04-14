@@ -33,8 +33,11 @@ module.exports = merge(common, {
           {
             loader: 'sass-loader',
             options: {
+              sassOptions: {
+                includePaths: ['node_modules', 'node_modules/styleguide/src']
+              },
               sourceMap: true
-            }
+            },
           }
         ]
       },

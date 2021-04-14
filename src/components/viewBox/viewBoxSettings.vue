@@ -107,7 +107,7 @@
 <style lang="scss" scoped>
 .button-list {
   > button {    
-    margin-top: 23px
+    margin-top: 19px
   }
 }
 </style>
