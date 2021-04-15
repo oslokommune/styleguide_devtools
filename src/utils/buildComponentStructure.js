@@ -22,17 +22,11 @@ let componentStruc = componentStructure(
 )
 
 let cssFiles = ''
-let jsFiles = "import './modules.scss'\n"
+let jsFiles = "import 'styleguide/src/_devtools.scss'\n"
 for (let file of componentStruc.assets) {
   if (file.substring(file.lastIndexOf('/') + 1).substring(0, 1) !== variantSeparator) {
     file = file.substring(2)
     switch (file.substring(file.lastIndexOf('.') + 1)) {
-      case 'scss':
-      case 'sass':
-        if (file.indexOf('/_') <= 0) {
-          cssFiles += "@use '" + file.replace(/node_modules\//, '~') + "';\n"
-        }
-        break
       case 'js':
         jsFiles += "import '../" + file + "'\n"
         break
