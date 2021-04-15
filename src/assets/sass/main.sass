@@ -1,37 +1,36 @@
 /* Bulma grid */
 $gap: 10px
-@import '~bulma/sass/grid/all'
+@use '~bulma/sass/grid/all'
 
 // Font Awesome
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts'
-@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss'
-@import '~@fortawesome/fontawesome-free/scss/solid.scss'
+@use '~@fortawesome/fontawesome-free/scss/fontawesome.scss'
+@use '~@fortawesome/fontawesome-free/scss/solid.scss'
 
 // OSG Main
 $osg-font-path: '~styleguide/src/assets/fonts'
-@import '~styleguide/src/assets/sass/complete.scss'
+@use "~styleguide/src/core/config/colors" as *
+@use "~styleguide/src/core/core"
 
 // OSG Components
-@import "~styleguide/src/components/search/search_bar/search_bar.sass"
-@import "~styleguide/src/components/forms/input/text_field.sass"
-@import "~styleguide/src/components/button/button.scss"
-@import "~styleguide/src/components/icon/icon.scss"
-@import "~styleguide/src/components/list/list.scss"
-@import "~styleguide/src/components/links/link/link.scss"
+@use "~styleguide/src/components/button/button"
+@use "~styleguide/src/components/icon/icon"
+@use "~styleguide/src/components/list/list"
+@use "~styleguide/src/components/links/link/link"
 
 /* Components */
-@import 'highlight'
-@import 'markdown'
-@import 'viewBox/viewBox'
+@use 'highlight'
+@use 'markdown'
+@use 'viewBox/viewBox'
 
 body
-  background-color: $osg-color-gray
+  background-color: $gray
 
 .tab-content
-  @extend %osg-text-5
+  @extend .osg-text-5
   .tabs
-    border-bottom: 1px solid black
-    color: $osg-color-gray-dark
+    border-bottom: 1px solid $black
+    color: $blue-dark
     margin-bottom: 10px
     padding-bottom: 10px
 
@@ -43,7 +42,7 @@ body
       padding-right: 20px
 
       &.is-active
-        color: $osg-color-blue-contrast
+        color: $blue-contrast
 
       a
         cursor: pointer

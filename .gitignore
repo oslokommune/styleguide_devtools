@@ -4,6 +4,7 @@
 .idea
 node_modules
 vendor
+.vscode
 
 dist/*
 !dist/.gitkeep

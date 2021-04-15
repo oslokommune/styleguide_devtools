@@ -22,7 +22,7 @@ let componentStruc = componentStructure(
 )
 
 let cssFiles = ''
-let jsFiles = "import './modules.sass'\n"
+let jsFiles = "import './modules.scss'\n"
 for (let file of componentStruc.assets) {
   if (file.substring(file.lastIndexOf('/') + 1).substring(0, 1) !== variantSeparator) {
     file = file.substring(2)
@@ -30,7 +30,7 @@ for (let file of componentStruc.assets) {
       case 'scss':
       case 'sass':
         if (file.indexOf('/_') <= 0) {
-          cssFiles += "@import '../" + file + "'\n"
+          cssFiles += "@use '" + file.replace(/node_modules\//, '~') + "';\n"
         }
         break
       case 'js':
@@ -57,7 +57,7 @@ for (let template of componentStruc.templates) {
 }
 
 fs.writeFileSync('./build/twig.json', JSON.stringify(templatesData))
-fs.writeFileSync('./build/modules.sass', cssFiles)
+fs.writeFileSync('./build/modules.scss', cssFiles)
 fs.writeFileSync('./build/modules.js', jsFiles)
 
 if (process.argv[2] === 'true') {

@@ -44,7 +44,7 @@ function getPath(path) {
 }
 
 function isAsset(path) {
-  return path.indexOf('assets') >= 0
+  return path.indexOf('core') >= 0
 }
 
 function isComponent(path) {

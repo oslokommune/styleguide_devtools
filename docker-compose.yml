@@ -9,3 +9,4 @@ services:
     volumes:
       - ../styleguide:/app/node_modules/styleguide
       - ./src:/app/src
+      - ./config:/app/config
