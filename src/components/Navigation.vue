@@ -29,10 +29,10 @@
       </div>
     </div>
     <div v-if="!tags.length">
-      <h6 class="osg-heading-6">
+      <h6 class="osg-heading-6 osg-margin-bottom-1">
         Getting started
       </h6>
-      <ul class="osg-list osg-margin-bottom-3">
+      <ul class="osg-list osg-margin-bottom-4">
         <nav-item
           :item="child"
           parentName="getting_started"
@@ -40,10 +40,10 @@
           v-bind:key="index">
         </nav-item>
       </ul>
-      <h6 class="osg-heading-6">
+      <h6 class="osg-heading-6 osg-margin-bottom-1">
         General
       </h6>
-      <ul class="osg-list osg-margin-bottom-3">
+      <ul class="osg-list osg-margin-bottom-4">
         <nav-item
           :item="child"
           parentName="general"
@@ -51,7 +51,7 @@
           v-bind:key="index">
         </nav-item>
       </ul>
-      <h6 class="osg-heading-6">
+      <h6 class="osg-heading-6 osg-margin-bottom-1">
         Components
       </h6>
       <ul class="osg-list">

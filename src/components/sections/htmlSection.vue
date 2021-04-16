@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h5 class="osg-heading-4">HTML</h5>
     <pre v-highlightjs="template"><code class="language-html"></code></pre>
     <button class="osg-button osg-button--yellow osg-margin-top-3" @click="copy(template)">
       <span class="icon">
