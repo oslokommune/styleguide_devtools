@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-gapless">
-    <div class="column is-one-quarter">
+    <div class="column is-one-fifth">
       <div class="osg-margin-horizontal-5 osg-margin-top-5 osg-margin-bottom-4">
         <a href="/#/getting_started-introduction">
           <img :src="logo" alt="Oslo logo" />
@@ -8,7 +8,7 @@
       </div>
       <Navigation></Navigation>
     </div>
-    <div class="column is-three-quarters">
+    <div class="column">
       <router-view></router-view>
       <div class="osg-text-center osg-margin-vertical-4">
         Made with &hearts; by<br><strong>Utviklings- og kompetanseetaten</strong><br>Oslo kommune<br><a class="osg-link" href="mailto:devnull@uke.oslo.kommune.no">Contact us</a>

@@ -9,22 +9,21 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts'
 
 // OSG Main
 $osg-font-path: '~styleguide/src/assets/fonts'
-@use "~styleguide/src/system/colors" as *
+@use "~styleguide/src/system/colors"
 @use "~styleguide/src/osg"
 
 /* Components */
 @use 'highlight'
-@use 'markdown'
 @use 'viewBox/viewBox'
 
 body
-  background-color: $gray
+  background-color: colors.$gray
 
 .tab-content
   @extend .osg-text-5
   .tabs
-    border-bottom: 1px solid $black
-    color: $blue-dark
+    border-bottom: 1px solid colors.$black
+    color: colors.$blue-dark
     margin-bottom: 10px
     padding-bottom: 10px
 
@@ -36,7 +35,7 @@ body
       padding-right: 20px
 
       &.is-active
-        color: $blue-contrast
+        color: colors.$blue-contrast
 
       a
         cursor: pointer

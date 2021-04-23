@@ -2,7 +2,7 @@
   <div
     class="viewBox"
     :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
-    <view-box-settings :title="pattern.name" v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)" />
+    <view-box-settings :pattern="pattern" v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)" />
     <div
       v-if="$store.state.pattern.sections.frame.visible"
       class="frame"
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-  import axeCore from 'axe-core'
   import ViewBoxSettings from './viewBoxSettings'
   import shared from '../sections/shared'
   import {frameStart, frameEnd} from '../../assets/js/viewBoxFrame'
@@ -31,17 +30,6 @@
     mixins: [ shared ],
 
     components: { ViewBoxSettings },
-
-    props: {
-      a11yInvalid: {
-        type: Boolean,
-        required: true
-      },
-      a11yResults: {
-        type: Object,
-        required: true
-      },
-    },
 
     data: () => ({
       mobileHeight: '667px',
@@ -132,11 +120,7 @@
 
     watch: {
       '$route.params.id'() {
-        this.$emit('update:activeVariant', 'default')
         this.$store.dispatch('pattern/setPatternValues', this.mergedData)
-      },
-      frameContents() {
-        this.a11yValidate()
       },
       mergedData() {
         this.$store.dispatch('pattern/setPatternValues', this.mergedData)
@@ -146,37 +130,7 @@
     methods: {
       getFrameContentHeight() {
           return document.getElementById('patternBox').contentDocument.body.scrollHeight + 'px'
-      },
-
-      a11yValidate() {
-          let domParser = new DOMParser();
-          let patternDocument = domParser.parseFromString(this.frameContents, 'text/html');
-          axeCore.run(
-              patternDocument,
-              {
-                  runOnly: ["wcag2a", "wcag2aa"],
-                  rules: {
-                      "valid-lang": {enabled: false},
-                      "page-has-heading-one": {enabled: false},
-                      "meta-viewport": {enabled: false},
-                      "meta-viewport-large": {enabled: false},
-                      "html-xml-lang-mismatch": {enabled: false},
-                      "html-lang-valid": {enabled: false},
-                      "html-has-lang": {enabled: false},
-                      "document-title": {enabled: false},
-                      "aria-hidden-body": {enabled: false}
-                  }
-              },
-              (error, results) => {
-                  if (results) {
-                      this.$emit('update:a11yResults', results)
-                      this.$emit('update:a11yInvalid', results.violations && results.violations.length > 0)
-                  } else {
-                      this.$emit('update:a11yResults', {})
-                  }
-              }
-          )
-      }
+      },      
     }
   }
 </script>

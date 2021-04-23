@@ -6,10 +6,6 @@ export default {
     pattern: {
       type: Object,
       required: true
-    },
-    activeVariant: {
-      type: String,
-      required: true
     }
   },
 
@@ -28,14 +24,7 @@ export default {
     },
 
     mergedData() {
-      let variantJson = JSON.parse(this.patternVariantData.contents)
-      if (this.activeVariant !== 'default') {
-        let variantData = _.cloneDeep(variantJson)
-        let defaultData = _.cloneDeep(this.defaultData)
-        variantJson = _.merge(defaultData, variantData)
-      }
-
-      return variantJson
+      return JSON.parse(this.patternVariantData.contents)
     },
 
     defaultData() {

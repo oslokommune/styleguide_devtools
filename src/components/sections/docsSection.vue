@@ -2,8 +2,7 @@
   <div>
     <article
       v-if="$store.state.pattern.sections.docs.sections.documentation.visible && pattern.mdFile"
-      id="markdown-body"
-      class="markdown-body"
+      class="osg-content"
       :style="[
         { backgroundColor: $store.state.pattern.sections.docs.backgroundColor },
         { padding: $store.state.pattern.sections.docs.padding ? '2em' : '0' }
@@ -11,10 +10,10 @@
       v-html="marked(pattern.mdFile.contents)"
     >
     </article>
-    <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible && !pattern.mdFile" class="notification osg-u-color-bg-yellow osg-margin-top-3">
-      There is no documentation available.
+    <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible && !pattern.mdFile" class="notification osg-margin-vertical-3">
+      This component is undocumented.
     </div>
-    <aside class="osg-margin-top-3" v-if="$store.state.pattern.sections.docs.sections.assets.visible">
+    <aside class="osg-margin-top-3" v-if="$store.state.pattern.sections.docs.sections.assets.visible && rest()">
       <p class="osg-heading-6 osg-padding-bottom-1">Assets</p>
       <div
         v-for="file in pattern.cssFiles"
@@ -67,6 +66,10 @@
     methods: {
       marked(md) {
         return marked(md, {gfm: true})
+      },
+
+      rest() {
+        return false
       }
     }
   }
