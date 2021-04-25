@@ -29,10 +29,10 @@ const nestedStructureList = {
 export function componentStructure(fileList) {
   fileList.forEach(function (item, index) {
     let itemObj = fileObject(item)
-    if (itemObj.isAsset && (itemObj.extension === 'sass' || itemObj.extension === 'scss')) {
+    if (itemObj.isAsset && itemObj.extension === 'scss') {
       nestedStructureList.assets.push(item)
     }
-    if (itemObj.extension === 'sass' || itemObj.extension === 'scss' || itemObj.extension === 'js' || itemObj.extension === 'md' || itemObj.extension === 'json' || itemObj.extension === 'twig' || itemObj.isFolder) {
+    if (itemObj.extension === 'scss' || itemObj.extension === 'js' || itemObj.extension === 'md' || itemObj.extension === 'json' || itemObj.extension === 'html' || itemObj.isFolder) {
       fileList[index] = itemObj
     }
   })
@@ -71,7 +71,7 @@ function findAssetsAndTemplates(children) {
       case 'js':
         nestedStructureList.assets.push(child.rawPath)
         break
-      case 'twig':
+      case 'html':
         template.src = child.rawPath
         break
       case 'json':

@@ -49,14 +49,9 @@ function build() {
       cmd = 'npm run build-structure true'
       break
     case 'json':
-    case 'twig':
-      console.log(`\n${blueTerminalText}${relativePath} changed - compiling twig and building structure...${resetTerminalColor}\n`)
-      cmd = 'php src/utils/twigCompiler.php && npm run build-structure \"true\"'
-      break
-    case 'sass':
-    case 'scss':
-      console.log(`\n${blueTerminalText}${relativePath} changed - compiling sass and building structure...${resetTerminalColor}\n`)
-      cmd = 'webpack --config config/modules/webpack.dev.cjs --mode development && npm run build-structure \"true\"'
+    case 'html':
+      console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
+      cmd = 'npm run build-structure \"true\"'
       break
     default:
       cmd = 'npm run dev'

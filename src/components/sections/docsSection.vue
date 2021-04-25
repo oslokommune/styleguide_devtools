@@ -53,15 +53,13 @@
 </template>
 
 <script>
-  import copyToClipboardMixin from '../../mixins/copyToClipboard.js'
   import marked from 'marked'
   import shared from './shared.js'
-  import _ from 'lodash'
 
   export default {
     name: 'docs-section',
 
-    mixins: [copyToClipboardMixin, shared],
+    mixins: [shared],
 
     methods: {
       marked(md) {

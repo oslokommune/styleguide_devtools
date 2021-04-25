@@ -44,7 +44,7 @@ function getPath(path) {
 }
 
 function isAsset(path) {
-  return path.indexOf('core') >= 0
+  return path.indexOf('system') >= 0
 }
 
 function isComponent(path) {
@@ -88,7 +88,7 @@ function getContents(path) {
 
 function getTemplate(path) {
   if (getExtension(path) === 'json' && isFile(path)) {
-    let templateCache = path.replace(process.env.COMPONENTS_PATH, './dist/').replace(/json/, 'html')
+    let templateCache = path.replace(/json/, 'html')
     try {
       return fs.readFileSync(templateCache).toString().trim()
     } catch (err) { }

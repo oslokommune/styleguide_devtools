@@ -1,5 +1,5 @@
 <template>
-  <aside class="menu osg-padding-horizontal-4">
+  <aside class="menu osg-padding-horizontal-4 osg-margin-bottom-4">
     <div class="osg-searchbar osg-margin-bottom-4">
       <div class="osg-text-field osg-text-field--outline">
         <input
@@ -134,7 +134,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .menu {
   ul.osg-list {
     list-style: none;

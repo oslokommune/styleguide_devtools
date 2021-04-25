@@ -34,23 +34,6 @@ for (let file of componentStruc.assets) {
   }
 }
 
-let templatesData = []
-for (let template of componentStruc.templates) {
-  for (let variant of template.variants) {
-    let dest = template.src.replace(process.env.COMPONENTS_PATH, '').replace(/twig/, 'html')
-    let variantName = getVariantName(variant)
-    if (variantName !== null) {
-      dest = dest.replace(/.html/, variantSeparator + variantName + '.html')
-    }
-    templatesData.push({
-      src: template.src.replace(process.env.COMPONENTS_PATH, ''),
-      data: variant.replace(process.env.COMPONENTS_PATH, ''),
-      dest: dest
-    })
-  }
-}
-
-fs.writeFileSync('./build/twig.json', JSON.stringify(templatesData))
 fs.writeFileSync('./build/modules.scss', cssFiles)
 fs.writeFileSync('./build/modules.js', jsFiles)
 

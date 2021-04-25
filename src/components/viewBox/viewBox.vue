@@ -7,14 +7,8 @@
       v-if="$store.state.pattern.sections.frame.visible"
       class="frame"
       :class="{ 'solid': $store.state.pattern.settings.backgroundSolid }"
-      :style="`background-color: ${bgColor}; height: calc(${frameHeight} + 20px);`">
-      <div :style="iframeSizeStyle">
-        <iframe
-          @load="frameContentHeight = getFrameContentHeight()"
-          id="patternBox"
-          :srcdoc="frameContents"
-          title="Pattern" />
-      </div>
+      :style="`background-color: ${bgColor};`">
+      <div v-html="frameContents"></div>
     </div>
   </div>
 </template>
@@ -22,7 +16,6 @@
 <script>
   import ViewBoxSettings from './viewBoxSettings'
   import shared from '../sections/shared'
-  import {frameStart, frameEnd} from '../../assets/js/viewBoxFrame'
 
   export default {
     name: 'viewBox',
@@ -37,10 +30,6 @@
     }),
 
     computed: {
-      iframeSizeStyle() {
-        return `width: ${this.frameWidth}; height: calc(${this.frameHeight} + 10px)`
-      },
-
       frameContents() {
         let template
         if (this.patternVariantData.template) {
@@ -48,8 +37,7 @@
         } else {
           template = 'No data - check logs'
         }
-
-        return frameStart + template + frameEnd
+        return template;
       },
 
       bgColor() {
@@ -83,39 +71,6 @@
 
         return '100%'
       },
-
-      frameHeight() {
-        if (
-          this.mergedData.devtools &&
-          this.mergedData.devtools.frame &&
-          this.mergedData.devtools.frame['min-height']
-        ) {
-          return this.mergedData.devtools.frame['min-height']
-        } else if (this.$store.state.pattern.settings.viewSize.mobile) {
-          return this.mobileHeight
-        }
-
-        return this.frameContentHeight
-      }
-    },
-
-    beforeCreate() {
-      this.$eventHub.$on('viewBox.setViewSize', () => {
-        this.$nextTick(() => {
-          this.frameContentHeight = this.getFrameContentHeight()
-        })
-      })
-
-      this.$eventHub.$on('viewBox.setFullscreen', () => {
-        this.$nextTick(() => {
-          this.frameContentHeight = this.getFrameContentHeight()
-        })
-      })
-    },
-
-    beforeDestroy() {
-      this.$eventHub.$off('viewBox.setViewSize')
-      this.$eventHub.$off('viewBox.setFullscreen')
     },
 
     watch: {
@@ -125,12 +80,6 @@
       mergedData() {
         this.$store.dispatch('pattern/setPatternValues', this.mergedData)
       }
-    },
-
-    methods: {
-      getFrameContentHeight() {
-          return document.getElementById('patternBox').contentDocument.body.scrollHeight + 'px'
-      },      
     }
   }
 </script>
