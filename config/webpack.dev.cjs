@@ -2,12 +2,17 @@ const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common.cjs')
 const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = merge(common, {
   mode: 'development',
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     })
   ],
 
@@ -16,7 +21,7 @@ module.exports = merge(common, {
       {
         test: /\.(sass|scss|css)$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -50,5 +55,6 @@ module.exports.devServer = {
   port: 9000,
   overlay: true,
   contentBase: path.resolve(__dirname + '/../../dist'),
-  noInfo: true
+  noInfo: true,
+  writeToDisk: true
 }

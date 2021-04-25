@@ -21,7 +21,6 @@ let componentStruc = componentStructure(
   glob.sync(process.env.COMPONENTS_PATH + '**/*', { follow: true })
 )
 
-let cssFiles = ''
 let jsFiles = "import 'styleguide/src/_devtools.scss'\n"
 for (let file of componentStruc.assets) {
   if (file.substring(file.lastIndexOf('/') + 1).substring(0, 1) !== variantSeparator) {
@@ -34,7 +33,6 @@ for (let file of componentStruc.assets) {
   }
 }
 
-fs.writeFileSync('./build/modules.scss', cssFiles)
 fs.writeFileSync('./build/modules.js', jsFiles)
 
 if (process.argv[2] === 'true') {
