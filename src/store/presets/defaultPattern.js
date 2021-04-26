@@ -23,9 +23,6 @@ export const defaultState = {
     frame: {
       visible: true
     },
-    tabs: {
-      visible: true
-    },
     docs: {
       backgroundColor: '#ffffff',
       padding: false,
@@ -37,19 +34,8 @@ export const defaultState = {
         },
         assets: {
           visible: true
-        },
-        includes: {
-          visible: true
         }
       }
-    },
-    accessibility: {
-      visible: true,
-      active: false
-    },
-    html: {
-      visible: true,
-      active: false
     }
   }
 }

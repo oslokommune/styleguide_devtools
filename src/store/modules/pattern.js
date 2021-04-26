@@ -41,14 +41,10 @@ const actions = {
     commit('setValues', payload)
   },
 
-  setActiveSection({ commit }, section) {
-    commit('setActiveSection', section)
-  },
-
   setFullscreenMode({ commit }, mode) {
     commit('setFullscreen', mode)
 
-    eventBus.$emit('viewBox.setFullscreen', mode)
+    eventBus.$emit('componentFrame.setFullscreen', mode)
   },
 
   setBackgroundSolid({ commit }, mode) {
@@ -73,19 +69,13 @@ const actions = {
         return Promise.reject(new Error('Unknown size'))
     }
 
-    eventBus.$emit('viewBox.setViewSize', size)
+    eventBus.$emit('componentFrame.setViewSize', size)
 
     return Promise.resolve(size)
   }
 }
 
 const mutations = {
-  setActiveSection(state, activeSection) {
-    Object.keys(state.sections).forEach(section => {
-      state.sections[section].active = section === activeSection
-    })
-  },
-
   setValues(state, payload) {
     state = _.merge(state, payload)
   },
