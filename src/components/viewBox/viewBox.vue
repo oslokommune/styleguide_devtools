@@ -11,6 +11,7 @@
       :class="frameClasses"
       :style="`background-color: ${bgColor};`">
       <iframe :srcdoc="frameContents" width="100%" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight + 20 +"px";}(this));' />
+      <span class="osg-devtools-art"></span>
     </div>
   </div>
 </template>
@@ -23,8 +24,6 @@
     name: 'viewBox',
     mixins: [ shared ],
     components: { ViewBoxSettings },
-
-    data: () => ({}),
 
     computed: {
       frameClasses() {
@@ -87,39 +86,44 @@
 
 .viewBox {  
   &.fullscreen {
+    background-color: #ffffff;
+    height: 100vh;
+    left: 0;
+    overflow: scroll;
+    padding: 60px;
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
-    height: 100vh;
-    background-color: #ffffff;
-    padding: 60px;
-    overflow: scroll;
     z-index: 100;
   }
 
   .frame {
     background-image: linear-gradient(45deg, #eaeaea 25%, transparent 25%), linear-gradient(-45deg, #eaeaea 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eaeaea 75%), linear-gradient(-45deg, transparent 75%, #eaeaea 75%);
     background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;    
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    margin: 0 auto;
+
+    .osg-devtools-art {
+      display: none;
+    }
 
     &.mobile {
       border: 20px solid colors.$blue-dark;
       border-bottom: 100px solid colors.$blue-dark;
       border-radius: 20px;
-      width: 400px;
       position: relative;
+      width: 400px;
 
       &::after {
-        content: "";
         background-color: white;
-        display: block;
         border-radius: 50%;
         bottom: -75px;
-        width: 50px;
+        content: "";
+        display: block;
         height: 50px;
         left: calc(50% - 25px);
         position: absolute;
+        width: 50px;
       }
 
       iframe {
@@ -131,19 +135,19 @@
       border: 20px solid colors.$blue-dark;
       border-bottom: 100px solid colors.$blue-dark;
       border-radius: 20px;
-      width: 650px;
       position: relative;
+      width: 650px;
 
       &::after {
-        content: "";
         background-color: white;
-        display: block;
         border-radius: 50%;
         bottom: -75px;
-        width: 50px;
+        content: "";
+        display: block;
         height: 50px;
         left: calc(50% - 25px);
         position: absolute;
+        width: 50px;
       }
 
       iframe {
@@ -154,31 +158,43 @@
     &.desktop {
       border: 20px solid colors.$blue-dark;
       border-radius: 20px;
-      width: 1024px;
+      margin-bottom: 130px;
       position: relative;
-      margin-bottom: 160px;
+      width: 1024px;
 
       &::before {
-        content: "";
         background-color: colors.$blue-dark;
-        display: block;
         bottom: -60px;
-        width: 100px;
+        content: "";
+        display: block;
         height: 50px;
         left: calc(50% - 50px);
         position: absolute;
+        width: 100px;
       }
 
       &::after {
-        content: "";
         background-color: colors.$blue-dark;
-        display: block;
-        bottom: -180px;
-        width: 500px;
-        height: 130px;
         border-radius: 10px;
+        bottom: -150px;
+        content: "";
+        display: block;
+        height: 100px;
         left: calc(50% - 250px);
+        position: absolute;       
+        width: 500px;
+      }
+
+      .osg-devtools-art {
+        background-color: colors.$blue-light;
+        border-radius: 10px;
+        bottom: -100px;
+        display: block;
+        height: 20px;
+        left: calc(50% + 200px);
         position: absolute;
+        width: 20px;    
+        z-index: 10;
       }
 
       iframe {
