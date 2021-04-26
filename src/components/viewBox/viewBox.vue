@@ -2,14 +2,16 @@
   <div
     class="viewBox"
     :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
-    <view-box-settings :pattern="pattern" v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)" />
-    <div class="device-frame">
-      <div
-        v-if="$store.state.pattern.sections.frame.visible"
-        :class="frameClasses"
-        :style="`background-color: ${bgColor};`">
-        <iframe :srcdoc="frameContents" width="100%" />
-      </div>
+    <view-box-settings
+      :pattern="pattern"
+      v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)"
+      v-on:viewSizeFull="syncHeight"
+      />
+    <div
+      v-if="$store.state.pattern.sections.frame.visible"
+      :class="frameClasses"
+      :style="`background-color: ${bgColor};`">
+      <iframe :srcdoc="frameContents" width="100%" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));' />
     </div>
   </div>
 </template>
@@ -23,18 +25,7 @@
     mixins: [ shared ],
     components: { ViewBoxSettings },
 
-    data: () => ({
-      frame: null
-    }),
-
-    mounted() {
-      this.frame = document.querySelector('iframe')
-      this.frame.addEventListener('load', this.syncHeight)
-    },
-
-    beforeDestroy() {
-      this.frame.removeEventListener('load', this.syncHeight)
-    },
+    data: () => ({}),
 
     computed: {
       frameClasses() {
@@ -87,17 +78,6 @@
       },
       mergedData() {
         this.$store.dispatch('pattern/setPatternValues', this.mergedData)
-      },
-      'this.$store.state.pattern.settings.viewSize.full'() {
-        if ($store.state.pattern.settings.viewSize.full) {
-          this.syncHeight()
-        }
-      }
-    },
-
-    methods: {
-      syncHeight() {
-        this.frame.style.height = `${this.frame.contentWindow.document.body.offsetHeight + 30}px`
       }
     }
   }
@@ -106,7 +86,7 @@
 <style lang="scss" scoped>
 @use "system/colors";
 
-.viewBox {
+.viewBox {  
   &.fullscreen {
     position: fixed;
     top: 0;
@@ -122,7 +102,7 @@
   .frame {
     background-image: linear-gradient(45deg, #eaeaea 25%, transparent 25%), linear-gradient(-45deg, #eaeaea 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eaeaea 75%), linear-gradient(-45deg, transparent 75%, #eaeaea 75%);
     background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;    
 
     &.mobile {
       border: 20px solid colors.$blue-dark;
@@ -130,6 +110,18 @@
       border-radius: 20px;
       width: 400px;
       position: relative;
+
+      &::after {
+        content: "";
+        background-color: white;
+        display: block;
+        border-radius: 50%;
+        bottom: -75px;
+        width: 50px;
+        height: 50px;
+        left: calc(50% - 25px);
+        position: absolute;
+      }
 
       iframe {
         height: 600px !important;
@@ -140,10 +132,23 @@
       border: 20px solid colors.$blue-dark;
       border-bottom: 100px solid colors.$blue-dark;
       border-radius: 20px;
-      width: 768px;
+      width: 650px;
+      position: relative;
+
+      &::after {
+        content: "";
+        background-color: white;
+        display: block;
+        border-radius: 50%;
+        bottom: -75px;
+        width: 50px;
+        height: 50px;
+        left: calc(50% - 25px);
+        position: absolute;
+      }
 
       iframe {
-        height: 600px;
+        height: 700px !important;
       }
     }
 
@@ -151,9 +156,34 @@
       border: 20px solid colors.$blue-dark;
       border-radius: 20px;
       width: 1024px;
+      position: relative;
+      margin-bottom: 160px;
+
+      &::before {
+        content: "";
+        background-color: colors.$blue-dark;
+        display: block;
+        bottom: -60px;
+        width: 100px;
+        height: 50px;
+        left: calc(50% - 50px);
+        position: absolute;
+      }
+
+      &::after {
+        content: "";
+        background-color: colors.$blue-dark;
+        display: block;
+        bottom: -180px;
+        width: 500px;
+        height: 130px;
+        border-radius: 10px;
+        left: calc(50% - 250px);
+        position: absolute;
+      }
 
       iframe {
-        height: 768px;
+        height: 768px !important;
       }
     }
 

@@ -119,6 +119,7 @@
 
       setViewSize(size) {
         this.$store.dispatch('pattern/setViewSize', size)
+        this.$emit('viewSizeFull');
       },
 
       resetToFactoryDefaults() {
@@ -155,6 +156,7 @@
     text-align: left;
     flex-wrap: wrap;
     width: 180px;
+    z-index: 9999;
 
     li {
       width: 32px;
