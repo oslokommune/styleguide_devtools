@@ -1,12 +1,8 @@
 <template>
-  <div>
+  <div class="osg-color-bg-yellow osg-padding-4 osg-margin-bottom-4">
     <article
       v-if="$store.state.pattern.sections.docs.sections.documentation.visible && pattern.mdFile"
-      class="osg-content"
-      :style="[
-        { backgroundColor: $store.state.pattern.sections.docs.backgroundColor },
-        { padding: $store.state.pattern.sections.docs.padding ? '2em' : '0' }
-      ]"
+      class="osg-content"      
       v-html="marked(pattern.mdFile.contents)"
     >
     </article>

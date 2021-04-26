@@ -1,11 +1,17 @@
 <template>
   <div class="columns is-gapless">
-    <div class="column is-one-fifth">
-      <div class="osg-margin-horizontal-5 osg-margin-top-5 osg-margin-bottom-4">
-        <a href="/#/getting_started-introduction">
-          <img :src="logo" alt="Oslo logo" />
-        </a>
-      </div>
+    <div class="column is-one-fifth">      
+      <section class="osg-padding-4">
+        <div class="osg-margin-bottom-2">
+          <a href="/#/getting_started-introduction">
+            <img :src="logo" alt="Oslo logo" />
+          </a>
+        </div>
+        <div class="osg-color-bg-blue-light osg-padding-3">
+          <h6 class="osg-heading-6 osg-margin-bottom-2">Oslo style guide</h6>
+          <h1 class="osg-heading-4">Styles &amp;<br>Component library</h1>
+        </div>
+      </section>
       <Navigation></Navigation>
     </div>
     <div class="column">
@@ -47,6 +53,6 @@
   }
 </script>
 
-<style lang="sass">
-  @import '../assets/sass/main'
+<style lang="scss">
+  @use '../assets/sass/main';
 </style>
