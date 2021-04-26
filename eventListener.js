@@ -42,26 +42,23 @@ function build() {
     relativePath = file.substring(file.lastIndexOf('/') + 1)
   }
 
-  let cmd = 'npm run dev'
   switch (extension) {
     case 'md':
     case 'json':
     case 'html':
       console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
-      cmd = 'npm run build-structure true'
+
+      exec('npm run build-structure true', (error, stdout, stderr) => {
+        let redTerminalText = '\x1b[31m'
+        let resetTerminalColor = '\x1b[0m'
+
+        // color sass and twig errors red
+        let formattedOutput = stdout.replace('ERROR', `${redTerminalText}ERROR`) + resetTerminalColor
+
+        console.log(formattedOutput)
+      })
       break
   }
-
-  // formatting and logging command output
-  exec(cmd, (error, stdout, stderr) => {
-    let redTerminalText = '\x1b[31m'
-    let resetTerminalColor = '\x1b[0m'
-
-    // color sass and twig errors red
-    let formattedOutput = stdout.replace('ERROR', `${redTerminalText}ERROR`) + resetTerminalColor
-
-    console.log(formattedOutput)
-  })
 
   fs.access(rebuildFile, fs.constants.F_OK | fs.constants.W_OK, (rerr) => {
     if (!rerr) {
