@@ -23,6 +23,9 @@ module.exports = {
       "stream": require.resolve("stream-browserify")
     }
   },
+  snapshot: {
+    managedPaths: []
+  },
   module: {
     rules: [
       {

@@ -45,16 +45,11 @@ function build() {
   let cmd = 'npm run dev'
   switch (extension) {
     case 'md':
-      console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
-      cmd = 'npm run build-structure true'
-      break
     case 'json':
     case 'html':
       console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
-      cmd = 'npm run build-structure \"true\"'
+      cmd = 'npm run build-structure true'
       break
-    default:
-      cmd = 'npm run dev'
   }
 
   // formatting and logging command output

@@ -10,7 +10,7 @@
       v-if="$store.state.pattern.sections.frame.visible"
       :class="frameClasses"
       :style="`background-color: ${bgColor};`">
-      <iframe :srcdoc="frameContents" width="100%" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px";}(this));' />
+      <iframe :srcdoc="frameContents" width="100%" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight + 20 +"px";}(this));' />
     </div>
   </div>
 </template>
