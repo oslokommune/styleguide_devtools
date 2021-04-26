@@ -119,7 +119,6 @@
 
       setViewSize(size) {
         this.$store.dispatch('pattern/setViewSize', size)
-        this.$emit('viewSizeFull');
       },
 
       resetToFactoryDefaults() {

@@ -5,7 +5,6 @@
     <view-box-settings
       :pattern="pattern"
       v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)"
-      v-on:viewSizeFull="syncHeight"
       />
     <div
       v-if="$store.state.pattern.sections.frame.visible"
