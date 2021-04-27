@@ -6,11 +6,7 @@
           <a href="/#/getting_started-introduction">
             <img :src="logo" alt="Oslo logo" />
           </a>
-        </div>
-        <div class="osg-color-bg-blue-light osg-padding-3">
-          <h6 class="osg-heading-6 osg-margin-bottom-2">Oslo style guide</h6>
-          <h1 class="osg-heading-4">Styles &amp;<br>Component library</h1>
-        </div>
+        </div>        
       </section>
       <Navigation></Navigation>
     </div>

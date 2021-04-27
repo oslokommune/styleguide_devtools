@@ -1,5 +1,6 @@
 <template>
   <aside class="menu osg-padding-horizontal-4 osg-margin-bottom-4">
+    <h1 class="osg-heading-4 osg-margin-bottom-3">Styles &amp;<br>Component library</h1>
     <div class="osg-searchbar osg-margin-bottom-4">
       <div class="osg-text-field osg-text-field--outline">
         <input

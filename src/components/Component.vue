@@ -85,12 +85,26 @@ export default {
 
     frameContents() {
       let template = 'No data - check logs'
+      
       if (this.patternVariantData.template) {
-        template = '<link href="/main.css" rel="stylesheet" type="text/css">'
-        template += '<style>body { background-color: inherit; }</style>'
-        template += this.patternVariantData.template
+        template =
+        `<link href="/main.css" rel="stylesheet" type="text/css">
+        <style>body { background-color: inherit; }</style>
+        ${this.patternVariantData.template}
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          let elements = document.querySelectorAll("a");
+          elements.forEach(function(element) {
+            element.addEventListener("click", function(event) {
+              event.preventDefault();
+              event.stopPropagation();
+            }, false);
+          });
+        })
+        <\/script>`
       }
-      return template;
+
+      return template
     },
 
     bgColor() {

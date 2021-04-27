@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="$store.state.pattern.settings.visible" class="level viewBoxSettings">
+  <nav v-if="$store.state.pattern.settings.visible" class="viewBoxSettings osg-margin-bottom-2">
     <div class="columns">
       <div class="column">
         <h1 class="osg-heading-1" v-if="$store.state.pattern.settings.sections.title.visible">{{ pattern.name|capitalize }}</h1>
