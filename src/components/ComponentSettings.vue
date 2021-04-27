@@ -56,6 +56,9 @@
         <button :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.pattern.sections.docs.visible ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click="toggleDocumentation">
           <i class="fas fa-comment-dots" title="Documentation"></i>
         </button>
+        <button :class="'osg-button osg-button--small' + ($store.state.pattern.sections.code.visible ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click="toggleCode">
+          <i class="fas fa-code" title="Code"></i>
+        </button>
         <button class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="resetToFactoryDefaults">
           <i class="fas fa-industry"></i>
         </button>
@@ -118,6 +121,21 @@ export default {
           }
         })
       }
+    },
+
+    code: {
+      get: function() {
+        return this.$store.state.pattern.sections.code.visible
+      },
+      set: function(value) {
+        this.$store.dispatch('pattern/setValues', {
+          sections: {
+            code: {
+              visible: value
+            }
+          }
+        })
+      }
     }
   },
 
@@ -128,6 +146,10 @@ export default {
 
     toggleDocumentation() {
       this.documentation = !this.documentation
+    },
+
+    toggleCode() {
+      this.code = !this.code
     },
 
     setViewSize(size) {

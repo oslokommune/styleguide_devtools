@@ -2,6 +2,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const DotEnv = require('dotenv-webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: 'development',
@@ -66,6 +67,11 @@ module.exports = {
     new ESLintPlugin({
       failOnWarning: true,
       failOnError: true
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: "src/assets/js/iframe/devtools.js", to: "devtools.js" },
+      ],
     }),
   ]
 }

@@ -88,20 +88,13 @@ export default {
       
       if (this.patternVariantData.template) {
         template =
-        `<link href="/main.css" rel="stylesheet" type="text/css">
+        `<!DOCTYPE html><html><body class="${this.$store.state.pattern.sections.code.visible ? 'code' : 'no-code'}">
+        <link href="/main.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" />
         <style>body { background-color: inherit; }</style>
         ${this.patternVariantData.template}
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          let elements = document.querySelectorAll("a");
-          elements.forEach(function(element) {
-            element.addEventListener("click", function(event) {
-              event.preventDefault();
-              event.stopPropagation();
-            }, false);
-          });
-        })
-        <\/script>`
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js" integrity="sha512-YBk7HhgDZvBxmtOfUdvX0z8IH2d10Hp3aEygaMNhtF8fSOvBZ16D/1bXZTJV6ndk/L/DlXxYStP8jrF77v2MIg==" crossorigin="anonymous"><\/script>
+        <script src="/devtools.js"><\/script></body></html>`
       }
 
       return template
@@ -146,8 +139,24 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @use "system/colors";
+@use "system/spacing";
+
+.code .osg-devtools-code {
+  pre {
+    @extend %osg-padding-3, %osg-margin-top-3;
+    
+    background-color: colors.$gray-light;
+    border: 2px solid colors.$grayscale-20;
+    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    white-space: pre-wrap;
+  }
+}
+
+.no-code .osg-devtools-code pre {
+  display: none;
+}
 
 .osg-devtools-component {
   min-height: 680px;

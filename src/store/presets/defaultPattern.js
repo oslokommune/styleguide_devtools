@@ -28,6 +28,9 @@ export const defaultState = {
       padding: false,
       visible: true,
       active: true
+    },
+    code: {
+      visible: true
     }
   }
 }
