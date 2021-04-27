@@ -1,10 +1,10 @@
 <template>
   <li v-if="item.isFolder">
-    <a href="#" class="osg-link" @click.prevent="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}<span v-html="folderStatus"></span></a>
+    <a href="#" @click.prevent="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}<span v-html="folderStatus"></span></a>
     <router-link :class="active" v-if="!hasChildFolder()" :to="'/' + parentName + '-' + item.name">
       {{ item.name|snakeToRegular|capitalize }}
     </router-link>
-    <ul class="osg-list" v-show="open" v-if="item.children">
+    <ul v-show="open" v-if="item.children">
       <nav-item
         :item="child"
         :parentName="parentName + '-' + item.name"
@@ -29,7 +29,7 @@
         return this.open ? ' <i class="fas fa-angle-down"></i>' : ' <i class="fas fa-angle-right"></i>'
       },
       active() {
-        return this.item.urlPath === this.$route.params.id ? 'osg-link osg-link--active' : 'osg-link'
+        return this.item.urlPath === this.$route.params.id ? 'osg-state-primary' : ''
       }
     },
 
@@ -68,3 +68,22 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+@use "system/colors";
+@use "system/state";
+
+a {
+  display: block;
+  padding: 5px 15px;
+  border: 2px solid colors.$gray;
+  text-decoration: none;
+  
+  &:hover {
+    @extend %osg-state-hover;
+  }
+}
+
+ul {
+  padding-left: 20px;
+}
+</style>

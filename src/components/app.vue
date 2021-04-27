@@ -2,11 +2,9 @@
   <div class="columns is-gapless">
     <div class="column is-one-fifth">      
       <section class="osg-padding-4">
-        <div class="osg-margin-bottom-2">
-          <a href="/#/getting_started-introduction">
-            <img :src="logo" alt="Oslo logo" />
-          </a>
-        </div>        
+        <a href="/#/getting_started-introduction">
+          <img :src="logo" alt="Oslo logo" />
+        </a>
       </section>
       <Navigation></Navigation>
     </div>

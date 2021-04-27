@@ -1,5 +1,5 @@
 <template>
-  <div class="osg-devtools-component osg-color-bg-white osg-padding-4">    
+  <div class="osg-devtools-component osg-color-bg-white osg-padding-top-3 osg-padding-bottom-4 osg-padding-horizontal-4">    
     <div
       :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
       <component-settings
@@ -12,7 +12,7 @@
         v-if="$store.state.pattern.sections.frame.visible"
         :class="frameClasses"
         :style="`background-color: ${bgColor};`">
-        <iframe :srcdoc="frameContents" width="100%" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight + 20 +"px";}(this));' />
+        <iframe :srcdoc="frameContents" width="100%" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight + 30 +"px";}(this));' />
         <span class="osg-devtools-art"></span>
       </div>
     </div>
@@ -145,12 +145,12 @@ export default {
 
 .code .osg-devtools-code {
   pre {
-    @extend %osg-padding-3, %osg-margin-top-3;
+    @extend %osg-padding-2, %osg-margin-top-3;
     
     background-color: colors.$gray-light;
     border: 2px solid colors.$grayscale-20;
     font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
-    white-space: pre-wrap;
+    overflow-x: scroll;
   }
 }
 
@@ -161,12 +161,12 @@ export default {
 .osg-devtools-component {
   min-height: 680px;
 
-  &.fullscreen {
+  .fullscreen {
     background-color: #ffffff;
     height: 100vh;
     left: 0;
     overflow: scroll;
-    padding: 60px;
+    padding: 15px 30px;
     position: fixed;
     top: 0;
     width: 100%;

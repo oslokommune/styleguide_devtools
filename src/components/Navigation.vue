@@ -1,24 +1,21 @@
 <template>
   <aside class="menu osg-padding-horizontal-4 osg-margin-bottom-4">
     <h1 class="osg-heading-4 osg-margin-bottom-3">Styles &amp;<br>Component library</h1>
-    <div class="osg-searchbar osg-margin-bottom-4">
-      <div class="osg-text-field osg-text-field--outline">
-        <input
-          class="osg-text-field__input osg-text-7"
-          type="text"
-          v-model="search"
-          placeholder="Search for components"
-          @keyup.enter="addTag"
-          title="Search"
-        />
-      </div>
+    <div class="osg-margin-bottom-5">
+      <input
+        type="text"
+        v-model="search"
+        placeholder="Search for components"
+        @keyup.enter="addTag"
+        title="Search"
+      />
       <button
         @click="addTag"
-        class="osg-button osg-button--yellow osg-button--circle"
+        class="osg-button osg-button--small osg-button--yellow"
         aria-label="Search"
         title="Add search tag"
       >
-        <span class="osg-icon osg-icon--magnifying-glass-small"></span>
+        <i class="fas fa-search"></i>
       </button>
     </div>
     <div class="field is-grouped is-grouped-multiline">
@@ -33,7 +30,7 @@
       <h6 class="osg-heading-6 osg-margin-bottom-1">
         Getting started
       </h6>
-      <ul class="osg-list osg-margin-bottom-4">
+      <ul class="osg-margin-bottom-4">
         <nav-item
           :item="child"
           parentName="getting_started"
@@ -44,7 +41,7 @@
       <h6 class="osg-heading-6 osg-margin-bottom-1">
         General
       </h6>
-      <ul class="osg-list osg-margin-bottom-4">
+      <ul class="osg-margin-bottom-4">
         <nav-item
           :item="child"
           parentName="general"
@@ -55,7 +52,7 @@
       <h6 class="osg-heading-6 osg-margin-bottom-1">
         Components
       </h6>
-      <ul class="osg-list">
+      <ul>
         <nav-item
           :item="child"
           parentName="components"
@@ -134,17 +131,11 @@
     }
   }
 </script>
-
-<style lang="scss">
-.menu {
-  ul.osg-list {
-    list-style: none;
-    li {
-      a.osg-link {
-        background: none;
-        text-decoration: none;
-      }
-    }
-  }
+<style lang="scss" scoped>
+input {
+  padding: 13px;
+  display: inline-block;
+  outline: 0;
+  border: 1px solid #ccc;
 }
 </style>

@@ -38,7 +38,7 @@
             <li class="grayscale-90" @click="color = '#1a1a1a'; backgroundSolid = true"></li>
           </ul>
         </button>
-        <button :class="'osg-margin-left-3 osg-button osg-button--small' + (fullscreen ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="toggleFullscreen">
+        <button :class="'osg-margin-left-3 osg-button osg-button--small' + (fullscreen ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click="toggleFullscreen">
           <i class="fas fa-expand" title="Fullscreen mode"></i>
         </button>
         <button :class="'osg-margin-left-3 osg-button osg-button--small osg-button--blue-light' + ($store.state.pattern.settings.viewSize.mobile ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('mobile')">
