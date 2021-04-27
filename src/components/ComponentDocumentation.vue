@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$store.state.pattern.sections.docs.sections.documentation.visible" class="osg-color-bg-yellow osg-padding-4 osg-margin-bottom-4">
+  <div v-if="$store.state.pattern.sections.docs.visible" class="osg-color-bg-yellow osg-padding-4 osg-margin-bottom-4">
     <div class="columns">
       <div class="column">
         <article

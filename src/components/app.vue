@@ -24,35 +24,35 @@
 </template>
 
 <script>
-  import logo from '../assets/images/oslo_logo.svg'
-  import Navigation from './Navigation.vue'
+import logo from '../assets/images/oslo_logo.svg'
+import Navigation from './Navigation.vue'
 
-  export default {
-    name: 'App',
+export default {
+  name: 'App',
 
-    components: {
-      Navigation
-    },
+  components: {
+    Navigation
+  },
 
-    data: () => ({
-      logo
-    }),
+  data: () => ({
+    logo
+  }),
 
-    beforeCreate() {
-        this.$store.dispatch('pattern/setDefaults')
-        this.$eventHub.$on('viewBox.setFullscreen', (val) => {
-        this.$nextTick(() => {
-          if (val) {
-            document.getElementsByTagName('html')[0].style.overflow = 'hidden'
-          } else {
-            document.getElementsByTagName('html')[0].style.overflow = 'scroll'
-          }
-        })
+  beforeCreate() {
+      this.$store.dispatch('pattern/setDefaults')
+      this.$eventHub.$on('viewBox.setFullscreen', (val) => {
+      this.$nextTick(() => {
+        if (val) {
+          document.getElementsByTagName('html')[0].style.overflow = 'hidden'
+        } else {
+          document.getElementsByTagName('html')[0].style.overflow = 'scroll'
+        }
       })
-    },
-  }
+    })
+  },
+}
 </script>
 
 <style lang="scss">
-  @use '../assets/sass/main';
+@use '../assets/sass/main';
 </style>

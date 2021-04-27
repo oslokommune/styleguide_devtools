@@ -27,15 +27,7 @@ export const defaultState = {
       backgroundColor: '#ffffff',
       padding: false,
       visible: true,
-      active: true,
-      sections: {
-        documentation: {
-          visible: true
-        },
-        assets: {
-          visible: true
-        }
-      }
+      active: true
     }
   }
 }

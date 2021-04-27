@@ -53,6 +53,9 @@
         <button :class="'osg-button osg-button--small' + ($store.state.pattern.settings.viewSize.full ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('full')">
           <i class="fas fa-percentage" title="Full width"></i>
         </button>
+        <button :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.pattern.sections.docs.visible ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click.blur="toggleDocumentation">
+          <i class="fas fa-comment-dots" title="Documentation"></i>
+        </button>
         <button class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="resetToFactoryDefaults">
           <i class="fas fa-industry"></i>
         </button>
@@ -100,12 +103,31 @@ export default {
       set: function(value) {
         this.$store.dispatch('pattern/setFullscreenMode', value)
       }
+    },
+
+    documentation: {
+      get: function() {
+        return this.$store.state.pattern.sections.docs.visible
+      },
+      set: function(value) {
+        this.$store.dispatch('pattern/setValues', {
+          sections: {
+            docs: {
+              visible: value
+            }
+          }
+        })
+      }
     }
   },
 
   methods: {
     toggleFullscreen() {
       this.fullscreen = !this.fullscreen
+    },
+
+    toggleDocumentation() {
+      this.documentation = !this.documentation
     },
 
     setViewSize(size) {
