@@ -53,7 +53,7 @@
         <button :class="'osg-button osg-button--small' + ($store.state.pattern.settings.viewSize.full ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('full')">
           <i class="fas fa-percentage" title="Full width"></i>
         </button>
-        <button :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.pattern.sections.docs.visible ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click.blur="toggleDocumentation">
+        <button :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.pattern.sections.docs.visible ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click="toggleDocumentation">
           <i class="fas fa-comment-dots" title="Documentation"></i>
         </button>
         <button class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="resetToFactoryDefaults">
