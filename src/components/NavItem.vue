@@ -8,7 +8,7 @@
       <nav-item
         :item="child"
         :parentName="parentName + '-' + item.name"
-        v-for="child in item.children"
+        v-for="child in item.children.filter(child => child.isFolder)"
         v-bind:key="child.name">
       </nav-item>
     </ul>
@@ -28,8 +28,12 @@
       folderStatus() {
         return this.open ? ' <i class="fas fa-angle-down"></i>' : ' <i class="fas fa-angle-right"></i>'
       },
-      active() {
-        return this.item.urlPath === this.$route.params.id ? 'osg-state-primary' : ''
+      active() {        
+        let active = this.item.urlPath === this.$route.params.id
+        if (active) {
+          this.$eventHub.$emit('menuOpen', this.parentName + '-' + this.item.name)
+        }
+        return active ? 'osg-state-primary' : ''
       }
     },
 

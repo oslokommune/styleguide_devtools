@@ -159,7 +159,7 @@ export default {
 }
 
 .osg-devtools-component {
-  min-height: 680px;
+  min-height: calc(100vh - 160px);
 
   .fullscreen {
     background-color: #ffffff;

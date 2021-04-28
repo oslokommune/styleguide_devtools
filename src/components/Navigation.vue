@@ -34,7 +34,7 @@
         <nav-item
           :item="child"
           parentName="getting_started"
-          v-for="(child, index) in componentStructure.gettingStarted.children"
+          v-for="(child, index) in componentStructure.gettingStarted.children.filter(child => child.isFolder)"
           v-bind:key="index">
         </nav-item>
       </ul>
@@ -45,7 +45,7 @@
         <nav-item
           :item="child"
           parentName="general"
-          v-for="(child, index) in componentStructure.general.children"
+          v-for="(child, index) in componentStructure.general.children.filter(child => child.isFolder)"
           v-bind:key="index">
         </nav-item>
       </ul>
@@ -56,7 +56,7 @@
         <nav-item
           :item="child"
           parentName="components"
-          v-for="(child, index) in componentStructure.components.children"
+          v-for="(child, index) in componentStructure.components.children.filter(child => child.isFolder)"
           v-bind:key="index">
         </nav-item>
       </ul>
@@ -133,6 +133,7 @@
 </script>
 <style lang="scss" scoped>
 input {
+  width: 200px;
   padding: 13px;
   display: inline-block;
   outline: 0;
