@@ -4,7 +4,7 @@
       <div class="column">
         <h1 class="osg-heading-1" v-if="$store.state.pattern.settings.sections.title.visible">{{ pattern.name|capitalize }}</h1>
       </div>
-      <div class="column is-two-thirds button-list osg-text-right chrome" v-if="$store.state.pattern.settings.sections.configuration.visible">
+      <div class="column is-two-thirds button-list osg-text-right" v-if="$store.state.pattern.settings.sections.configuration.visible">
         <button class="osg-button osg-button--blue-light osg-button--small osg-dt-color-btn">
           <i class="fas fa-palette"></i>
           <ul class="osg-dt-color-list">
@@ -38,28 +38,28 @@
             <li class="grayscale-90" @click="color = '#1a1a1a'; backgroundSolid = true"></li>
           </ul>
         </button>
-        <button :class="'osg-margin-left-3 osg-button osg-button--small' + (fullscreen ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click="toggleFullscreen">
+        <button :class="'osg-margin-left-3 osg-button osg-button--small' + (fullscreen ? ' osg-button--active' : '')" @click="toggleFullscreen(); $event.target.blur()">
           <i class="fas fa-expand" title="Fullscreen mode"></i>
         </button>
-        <button :class="'osg-margin-left-3 osg-button osg-button--small osg-button--blue-light' + ($store.state.pattern.settings.viewSize.mobile ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('mobile')">
+        <button :class="'osg-margin-left-3 osg-button osg-button--small osg-button--blue-light' + ($store.state.pattern.settings.viewSize.mobile ? ' osg-button--active' : '')" @click="setViewSize('mobile'); $event.target.blur()">
           <i class="fas fa-mobile-alt" title="Mobile width"></i>
         </button>
-        <button :class="'osg-button osg-button--small osg-button--green-light' + ($store.state.pattern.settings.viewSize.tablet ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('tablet')">
+        <button :class="'osg-button osg-button--small osg-button--green-light' + ($store.state.pattern.settings.viewSize.tablet ? ' osg-button--active' : '')" @click="setViewSize('tablet'); $event.target.blur()">
           <i class="fas fa-tablet-alt" title="Tablet width"></i>
         </button>
-        <button :class="'osg-button osg-button--small osg-button--yellow' + ($store.state.pattern.settings.viewSize.desktop ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('desktop')">
+        <button :class="'osg-button osg-button--small osg-button--yellow' + ($store.state.pattern.settings.viewSize.desktop ? ' osg-button--active' : '')" @click="setViewSize('desktop'); $event.target.blur()">
           <i class="fas fa-desktop" title="Desktop width"></i>
         </button>
-        <button :class="'osg-button osg-button--small' + ($store.state.pattern.settings.viewSize.full ? ' osg-color-bg-blue-dark osg-color-text-white' : '')" @click="setViewSize('full')">
+        <button :class="'osg-button osg-button--small' + ($store.state.pattern.settings.viewSize.full ? ' osg-button--active' : '')" @click="setViewSize('full'); $event.target.blur()">
           <i class="fas fa-percentage" title="Full width"></i>
         </button>
-        <button :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.pattern.sections.docs.visible ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click="toggleDocumentation">
+        <button :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.pattern.sections.docs.visible ? ' osg-button--active' : '')" @click="toggleDocumentation(); $event.target.blur()">
           <i class="fas fa-comment-dots" title="Documentation"></i>
         </button>
-        <button :class="'osg-button osg-button--small' + ($store.state.pattern.sections.code.visible ? ' osg-color-bg-blue-contrast osg-color-text-white' : '')" @click="toggleCode">
+        <button :class="'osg-button osg-button--small' + ($store.state.pattern.sections.code.visible ? ' osg-button--active' : '')" @click="toggleCode(); $event.target.blur()">
           <i class="fas fa-code" title="Code"></i>
         </button>
-        <button class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="resetToFactoryDefaults">
+        <button class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="resetToFactoryDefaults(); $event.target.blur()">
           <i class="fas fa-industry"></i>
         </button>
       </div>

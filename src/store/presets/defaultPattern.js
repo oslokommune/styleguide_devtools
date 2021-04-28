@@ -24,10 +24,7 @@ export const defaultState = {
       visible: true
     },
     docs: {
-      backgroundColor: '#ffffff',
-      padding: false,
-      visible: true,
-      active: true
+      visible: true
     },
     code: {
       visible: true
