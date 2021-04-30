@@ -212,7 +212,7 @@ export default {
       border-bottom: 100px solid colors.$blue-dark;
       border-radius: 20px;
       position: relative;
-      width: 650px;
+      width: 809px;
 
       &::after {
         background-color: white;
@@ -227,7 +227,7 @@ export default {
       }
 
       iframe {
-        height: 700px !important;
+        height: 900px !important;
       }
     }
 
@@ -236,7 +236,7 @@ export default {
       border-radius: 20px;
       margin-bottom: 130px;
       position: relative;
-      width: 1024px;
+      width: 1200px;
 
       &::before {
         background-color: colors.$blue-dark;
@@ -274,7 +274,7 @@ export default {
       }
 
       iframe {
-        height: 768px !important;
+        height: 800px !important;
       }
     }
 

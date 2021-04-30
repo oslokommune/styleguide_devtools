@@ -81,7 +81,9 @@ a {
   padding: 5px 15px;
   border: 2px solid colors.$gray;
   text-decoration: none;
-  color: inherit;
+  color: inherit
+  
+  ;
   
   &:hover {
     @extend %osg-state-hover;

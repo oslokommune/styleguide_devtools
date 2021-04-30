@@ -41,9 +41,15 @@ export default {
         } else {
           document.getElementsByTagName('html')[0].style.overflow = 'scroll'
         }
-      })
+      })    
     })
   },
+
+  mounted() {
+    this.$eventHub.$on('personal.update', () => {
+      this.$store.dispatch('pattern/setPatternValues')
+    });
+  }
 }
 </script>
 

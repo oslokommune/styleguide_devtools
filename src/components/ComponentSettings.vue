@@ -53,10 +53,10 @@
         <button :class="'osg-button osg-button--small' + ($store.state.pattern.settings.viewSize.full ? ' osg-button--active' : '')" @click="setViewSize('full'); $event.target.blur()">
           <i class="fas fa-percentage" title="Full width"></i>
         </button>
-        <button :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.pattern.sections.docs.visible ? ' osg-button--active' : '')" @click="toggleDocumentation(); $event.target.blur()">
+        <button :class="'osg-margin-left-3 osg-button osg-button--small' + (documentation ? ' osg-button--active' : '')" @click="toggleDocumentation(); $event.target.blur()">
           <i class="fas fa-comment-dots" title="Documentation"></i>
         </button>
-        <button :class="'osg-button osg-button--small' + ($store.state.pattern.sections.code.visible ? ' osg-button--active' : '')" @click="toggleCode(); $event.target.blur()">
+        <button :class="'osg-button osg-button--small' + (code ? ' osg-button--active' : '')" @click="toggleCode(); $event.target.blur()">
           <i class="fas fa-code" title="Code"></i>
         </button>
         <button class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="resetToFactoryDefaults(); $event.target.blur()">
@@ -83,37 +83,49 @@ export default {
   computed: {
     color: {
       get: function() {
-        return this.$store.state.pattern.settings.backgroundColor
+        return this.$store.state.personal.settings.backgroundColor
       },
       set: function(value) {
-        this.$store.dispatch('pattern/setBackgroundColor', value)
+        this.$store.dispatch('personal/setValues', {
+          settings: {
+            backgroundColor: value
+          }
+        })
       }
     },
 
     backgroundSolid: {
       get: function() {
-      return this.$store.state.pattern.settings.backgroundSolid
+        return this.$store.state.personal.settings.backgroundSolid
       },
       set: function(value) {
-        this.$store.dispatch('pattern/setBackgroundSolid', value)
+        this.$store.dispatch('personal/setValues', {
+          settings: {
+            backgroundSolid: value
+          }
+        })
       }
     },
 
     fullscreen: {
       get: function() {
-        return this.$store.state.pattern.settings.fullscreen
+        return this.$store.state.personal.settings.fullscreen
       },
       set: function(value) {
-        this.$store.dispatch('pattern/setFullscreenMode', value)
+        this.$store.dispatch('personal/setValues', {
+          settings: {
+            fullscreen: value
+          }
+        })
       }
     },
 
     documentation: {
       get: function() {
-        return this.$store.state.pattern.sections.docs.visible
+        return this.$store.state.personal.sections.docs.visible
       },
       set: function(value) {
-        this.$store.dispatch('pattern/setValues', {
+        this.$store.dispatch('personal/setValues', {
           sections: {
             docs: {
               visible: value
@@ -125,10 +137,10 @@ export default {
 
     code: {
       get: function() {
-        return this.$store.state.pattern.sections.code.visible
+        return this.$store.state.personal.sections.code.visible
       },
       set: function(value) {
-        this.$store.dispatch('pattern/setValues', {
+        this.$store.dispatch('personal/setValues', {
           sections: {
             code: {
               visible: value
@@ -153,7 +165,7 @@ export default {
     },
 
     setViewSize(size) {
-      this.$store.dispatch('pattern/setViewSize', size)
+      this.$store.dispatch('personal/setViewSize', size)
     },
 
     resetToFactoryDefaults() {
