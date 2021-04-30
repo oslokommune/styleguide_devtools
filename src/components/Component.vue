@@ -236,7 +236,7 @@ export default {
       border-radius: 20px;
       margin-bottom: 130px;
       position: relative;
-      width: 1200px;
+      width: 1064px;
 
       &::before {
         background-color: colors.$blue-dark;

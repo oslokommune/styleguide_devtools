@@ -1,8 +1,3 @@
-/* Bulma grid */
-$gap: 32px;
-@use '~bulma/sass/grid/all';
-@use '~bulma/sass/elements/container';
-
 // Font Awesome
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @use '~@fortawesome/fontawesome-free/scss/fontawesome';
@@ -12,6 +7,10 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 $osg-font-path: '~styleguide/src/assets/fonts';
 @use "~styleguide/src/system/colors";
 @use "~styleguide/src/devtools";
+
+/* Bulma grid */
+@use '~bulma/sass/grid/all';
+@use '~bulma/sass/elements/container';
 
 body {
   background-color: colors.$gray
