@@ -49,6 +49,31 @@ const actions = {
   setValues({ commit }, payload) {
     commit('setValues', payload)
     eventBus.$emit('personal.update')
+  },
+
+  reset({ commit }) {
+    commit('setValues', {
+      settings: {
+        viewSize: {
+          mobile: false,
+          tablet: false,
+          desktop: false,
+          full: true
+        },
+        fullscreen: false,
+        backgroundColor: '',
+        backgroundSolid: false
+      },
+      sections: {
+        docs: {
+          visible: true
+        },
+        code: {
+          visible: true
+        }
+      }
+    })
+    eventBus.$emit('personal.update')
   }
 }
 

@@ -2,12 +2,8 @@
   <div class="osg-devtools-component osg-color-bg-white osg-padding-top-3 osg-padding-bottom-4 osg-padding-horizontal-4">    
     <div
       :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
-      <component-settings
-        :pattern="pattern"
-        v-on:setPatternValues="$store.dispatch('pattern/setPatternValues', mergedData)"
-        />
-
-      <component-documentation :pattern="pattern" activeVariant=""></component-documentation>
+      <component-settings :pattern="pattern" />
+      <component-documentation :pattern="pattern" activeVariant="" />
       <div
         v-if="$store.state.pattern.sections.frame.visible"
         :class="frameClasses"

@@ -59,7 +59,7 @@
         <button :class="'osg-button osg-button--small' + (code ? ' osg-button--active' : '')" @click="toggleCode(); $event.target.blur()">
           <i class="fas fa-code" title="Code"></i>
         </button>
-        <button class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="resetToFactoryDefaults(); $event.target.blur()">
+        <button class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="$store.dispatch('personal/reset'); $event.target.blur()">
           <i class="fas fa-industry"></i>
         </button>
       </div>
@@ -166,10 +166,6 @@ export default {
 
     setViewSize(size) {
       this.$store.dispatch('personal/setViewSize', size)
-    },
-
-    resetToFactoryDefaults() {
-      this.$emit('setPatternValues')
     }
   }
 }
