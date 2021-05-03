@@ -1,11 +1,11 @@
 <template>
-  <div v-if="$store.state.pattern.sections.docs.visible" class="osg-color-bg-yellow osg-padding-4 osg-margin-bottom-4">
+  <div v-if="$store.state.component.sections.docs.visible" class="osg-color-bg-yellow osg-padding-4 osg-margin-bottom-4">
     <div class="columns">
       <div class="column">
         <article
-          v-if="pattern.mdFile"
+          v-if="component.mdFile"
           class="osg-content"      
-          v-html="marked(pattern.mdFile.contents)"
+          v-html="marked(component.mdFile.contents)"
         >
         </article>
         <div v-else>
@@ -23,7 +23,7 @@ export default {
   name: 'docs-section',
 
   props: {
-    pattern: {
+    component: {
       type: Object,
       required: true
     }

@@ -89,7 +89,6 @@
       TagItem
     },
     data: () => ({
-      pagesVisible: false,
       componentStructure,
       search: '',
       tags: []

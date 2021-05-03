@@ -1,4 +1,4 @@
-import { defaultState } from './defaultPattern.js'
+import { defaultState } from './defaultComponent.js'
 
 let cleanState = JSON.parse(JSON.stringify(defaultState))
 cleanState.settings.backgroundColor = '#ffffff'

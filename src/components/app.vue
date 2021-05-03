@@ -32,22 +32,10 @@ export default {
     logo
   }),
 
-  beforeCreate() {
-      this.$store.dispatch('pattern/setDefaults')
-      this.$eventHub.$on('viewBox.setFullscreen', (val) => {
-      this.$nextTick(() => {
-        if (val) {
-          document.getElementsByTagName('html')[0].style.overflow = 'hidden'
-        } else {
-          document.getElementsByTagName('html')[0].style.overflow = 'scroll'
-        }
-      })    
-    })
-  },
-
   mounted() {
+    this.$store.dispatch('component/setDefaults')
     this.$eventHub.$on('personal.update', () => {
-      this.$store.dispatch('pattern/setPatternValues')
+      this.$store.dispatch('component/updateValues')
     });
   }
 }

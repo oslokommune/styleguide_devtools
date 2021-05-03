@@ -1,14 +1,14 @@
 <template>
   <div class="osg-devtools-component osg-color-bg-white osg-padding-top-3 osg-padding-bottom-4 osg-padding-horizontal-4">    
     <div
-      :class="{ 'fullscreen': $store.state.pattern.settings.fullscreen }">
-      <component-settings :pattern="pattern" />
-      <component-documentation :pattern="pattern" activeVariant="" />
+      :class="{ 'fullscreen': $store.state.component.settings.fullscreen }">
+      <settings :component="component" />
+      <documentation :component="component" />
       <div
-        v-if="$store.state.pattern.sections.frame.visible"
+        v-if="$store.state.component.sections.frame.visible"
         :class="frameClasses"
         :style="`background-color: ${bgColor};`">
-        <iframe :srcdoc="frameContents" width="100%" onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight + 30 +"px";}(this));' />
+        <frame :content="component.template" />
         <span class="osg-devtools-art"></span>
       </div>
     </div>
@@ -17,120 +17,81 @@
 
 <script>
 import _ from 'lodash'
-import { patternInfo } from '../assets/js/patternInfo'
-import ComponentSettings from './ComponentSettings'
-import ComponentDocumentation from './ComponentDocumentation'
+import { componentInfo } from '../assets/js/componentInfo'
+import Settings from './page/Settings'
+import Documentation from './page/Documentation'
+import Frame from './page/iFrame'
 
 export default {
   name: 'ComponentFrame',
   components: {
-    ComponentSettings,
-    ComponentDocumentation
+    Settings,
+    Documentation,
+    Frame
   },
 
   data: () => ({   
-    pattern: {
+    component: {
       name: 'Loading...',
-      files: [],
       cssFiles: [],
       jsFiles: [],
       mdFile: null,
-      variants: []
+      template: null,
+      data: {}
     }
   }),
 
   computed: {
-    patternVariantData() {
-      let data = {
-        template: '',
-        contents: '{}'
-      }
-      if (this.pattern.variants[0]) {
-        data.template = this.pattern.variants[0].template
-        data.contents = this.pattern.variants[0].contents
-      }
-
-      return data
-    },
-
-    mergedData() {
-      return JSON.parse(this.patternVariantData.contents)
-    },
-
-    patternPath() {
-      return process.env.COMPONENTS_PATH // eslint-disable-line
-    },
-
     frameClasses() {
       let classes = ['frame']
       
-      if (this.$store.state.pattern.settings.viewSize.mobile) {
+      if (this.$store.state.component.settings.viewSize.mobile) {
         classes.push('mobile')
-      } else if (this.$store.state.pattern.settings.viewSize.tablet) {
+      } else if (this.$store.state.component.settings.viewSize.tablet) {
         classes.push('tablet')
-      } else if (this.$store.state.pattern.settings.viewSize.desktop) {
+      } else if (this.$store.state.component.settings.viewSize.desktop) {
         classes.push('desktop')
       }
 
-      if (this.$store.state.pattern.settings.backgroundSolid) {
+      if (this.$store.state.component.settings.backgroundSolid) {
         classes.push('solid')
       }
 
       return classes.join(' ')
     },
 
-    frameContents() {
-      let template = 'No data - check logs'
-      
-      if (this.patternVariantData.template) {
-        template =
-        `<!DOCTYPE html><html><body class="${this.$store.state.pattern.sections.code.visible ? 'code' : 'no-code'}">
-        <link href="/main.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" />
-        <style>body { background-color: inherit; }</style>
-        ${this.patternVariantData.template}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js" integrity="sha512-YBk7HhgDZvBxmtOfUdvX0z8IH2d10Hp3aEygaMNhtF8fSOvBZ16D/1bXZTJV6ndk/L/DlXxYStP8jrF77v2MIg==" crossorigin="anonymous"><\/script>
-        <script src="/devtools.js"><\/script></body></html>`
-      }
-
-      return template
-    },
-
     bgColor() {
-      if (typeof this.$store.state.pattern.settings.backgroundColor === 'object') {
+      if (typeof this.$store.state.component.settings.backgroundColor === 'object') {
         return 'rgba(' +
-          this.$store.state.pattern.settings.backgroundColor.rgba.r +
+          this.$store.state.component.settings.backgroundColor.rgba.r +
           ', ' +
-          this.$store.state.pattern.settings.backgroundColor.rgba.g +
+          this.$store.state.component.settings.backgroundColor.rgba.g +
           ', ' +
-          this.$store.state.pattern.settings.backgroundColor.rgba.b +
+          this.$store.state.component.settings.backgroundColor.rgba.b +
           ', ' +
-          this.$store.state.pattern.settings.backgroundColor.rgba.a +
+          this.$store.state.component.settings.backgroundColor.rgba.a +
           ')'
       }
-      return this.$store.state.pattern.settings.backgroundColor
+      return this.$store.state.component.settings.backgroundColor
     },
   },
 
   mounted() {
-    this.updatePattern()
+    this.updateComponent()
   },
 
   watch: {
     '$route'() {
-      this.updatePattern()
+      this.updateComponent()
     },
     '$route.params.id'() {
-      this.$store.dispatch('pattern/setPatternValues', this.mergedData)
-    },
-    mergedData() {
-      this.$store.dispatch('pattern/setPatternValues', this.mergedData)
+      this.$store.dispatch('component/updateValues', this.component.data)
     }
   },
 
   methods: {
-    updatePattern() {
-      this.pattern = patternInfo(this.$route.params.id)
+    updateComponent() {
+      this.component = componentInfo(this.$route.params.id)
     }
   }
 }

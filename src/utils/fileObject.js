@@ -1,5 +1,4 @@
 import fs from 'fs'
-import { variantSeparator } from './config.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -72,7 +71,7 @@ function getExtension(path) {
 }
 
 function isDataFile(path) {
-  return (isFile(path) && getExtension(path) === 'json' && getName(path).indexOf(variantSeparator) === -1)
+  return (isFile(path) && getExtension(path) === 'json')
 }
 
 function isRoot(path) {

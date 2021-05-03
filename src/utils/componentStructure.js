@@ -75,7 +75,7 @@ function findAssetsAndTemplates(children) {
         template.src = child.rawPath
         break
       case 'json':
-        template.variants.push(child.rawPath)
+        template.data = child.rawPath
         break
     }
   }

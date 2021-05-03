@@ -1,7 +1,7 @@
 import _ from 'lodash'
-import { defaultState } from '../presets/defaultPattern.js'
-import { cleanState } from '../presets/cleanPattern.js'
-import { mdState } from '../presets/mdPattern.js'
+import { defaultState } from '../presets/defaultComponent.js'
+import { cleanState } from '../presets/cleanComponent.js'
+import { mdState } from '../presets/mdComponent.js'
 
 /* Pattern Store */
 const state = {}
@@ -9,13 +9,13 @@ const state = {}
 const getters = {}
 
 const actions = {
-  setPatternValues({ commit, rootState }, payload) {
+  updateValues({ commit, rootState }, payload) {
     commit('setValues', defaultState)
     commit('setValues', rootState.personal)
 
-    if (payload && payload.devtools) {
-      if (payload.devtools.preset) {
-        switch (payload.devtools.preset) {
+    if (payload) {
+      if (payload.preset) {
+        switch (payload.preset) {
           case 'clean':
             commit('setValues', cleanState)
             break
@@ -26,8 +26,11 @@ const actions = {
             commit('setDefaults', defaultState)
         }
       }
-      if (payload.devtools) {
-        commit('setValues', payload.devtools)
+      if (payload.settings) {
+        commit('setValues', payload.settings)
+      }
+      if (payload.sections) {
+        commit('setValues', payload.sections)
       }
     }
   },

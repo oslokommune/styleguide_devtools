@@ -1,10 +1,10 @@
 <template>
-  <nav v-if="$store.state.pattern.settings.visible" class="viewBoxSettings osg-margin-bottom-2">
+  <nav v-if="$store.state.component.settings.visible" class="viewBoxSettings osg-margin-bottom-2">
     <div class="columns">
       <div class="column">
-        <h1 class="osg-heading-1" v-if="$store.state.pattern.settings.sections.title.visible">{{ pattern.name|capitalize }}</h1>
+        <h1 class="osg-heading-1" v-if="$store.state.component.settings.sections.title.visible">{{ component.name|capitalize }}</h1>
       </div>
-      <div class="column is-two-thirds button-list osg-text-right" v-if="$store.state.pattern.settings.sections.configuration.visible">
+      <div class="column is-two-thirds button-list osg-text-right" v-if="$store.state.component.settings.sections.configuration.visible">
         <a aria-role="button" class="osg-button osg-button--blue-light osg-button--small osg-dt-color-btn">
           <i class="fas fa-palette"></i>
           <ul class="osg-dt-color-list">
@@ -41,16 +41,16 @@
         <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small' + (fullscreen ? ' osg-button--active' : '')" @click="toggleFullscreen(); $event.target.blur()">
           <i class="fas fa-expand" title="Fullscreen mode"></i>
         </a>
-        <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small osg-button--blue-light' + ($store.state.pattern.settings.viewSize.mobile ? ' osg-button--active' : '')" @click="setViewSize('mobile'); $event.target.blur()">
+        <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small osg-button--blue-light' + ($store.state.component.settings.viewSize.mobile ? ' osg-button--active' : '')" @click="setViewSize('mobile'); $event.target.blur()">
           <i class="fas fa-mobile-alt" title="Mobile width"></i>
         </a>
-        <a aria-role="button" :class="'osg-button osg-button--small osg-button--green-light' + ($store.state.pattern.settings.viewSize.tablet ? ' osg-button--active' : '')" @click="setViewSize('tablet'); $event.target.blur()">
+        <a aria-role="button" :class="'osg-button osg-button--small osg-button--green-light' + ($store.state.component.settings.viewSize.tablet ? ' osg-button--active' : '')" @click="setViewSize('tablet'); $event.target.blur()">
           <i class="fas fa-tablet-alt" title="Tablet width"></i>
         </a>
-        <a aria-role="button" :class="'osg-button osg-button--small osg-button--yellow' + ($store.state.pattern.settings.viewSize.desktop ? ' osg-button--active' : '')" @click="setViewSize('desktop'); $event.target.blur()">
+        <a aria-role="button" :class="'osg-button osg-button--small osg-button--yellow' + ($store.state.component.settings.viewSize.desktop ? ' osg-button--active' : '')" @click="setViewSize('desktop'); $event.target.blur()">
           <i class="fas fa-desktop" title="Desktop width"></i>
         </a>
-        <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.pattern.settings.viewSize.full ? ' osg-button--active' : '')" @click="setViewSize('full'); $event.target.blur()">
+        <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.component.settings.viewSize.full ? ' osg-button--active' : '')" @click="setViewSize('full'); $event.target.blur()">
           <i class="fas fa-percentage" title="Full width"></i>
         </a>
         <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small' + (documentation ? ' osg-button--active' : '')" @click="toggleDocumentation(); $event.target.blur()">
@@ -72,7 +72,7 @@ export default {
   name: 'ComponentSettings',
 
   props: {
-    pattern: {
+    component: {
       type: Object,
       required: true
     }
