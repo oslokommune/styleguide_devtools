@@ -33,7 +33,7 @@ export default {
   }),
 
   mounted() {
-    this.$store.dispatch('component/setDefaults')
+    this.$store.dispatch('component/updateValues')
     this.$eventHub.$on('personal.update', () => {
       this.$store.dispatch('component/updateValues')
     });

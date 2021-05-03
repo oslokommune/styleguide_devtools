@@ -78,8 +78,8 @@
 </template>
 
 <script>
-  import NavItem from './NavItem'
-  import TagItem from './TagItem'
+  import NavItem from './navigation/NavItem'
+  import TagItem from './navigation/TagItem'
   import componentStructure from '../../build/componentStructure.json'
 
   export default {

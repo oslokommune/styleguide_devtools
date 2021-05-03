@@ -18,9 +18,9 @@
 <script>
 import _ from 'lodash'
 import { componentInfo } from '../assets/js/componentInfo'
-import Settings from './page/Settings'
-import Documentation from './page/Documentation'
-import Frame from './page/iFrame'
+import Settings from './component/Settings'
+import Documentation from './component/Documentation'
+import Frame from './component/iFrame'
 
 export default {
   name: 'ComponentFrame',
