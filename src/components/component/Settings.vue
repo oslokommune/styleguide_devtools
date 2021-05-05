@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="$store.state.component.settings.visible" class="viewBoxSettings osg-margin-bottom-2">
+  <nav v-if="$store.state.component.settings.visible" class="osg-margin-bottom-2">
     <div class="columns">
       <div class="column">
         <h1 class="osg-heading-1" v-if="$store.state.component.settings.sections.title.visible">{{ component.name|capitalize }}</h1>
