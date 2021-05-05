@@ -38,7 +38,8 @@
       },
 
       active() {
-        return this.url === this.$route.params.id ? 'is-active' : ''
+        let active = this.url === this.$route.params.id
+        return active ? 'osg-devtools-tag-item osg-state-primary' : 'osg-devtools-tag-item'
       },
 
       url() {
@@ -47,3 +48,19 @@
     }
   }
 </script>
+<style lang="scss" scoped>
+@use "system/colors";
+@use "system/state";
+
+a.osg-devtools-tag-item {
+  display: block;
+  padding: 5px 15px;
+  border: 2px solid colors.$gray;
+  text-decoration: none;
+  color: inherit;
+  
+  &:hover {
+    @extend %osg-state-hover;
+  }
+}
+</style>

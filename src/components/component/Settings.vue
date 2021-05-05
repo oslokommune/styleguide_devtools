@@ -4,7 +4,7 @@
       <div class="column">
         <h1 class="osg-heading-1" v-if="$store.state.component.settings.sections.title.visible">{{ component.name|capitalize }}</h1>
       </div>
-      <div class="column is-two-thirds button-list osg-text-right" v-if="$store.state.component.settings.sections.configuration.visible">
+      <div class="column is-two-thirds osg-devtools-button-list osg-text-right" v-if="$store.state.component.settings.sections.configuration.visible">
         <color-picker @pick="setColor" />
         <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small' + (fullscreen ? ' osg-button--active' : '')" @click="toggleFullscreen(); $event.target.blur()">
           <i class="fas fa-expand" title="Fullscreen mode"></i>
@@ -146,7 +146,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.button-list {
+.osg-devtools-button-list {
   > a {    
     margin-top: 19px
   }

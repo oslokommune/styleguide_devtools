@@ -27,10 +27,14 @@ const actions = {
         }
       }
       if (payload.settings) {
-        commit('setValues', payload.settings)
+        commit('setValues', {
+          settings: payload.settings
+        })
       }
       if (payload.sections) {
-        commit('setValues', payload.sections)
+        commit('setValues', {
+          sections: payload.sections
+        })
       }
     }
   },

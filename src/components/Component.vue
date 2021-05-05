@@ -1,7 +1,7 @@
 <template>
   <div class="osg-devtools-component osg-color-bg-white osg-padding-top-3 osg-padding-bottom-4 osg-padding-horizontal-4">    
     <div
-      :class="{ 'fullscreen': $store.state.component.settings.fullscreen }">
+      :class="{'osg-devtools-component--fullscreen': $store.state.component.settings.fullscreen }">
       <settings :component="component" />
       <documentation :component="component" />
       <div
@@ -9,7 +9,7 @@
         :class="frameClasses"
         :style="`background-color: ${bgColor};`">
         <frame :content="component.template" />
-        <span class="osg-devtools-art"></span>
+        <span class="osg-devtools-component__art"></span>
       </div>
     </div>
   </div>
@@ -43,18 +43,18 @@ export default {
 
   computed: {
     frameClasses() {
-      let classes = ['frame']
+      let classes = ['osg-devtools-component__frame']
       
       if (this.$store.state.component.settings.viewSize.mobile) {
-        classes.push('mobile')
+        classes.push('osg-devtools-component--mobile')
       } else if (this.$store.state.component.settings.viewSize.tablet) {
-        classes.push('tablet')
+        classes.push('osg-devtools-component--tablet')
       } else if (this.$store.state.component.settings.viewSize.desktop) {
-        classes.push('desktop')
+        classes.push('osg-devtools-component--desktop')
       }
 
       if (this.$store.state.component.settings.backgroundSolid) {
-        classes.push('solid')
+        classes.push('osg-devtools-component--solid')
       }
 
       return classes.join(' ')
@@ -98,27 +98,11 @@ export default {
 </script>
 <style lang="scss">
 @use "system/colors";
-@use "system/spacing";
-
-.code .osg-devtools-code {
-  pre {
-    @extend %osg-padding-2, %osg-margin-top-3;
-    
-    background-color: colors.$gray-light;
-    border: 2px solid colors.$grayscale-20;
-    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
-    overflow-x: auto;
-  }
-}
-
-.no-code .osg-devtools-code pre {
-  display: none;
-}
 
 .osg-devtools-component {
   min-height: calc(100vh - 160px);
 
-  .fullscreen {
+  .osg-devtools-component--fullscreen {
     background-color: #ffffff;
     height: 100vh;
     left: 0;
@@ -130,19 +114,19 @@ export default {
     z-index: 100;
   }
 
-  .frame {
+  .osg-devtools-component__frame {
     background-image: linear-gradient(45deg, #eaeaea 25%, transparent 25%), linear-gradient(-45deg, #eaeaea 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eaeaea 75%), linear-gradient(-45deg, transparent 75%, #eaeaea 75%);
     background-size: 20px 20px;
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
     margin: 0 auto;
 
-    .osg-devtools-art {
+    .osg-devtools-component__art {
       display: none;
     }
 
-    &.mobile {
-      border: 20px solid colors.$blue-dark;
-      border-bottom: 100px solid colors.$blue-dark;
+    &.osg-devtools-component--mobile {
+      border: 20px solid colors.$grayscale-80;
+      border-bottom: 100px solid colors.$grayscale-80;
       border-radius: 20px;
       position: relative;
       width: 400px;
@@ -164,9 +148,9 @@ export default {
       }
     }
 
-    &.tablet {
-      border: 20px solid colors.$blue-dark;
-      border-bottom: 100px solid colors.$blue-dark;
+    &.osg-devtools-component--tablet {
+      border: 20px solid colors.$grayscale-80;
+      border-bottom: 100px solid colors.$grayscale-80;
       border-radius: 20px;
       position: relative;
       width: 809px;
@@ -188,15 +172,15 @@ export default {
       }
     }
 
-    &.desktop {
-      border: 20px solid colors.$blue-dark;
+    &.osg-devtools-component--desktop {
+      border: 20px solid colors.$grayscale-80;
       border-radius: 20px;
       margin-bottom: 130px;
       position: relative;
       width: 1064px;
 
       &::before {
-        background-color: colors.$blue-dark;
+        background-color: colors.$grayscale-80;
         bottom: -60px;
         content: "";
         display: block;
@@ -207,7 +191,7 @@ export default {
       }
 
       &::after {
-        background-color: colors.$blue-dark;
+        background-color: colors.$grayscale-80;
         border-radius: 10px;
         bottom: -150px;
         content: "";
@@ -218,15 +202,15 @@ export default {
         width: 500px;
       }
 
-      .osg-devtools-art {
-        background-color: colors.$blue-light;
+      .osg-devtools-component__art {
+        background-color: colors.$green-light;
         border-radius: 10px;
-        bottom: -100px;
+        bottom: -90px;
         display: block;
-        height: 20px;
-        left: calc(50% + 200px);
+        height: 15px;
+        left: calc(50% + 210px);
         position: absolute;
-        width: 20px;    
+        width: 15px;    
         z-index: 10;
       }
 
@@ -235,7 +219,7 @@ export default {
       }
     }
 
-    &.solid {
+    &.osg-devtools-component--solid {
       background-image: none;
     }
   }

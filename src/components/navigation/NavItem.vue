@@ -1,10 +1,10 @@
 <template>
   <li v-if="item.isFolder">
-    <a href="#" @click.prevent="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}<span v-html="folderStatus"></span></a>
+    <a class="osg-devtools-nav-item" href="#" @click.prevent="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}<span v-html="folderStatus"></span></a>
     <router-link :class="active" v-if="!hasChildFolder()" :to="'/' + parentName + '-' + item.name">
       {{ item.name|snakeToRegular|capitalize }}
     </router-link>
-    <ul v-show="open" v-if="item.children">
+    <ul class="osg-devtools-nav-list" v-show="open" v-if="item.children">
       <nav-item
         :item="child"
         :parentName="parentName + '-' + item.name"
@@ -33,7 +33,7 @@
         if (active) {
           this.$eventHub.$emit('menuOpen', this.parentName + '-' + this.item.name)
         }
-        return active ? 'osg-state-primary' : ''
+        return active ? 'osg-devtools-nav-item osg-state-primary' : 'osg-devtools-nav-item'
       }
     },
 
@@ -76,21 +76,19 @@
 @use "system/colors";
 @use "system/state";
 
-a {
+a.osg-devtools-nav-item {
   display: block;
   padding: 5px 15px;
   border: 2px solid colors.$gray;
   text-decoration: none;
-  color: inherit
-  
-  ;
+  color: inherit;
   
   &:hover {
     @extend %osg-state-hover;
   }
 }
 
-ul {
+ul.osg-devtools-nav-list {
   padding-left: 20px;
 }
 </style>

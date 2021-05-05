@@ -18,7 +18,7 @@ export default {
   computed: {
     frameContents() {
       let template =
-        `<!DOCTYPE html><html><body class="${this.$store.state.component.sections.code.visible ? 'code' : 'no-code'}">
+        `<!DOCTYPE html><html><body class="${this.$store.state.component.sections.code.visible ? 'osg-devtools-code-examples' : ''}">
         <link href="/main.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" />
         <style>body { background-color: inherit; }</style>
@@ -32,3 +32,23 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+@use "system/colors";
+@use "system/spacing";
+
+.osg-devtools-code pre {
+  display: none;
+}
+
+.osg-devtools-code-examples .osg-devtools-code {
+  pre {
+    @extend %osg-padding-2, %osg-margin-top-3;
+    
+    display: block;
+    background-color: colors.$gray-light;
+    border: 2px solid colors.$grayscale-20;
+    font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+    overflow-x: auto;
+  }
+}
+</style>
