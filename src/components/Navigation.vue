@@ -1,5 +1,5 @@
 <template>
-  <aside class="menu osg-padding-horizontal-4 osg-margin-bottom-3">
+  <aside class="osg-padding-horizontal-4 osg-margin-bottom-3">
     <h1 class="osg-heading-4 osg-margin-bottom-1">Styles &amp;<br>Component library</h1>
     <div class="osg-margin-bottom-3">
       <div class="columns is-multiline">

@@ -2,7 +2,7 @@
   <iframe
     :srcdoc="frameContents"
     width="100%"
-    onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight + 30 +"px";}(this));'
+    onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.offsetHeight + 30 + "px";}(this));'
     />
 </template>
 <script>
@@ -24,6 +24,7 @@ export default {
         <link href="/main.css" rel="stylesheet" type="text/css">
         <style>
         body { background-color: inherit; }
+        .osg-devtools-code pre { display: none; }
         
         /**
          * Prism: Lightweight, robust, elegant syntax highlighting
@@ -49,10 +50,6 @@ export default {
 <style lang="scss">
 @use "system/colors";
 @use "system/spacing";
-
-.osg-devtools-code pre {
-  display: none;
-}
 
 .osg-devtools-code-examples .osg-devtools-code {
   pre {
