@@ -31,20 +31,8 @@
           </div>
         </div>
       </div>      
-    </div>    
-    <div v-if="!tags.length" class="columns">
-      <div class="column is-12">
-        <h6 class="osg-heading-6 osg-margin-bottom-1">
-          Menu
-        </h6>
-        <ul>
-          <nav-item :item="makeComponent('getting_started', componentStructure.gettingStarted.children.filter(child => child.isFolder))"></nav-item>
-          <nav-item :item="makeComponent('general', componentStructure.general.children.filter(child => child.isFolder))"></nav-item>
-          <nav-item :item="makeComponent('components', componentStructure.components.children.filter(child => child.isFolder))"></nav-item>
-        </ul>
-      </div>
     </div>
-    <div v-else class="columns">
+    <div v-if="tags.length" class="columns">
       <div class="column is-12">
         <h6 class="osg-heading-6 osg-margin-bottom-1">
           Components
@@ -56,6 +44,18 @@
             v-for="(item, index) in components"
             v-bind:key="index">
           </tag-item>
+        </ul>
+      </div>
+    </div>    
+    <div v-else class="columns">
+      <div class="column is-12">
+        <h6 class="osg-heading-6 osg-margin-bottom-1">
+          Menu
+        </h6>
+        <ul>
+          <nav-item :item="makeComponent('getting_started', componentStructure.gettingStarted.children.filter(child => child.isFolder))"></nav-item>
+          <nav-item :item="makeComponent('general', componentStructure.general.children.filter(child => child.isFolder))"></nav-item>
+          <nav-item :item="makeComponent('components', componentStructure.components.children.filter(child => child.isFolder))"></nav-item>
         </ul>
       </div>
     </div>

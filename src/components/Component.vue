@@ -1,37 +1,15 @@
 <template>
-  <div class="osg-devtools-component-wrapper">
-    <div class="osg-devtools-component osg-color-bg-white osg-padding-top-3 osg-padding-bottom-4 osg-padding-horizontal-4">    
+  <div class="osg-devtools-component osg-color-bg-white osg-padding-top-3 osg-padding-bottom-4 osg-padding-horizontal-4">    
+    <div
+      :class="{'osg-devtools-component--fullscreen': $store.state.component.settings.fullscreen }">
+      <settings :component="component" />
+      <documentation :component="component" />
       <div
-        :class="{'osg-devtools-component--fullscreen': $store.state.component.settings.fullscreen }">
-        <settings :component="component" />
-        <documentation :component="component" />
-        <div
-          v-if="$store.state.component.sections.frame.visible"
-          :class="frameClasses"
-          :style="`background-color: ${bgColor};`">
-          <frame :content="component.template" />
-          <span class="osg-devtools-component__art"></span>
-        </div>
-      </div>
-    </div>
-    <div class="osg-devtools-infobar">
-      <div class="osg-color-bg-yellow osg-padding-2 osg-text-center">
-        <span class="osg-text-7">1.0</span>
-      </div>
-      <div class="osg-color-bg-red osg-padding-vertical-1 osg-padding-horizontal-2">
-        <span class="fab fa-chrome osg-text-2"></span>
-      </div>
-      <div class="osg-color-bg-red osg-padding-vertical-1 osg-padding-horizontal-2">
-        <span class="fab fa-edge osg-text-2"></span>
-      </div>
-      <div class="osg-color-bg-green-light osg-padding-vertical-1 osg-padding-horizontal-2">
-        <span class="fab fa-firefox-browser osg-text-2"></span>
-      </div>
-      <div class="osg-color-bg-red osg-padding-vertical-1 osg-padding-horizontal-2">
-        <span class="fab fa-safari osg-text-2"></span>
-      </div>
-      <div class="osg-color-bg-green-light osg-padding-vertical-1 osg-padding-horizontal-2" title="WCAG 2: AAA">
-        <span class="fas fa-universal-access osg-text-2"></span>
+        v-if="$store.state.component.sections.frame.visible"
+        :class="frameClasses"
+        :style="`background-color: ${bgColor};`">
+        <frame :content="component.template" />
+        <span class="osg-devtools-component__art"></span>
       </div>
     </div>
   </div>
@@ -122,19 +100,7 @@ export default {
 <style lang="scss">
 @use "system/colors";
 
-.osg-devtools-component-wrapper {
-  display: flex;
-}
-
-.osg-devtools-infobar {
-  background-color: colors.$gray;
-  flex-grow: 1;
-  height: 100vh;
-  max-width: 44px;
-}
-
 .osg-devtools-component {
-  flex-grow: 2;
   height: 100vh;
   overflow-y: auto;
 
