@@ -30,7 +30,7 @@
       <div class="osg-color-bg-red osg-padding-vertical-1 osg-padding-horizontal-2">
         <span class="fab fa-safari osg-text-2"></span>
       </div>
-      <div class="osg-color-bg-green-light osg-padding-vertical-1 osg-padding-horizontal-2">
+      <div class="osg-color-bg-green-light osg-padding-vertical-1 osg-padding-horizontal-2" title="WCAG 2: AAA">
         <span class="fas fa-universal-access osg-text-2"></span>
       </div>
     </div>

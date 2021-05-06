@@ -1,13 +1,13 @@
 <template>
   <li v-if="item.isFolder">
-    <a class="osg-devtools-nav-item" href="#" @click.prevent="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}<span v-html="folderStatus"></span></a>
-    <router-link :class="active" v-if="!hasChildFolder()" :to="'/' + parentName + '-' + item.name">
+    <a class="osg-devtools-nav-item" :class="folderStatus" href="#" @click.prevent="toggle()" v-if="hasChildFolder()">{{ item.name|snakeToRegular|capitalize }}</a>
+    <router-link :class="active" v-if="!hasChildFolder()" :to="'/' + parentNameAndSeparator + item.name">
       {{ item.name|snakeToRegular|capitalize }}
     </router-link>
     <ul class="osg-devtools-nav-list" v-show="open" v-if="item.children">
       <nav-item
         :item="child"
-        :parentName="parentName + '-' + item.name"
+        :parentName="parentNameAndSeparator + item.name"
         v-for="child in item.children.filter(child => child.isFolder)"
         v-bind:key="child.name">
       </nav-item>
@@ -18,7 +18,16 @@
 <script>
   export default {
     name: 'NavItem',
-    props: ['item', 'parentName'],
+    props: {
+      'item': {
+        type: Object,
+        required: true
+      },
+      'parentName': {
+        type: String,
+        required: false
+      }
+    },
 
     data: () => ({
       open: false
@@ -26,14 +35,19 @@
 
     computed: {
       folderStatus() {
-        return this.open ? ' <i class="fas fa-angle-down"></i>' : ' <i class="fas fa-angle-right"></i>'
+        return this.open ? 'osg-devtools-nav-item--open' : 'osg-devtools-nav-item--closed'
       },
+
       active() {        
         let active = this.item.urlPath === this.$route.params.id
         if (active) {
-          this.$eventHub.$emit('menuOpen', this.parentName + '-' + this.item.name)
+          this.$eventHub.$emit('menuOpen', this.parentNameAndSeparator + this.item.name)
         }
         return active ? 'osg-devtools-nav-item osg-state-primary' : 'osg-devtools-nav-item'
+      },
+
+      parentNameAndSeparator() {
+        return this.parentName ? this.parentName + '-' : ''
       }
     },
 
@@ -59,14 +73,14 @@
       },
 
       menuToggle(path) {
-        this.open = path.indexOf(this.parentName + '-' + this.item.name) >= 0
+        this.open = path.indexOf(this.parentNameAndSeparator + this.item.name) >= 0
       },
 
       toggle() {
         this.open = !this.open
 
         if (this.open) {
-          this.$eventHub.$emit('menuOpen', this.parentName + '-' + this.item.name)
+          this.$eventHub.$emit('menuOpen', this.parentNameAndSeparator + this.item.name)
         }
       }
     }
@@ -75,6 +89,7 @@
 <style lang="scss" scoped>
 @use "system/colors";
 @use "system/state";
+@use "components/links/link/mixins";
 
 a.osg-devtools-nav-item {
   display: block;
@@ -85,6 +100,26 @@ a.osg-devtools-nav-item {
   
   &:hover {
     @extend %osg-state-hover;
+  }
+
+  &--closed {
+    @include mixins.icon-right('chevron-right', 1em);
+    position: relative;
+
+    &::after {
+      position: absolute;
+      top: 5px;
+    }
+  }
+
+  &--open {
+    @include mixins.icon-right('chevron-down', 1em);
+    position: relative;
+
+    &::after {
+      position: absolute;
+      top: 5px;
+    }
   }
 }
 

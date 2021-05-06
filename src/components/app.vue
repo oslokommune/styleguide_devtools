@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-gapless">
-    <div class="column is-2">
+    <div class="column is-one-fifth">
       <div class="osg-devtools-nav">
         <section class="osg-padding-2">
           <figure class="osg-logo">
@@ -21,6 +21,7 @@
             </a>
           </figure>
         </section>
+        <h1 class="osg-heading-4 osg-margin-bottom-1 osg-padding-horizontal-4">Styles &amp;<br>Component library</h1>
         <Navigation></Navigation>
         <div class="osg-padding-4 osg-text-center">
           Made with &hearts; by<br><strong>Utviklings- og kompetanseetaten</strong><br>Oslo kommune<br><a class="osg-link" href="mailto:devnull@uke.oslo.kommune.no">Contact us</a>
