@@ -2,7 +2,7 @@
   <iframe
     :srcdoc="frameContents"
     width="100%"
-    onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.offsetHeight + 30 + "px";}(this));'
+    onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.offsetHeight + "px";}(this));'
     />
 </template>
 <script>
@@ -50,16 +50,21 @@ export default {
 <style lang="scss">
 @use "system/colors";
 @use "system/spacing";
+@use "components/grid/container/container";
 
-.osg-devtools-code-examples .osg-devtools-code {
+.osg-devtools-code-examples .osg-devtools-code {   
   pre {
-    @extend %osg-padding-2, %osg-margin-top-3;
+    @extend %osg-padding-2;
     
     display: block;
     background-color: colors.$gray-light;
     border: 2px solid colors.$grayscale-20;
     font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
-    overflow-x: auto;
+    overflow-x: auto;    
   }
+}
+
+.osg-devtools-code-examples .osg-devtools-code.osg-devtools-code--container pre {
+  @extend .osg-container;
 }
 </style>

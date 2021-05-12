@@ -1,8 +1,8 @@
 <template>
   <aside class="osg-padding-horizontal-4 osg-margin-bottom-3">
     <div class="osg-margin-bottom-3">
-      <div class="columns is-multiline">
-        <div class="column is-9">
+      <div class="osg-row">
+        <div class="osg-row__column osg-row__column--9">
           <input
             type="text"
             v-model="search"
@@ -13,7 +13,7 @@
             style="width: 170px;"
           />
         </div>
-        <div class="column is-3">
+        <div class="osg-row__column osg-row__column--3">
           <button
             @click="addTag"
             class="osg-button osg-button--circle osg-button--small osg-button--yellow"
@@ -32,8 +32,8 @@
         </div>
       </div>      
     </div>
-    <div v-if="tags.length" class="columns">
-      <div class="column is-12">
+    <div v-if="tags.length" class="osg-row">
+      <div class="osg-row__column osg-row__column--12">
         <h6 class="osg-heading-6 osg-margin-bottom-1">
           Components
         </h6>
@@ -47,8 +47,8 @@
         </ul>
       </div>
     </div>    
-    <div v-else class="columns">
-      <div class="column is-12">
+    <div v-else class="osg-row">
+      <div class="osg-row__column osg-row__column--12">
         <h6 class="osg-heading-6 osg-margin-bottom-1">
           Menu
         </h6>

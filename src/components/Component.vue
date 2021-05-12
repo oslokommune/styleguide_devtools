@@ -4,12 +4,16 @@
       :class="{'osg-devtools-component--fullscreen': $store.state.component.settings.fullscreen }">
       <settings :component="component" />
       <documentation :component="component" />
-      <div
-        v-if="$store.state.component.sections.frame.visible"
-        :class="frameClasses"
-        :style="`background-color: ${bgColor};`">
-        <frame :content="component.template" />
-        <span class="osg-devtools-component__art"></span>
+      <div class="osg-row">
+        <div class="osg-row__column">
+          <div
+            v-if="$store.state.component.sections.frame.visible"
+            :class="frameClasses"
+            :style="`background-color: ${bgColor};`">
+            <frame :content="component.template" />
+            <span class="osg-devtools-component__art"></span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -132,7 +136,7 @@ export default {
       border-bottom: 100px solid colors.$grayscale-80;
       border-radius: 20px;
       position: relative;
-      width: 400px;
+      width: 414px;
 
       &::after {
         background-color: white;
@@ -147,7 +151,7 @@ export default {
       }
 
       iframe {
-        height: 600px !important;
+        height: 650px !important;
       }
     }
 

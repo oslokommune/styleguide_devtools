@@ -1,7 +1,7 @@
 <template>
-  <div v-if="$store.state.component.sections.docs.visible" class="osg-color-bg-yellow osg-padding-4 osg-margin-bottom-4">
-    <div class="columns">
-      <div class="column">
+  <div v-if="$store.state.component.sections.docs.visible" class="osg-row">
+    <div class="osg-row__column">
+      <div class="osg-color-bg-yellow osg-padding-4">
         <article
           v-if="component.mdFile"
           class="osg-content"      
