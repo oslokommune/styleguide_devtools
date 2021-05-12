@@ -54,7 +54,7 @@ export default {
 
 .osg-devtools-code-examples .osg-devtools-code {   
   pre {
-    @extend %osg-padding-2;
+    @extend %osg-padding-2, %osg-margin-top-3;
     
     display: block;
     background-color: colors.$gray-light;
@@ -66,5 +66,8 @@ export default {
 
 .osg-devtools-code-examples .osg-devtools-code.osg-devtools-code--container pre {
   @extend .osg-container;
+}
+.osg-devtools-code-examples .osg-devtools-code.osg-devtools-code--no-space pre {
+  margin-top: 0 !important;
 }
 </style>
