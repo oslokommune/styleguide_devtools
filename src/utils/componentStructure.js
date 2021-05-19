@@ -17,6 +17,10 @@ const nestedStructureList = {
     children: [],
     unprocessedHits: []
   },
+  pages: {
+    children: [],
+    unprocessedHits: []
+  },
   assets: [],
   templates: []
 }
@@ -43,10 +47,12 @@ export function componentStructure(fileList) {
   findAssetsAndTemplates(nestedStructureList.components.children)
   findAssetsAndTemplates(nestedStructureList.general.children)
   findAssetsAndTemplates(nestedStructureList.gettingStarted.children)
+  findAssetsAndTemplates(nestedStructureList.pages.children)
 
   nestedStructureList.components.unprocessedHits = []
   nestedStructureList.general.unprocessedHits = []
   nestedStructureList.gettingStarted.unprocessedHits = []
+  nestedStructureList.pages.unprocessedHits = []
 
   return nestedStructureList
 }
@@ -94,6 +100,8 @@ function organizeFiles(fileList) {
       nestedStructureList.general.unprocessedHits.push(file)
     } else if (file.isGettingStarted) {
       nestedStructureList.gettingStarted.unprocessedHits.push(file)
+    } else if (file.isPage) {
+      nestedStructureList.pages.unprocessedHits.push(file)
     }
   }
 }
@@ -105,6 +113,7 @@ function nestFiles() {
   nest(nestedStructureList.components.unprocessedHits, nestedStructureList.components.children, 'components-', 1)
   nest(nestedStructureList.general.unprocessedHits, nestedStructureList.general.children, 'general-', 1)
   nest(nestedStructureList.gettingStarted.unprocessedHits, nestedStructureList.gettingStarted.children, 'getting_started-', 1)
+  nest(nestedStructureList.pages.unprocessedHits, nestedStructureList.pages.children, 'pages-', 1)
 }
 
 /**

@@ -39,7 +39,7 @@ export default {
         </head>
         <body class="${this.$store.state.component.sections.code.visible ? 'osg-devtools-code-examples' : ''}">
         ${this.content}
-        <script src="/devtools.js"><\/script></body></html>`
+        <script src="/devtools.js"><\/script><script src="/osg.js"><\/script></body></html>`
 
       
       return template

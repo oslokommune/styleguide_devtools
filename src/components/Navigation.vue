@@ -56,6 +56,7 @@
           <nav-item :item="makeComponent('getting_started', componentStructure.gettingStarted.children.filter(child => child.isFolder))"></nav-item>
           <nav-item :item="makeComponent('general', componentStructure.general.children.filter(child => child.isFolder))"></nav-item>
           <nav-item :item="makeComponent('components', componentStructure.components.children.filter(child => child.isFolder))"></nav-item>
+          <nav-item :item="makeComponent('pages', componentStructure.pages.children.filter(child => child.isFolder))"></nav-item>
         </ul>
       </div>
     </div>
@@ -102,6 +103,7 @@
           isDataFile: false,
           isAsset: false,
           isRoot: true,
+          isPage: false,
           contents: null,
           template: null,
           children: children

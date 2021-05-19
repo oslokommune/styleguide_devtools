@@ -3,9 +3,11 @@
     "@babel/preset-env"
   ],
   "plugins": [
-    ["@babel/plugin-transform-for-of", {
-      "assumeArray": true
-    }]
+    [
+      "@babel/plugin-transform-for-of",
+      {
+        "assumeArray": true
+      }
+    ]
   ]
 }
-

@@ -43,13 +43,14 @@ function build() {
   }
 
   switch (extension) {
+    case 'js':
     case 'md':
-    case 'json':      
+    case 'json':
     case 'html':
     case 'scss':
       console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
 
-      exec('npm run build-structure true', (error, stdout, stderr) => {
+      exec('npm run build-js && npm run build-structure true', (error, stdout, stderr) => {
         let redTerminalText = '\x1b[31m'
         let resetTerminalColor = '\x1b[0m'
 

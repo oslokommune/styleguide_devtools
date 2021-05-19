@@ -18,6 +18,7 @@ export function fileObject(path) {
     isDataFile: isDataFile(path),
     isAsset: isAsset(path),
     isRoot: isRoot(path),
+    isPage: isPage(path),
     contents: getContents(path),
     template: getTemplate(path)
   }
@@ -56,6 +57,10 @@ function isGlobal(path) {
 
 function isGettingStarted(path) {
   return path.indexOf('getting_started') >= 0
+}
+
+function isPage(path) {
+  return path.indexOf('pages') >= 0
 }
 
 function isFolder(path) {

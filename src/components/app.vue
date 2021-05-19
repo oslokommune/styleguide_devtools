@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import 'styleguide/src/osg.js'
 import Navigation from './Navigation.vue'
 
 export default {

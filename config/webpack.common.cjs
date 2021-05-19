@@ -17,12 +17,7 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.vue', '.json'],
-    symlinks: false,
-    fallback: {
-      "buffer": require.resolve("buffer/"),
-      "crypto": require.resolve("crypto-browserify"),
-      "stream": require.resolve("stream-browserify")
-    }
+    symlinks: false
   },
   snapshot: {
     managedPaths: []

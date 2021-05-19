@@ -41,6 +41,9 @@ export function componentInfo(path) {
     case 'getting_started':
       node = findNode(path, componentStructure.gettingStarted.children)
       break
+    case 'pages':
+      node = findNode(path, componentStructure.pages.children)
+      break
     default:
   }
 

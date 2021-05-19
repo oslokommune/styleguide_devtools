@@ -12,3 +12,4 @@ COPY ./package.* ./
 COPY ./eventListener.js ./
 COPY ./.eslintrc.json ./
 COPY ./.babelrc ./
+COPY ./rollup.config.js ./
