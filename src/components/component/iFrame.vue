@@ -19,7 +19,7 @@ export default {
     frameContents() {
       let template =
         `<!DOCTYPE html>
-        <html>
+        <html lang="en">
         <head>
         <link href="/main.css" rel="stylesheet" type="text/css">
         <style>
