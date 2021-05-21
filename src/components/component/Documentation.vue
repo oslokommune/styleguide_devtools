@@ -9,7 +9,7 @@
         >
         </article>
         <div v-else>
-          This component is undocumented.
+          No documentation available.
         </div>
       </div>
     </div>

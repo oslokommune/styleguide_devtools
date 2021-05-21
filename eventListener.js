@@ -48,6 +48,7 @@ function build() {
     case 'json':
     case 'html':
     case 'scss':
+    case 'vue':
       console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
 
       exec('npm run build-js && npm run build-structure true', (error, stdout, stderr) => {

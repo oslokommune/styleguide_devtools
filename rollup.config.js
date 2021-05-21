@@ -1,4 +1,5 @@
 import babel from '@rollup/plugin-babel';
+import vue from 'rollup-plugin-vue';
 
 export default {
   input: 'node_modules/styleguide/src/osg.js',
@@ -6,6 +7,7 @@ export default {
     file: 'dist/osg.js'
   },
   plugins: [
-    babel({ babelHelpers: 'bundled' })
+    babel({ babelHelpers: 'bundled' }),
+    vue()
   ]
 };

@@ -36,7 +36,7 @@ export function componentStructure(fileList) {
     if (itemObj.isAsset && itemObj.extension === 'scss') {
       nestedStructureList.assets.push(item)
     }
-    if (itemObj.extension === 'scss' || itemObj.extension === 'js' || itemObj.extension === 'md' || itemObj.extension === 'json' || itemObj.extension === 'html' || itemObj.isFolder) {
+    if (itemObj.extension === 'vue' || itemObj.extension === 'scss' || itemObj.extension === 'js' || itemObj.extension === 'md' || itemObj.extension === 'json' || itemObj.extension === 'html' || itemObj.isFolder) {
       fileList[index] = itemObj
     }
   })
@@ -74,6 +74,7 @@ function findAssetsAndTemplates(children) {
     switch (child.extension) {
       case 'sass':
       case 'scss':
+      case 'vue':
       case 'js':
         nestedStructureList.assets.push(child.rawPath)
         break
