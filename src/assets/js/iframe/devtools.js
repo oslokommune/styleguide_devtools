@@ -47,6 +47,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }, false);
   });
 
+  elements = document.querySelectorAll("form");
+  elements.forEach(function (element) {
+    element.addEventListener("submit", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }, false);
+  });
+
 
   elements = document.querySelectorAll(".osg-devtools-code");
   elements.forEach(function (element) {
