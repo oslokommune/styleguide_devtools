@@ -1,17 +1,13 @@
 <template>
-  <div v-if="$store.state.component.sections.docs.visible" class="osg-row">
-    <div class="osg-row__column">
-      <div class="osg-color-bg-yellow osg-padding-4">
-        <article
-          v-if="component.mdFile"
-          class="osg-content"      
-          v-html="marked(component.mdFile.contents)"
-        >
-        </article>
-        <div v-else>
-          No documentation available.
-        </div>
-      </div>
+  <div class="osg-padding-3">
+    <article
+      v-if="component.mdFile"
+      class="osg-content"      
+      v-html="marked(component.mdFile.contents)"
+    >
+    </article>
+    <div v-else>
+      No documentation available.
     </div>
   </div>
 </template>

@@ -2,6 +2,7 @@
   <iframe
     :srcdoc="frameContents"
     width="100%"
+    style="min-height: calc(100vh - 218px); max-height: calc(100vh - 218px);"
     onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.offsetHeight + 30 + "px";}(this));'
     />
 </template>
@@ -23,7 +24,7 @@ export default {
         <head>
         <link href="/main.css" rel="stylesheet" type="text/css">
         <style>
-        body { background-color: inherit; }
+        body { background-color: inherit; transform-origin: 0 0; transform: scale(${this.$store.state.component.settings.zoom / 100}); }
         .osg-devtools-code pre { display: none; }
         
         /**

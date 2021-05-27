@@ -1,20 +1,20 @@
 <template>
-  <div class="osg-devtools-component osg-color-bg-white osg-padding-top-3 osg-padding-bottom-4 osg-padding-horizontal-4">    
+  <div class="osg-devtools-component osg-color-bg-white osg-padding-horizontal-4" :class="{ 'osg-devtools-component--clean': isCleanState() }">    
     <div
       :class="{'osg-devtools-component--fullscreen': $store.state.component.settings.fullscreen }">
       <settings :component="component" />
-      <documentation :component="component" />
-      <div class="osg-row">
-        <div class="osg-row__column">
-          <div
-            v-if="$store.state.component.sections.frame.visible"
-            :class="frameClasses"
-            :style="`background-color: ${bgColor};`">
-            <frame :content="component.template" />
-            <span class="osg-devtools-component__art"></span>
-          </div>
-        </div>
+      <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs osg-margin-bottom-2">
+        <button v-for="(tab, index) in tabs" v-bind:key="index" @click="activeTab = index" :class="activeTab === index ? 'osg-button osg-button--active osg-button--small' : 'osg-button osg-button--outline osg-button--small'">{{ tab }}</button>
       </div>
+      <div
+        v-if="activeTab === 0 && $store.state.component.sections.frame.visible"
+        :class="frameClasses"
+        :style="`background-color: ${bgColor};`">
+        <frame :content="component.template" />
+        <span class="osg-devtools-component__art"></span>
+      </div>
+      <documentation v-if="activeTab === 1" :component="component" />      
+      <status-bar v-if="! isCleanState()" :component="component" />
     </div>
   </div>
 </template>
@@ -25,16 +25,21 @@ import { componentInfo } from '../assets/js/componentInfo'
 import Settings from './component/Settings'
 import Documentation from './component/Documentation'
 import Frame from './component/iFrame'
+import StatusBar from './component/StatusBar'
 
 export default {
   name: 'ComponentFrame',
   components: {
     Settings,
     Documentation,
-    Frame
+    Frame,
+    StatusBar
   },
 
-  data: () => ({   
+  data: () => ({    
+    tabs: [      
+      "View", "Documentation"
+    ],
     component: {
       name: 'Loading...',
       cssFiles: [],
@@ -78,6 +83,19 @@ export default {
       }
       return this.$store.state.component.settings.backgroundColor
     },
+
+    activeTab: {
+      get: function() {
+        return this.$store.state.component.settings.activeTab
+      },
+      set: function(value) {
+        this.$store.dispatch('personal/setValues', {
+          settings: {
+            activeTab: value
+          }
+        })
+      }
+    }
   },
 
   mounted() {
@@ -97,6 +115,20 @@ export default {
   methods: {
     updateComponent() {
       this.component = componentInfo(this.$route.params.id)
+    },
+
+    isCleanState() {
+      if (this.component) {
+        if (this.component.data) {
+          if (this.component.data.preset) {
+            if (this.component.data.preset === "clean") {
+              return true
+            }
+          }
+        }
+      }
+
+      return false
     }
   }
 }
@@ -105,8 +137,9 @@ export default {
 @use "system/colors";
 
 .osg-devtools-component {
+  position: relative;
   height: 100vh;
-  overflow-y: auto;
+  overflow: hidden;
 
   .osg-devtools-component--fullscreen {
     background-color: #ffffff;
@@ -125,7 +158,7 @@ export default {
     background-size: 20px 20px;
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
     line-height: 0;
-    margin: 0 auto;
+    margin: 0 auto;    
 
     .osg-devtools-component__art {
       display: none;
@@ -151,6 +184,7 @@ export default {
       }
 
       iframe {
+        min-height: auto !important;
         height: 650px !important;
       }
     }
@@ -175,6 +209,7 @@ export default {
       }
 
       iframe {
+        min-height: auto !important;
         height: 900px !important;
       }
     }
@@ -222,12 +257,24 @@ export default {
       }
 
       iframe {
+        min-height: auto !important;
         height: 800px !important;
       }
     }
 
     &.osg-devtools-component--solid {
       background-image: none;
+    }
+  }
+
+  &--clean {
+    overflow: auto;
+
+    .osg-devtools-component__frame {
+      iframe {
+        min-height: auto !important;
+        max-height: none !important;
+      }
     }
   }
 }

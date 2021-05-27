@@ -8,6 +8,15 @@
       <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small' + (fullscreen ? ' osg-button--active' : '')" @click="toggleFullscreen(); $event.target.blur()">
         <i class="fas fa-expand" title="Fullscreen mode"></i>
       </a>
+      <a aria-role="button" :class="'osg-button osg-button--small' + (code ? ' osg-button--active' : '')" @click="toggleCode(); $event.target.blur()">
+        <i class="fas fa-code" title="Code"></i>
+      </a>
+      <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--small" @click="zoomOut(); $event.target.blur()">
+        <i class="fas fa-search-minus" title="Zoom out"></i>
+      </a>
+      <a aria-role="button" class="osg-button osg-button--small" @click="zoomIn(); $event.target.blur()">
+        <i class="fas fa-search-plus" title="Zoom in"></i>
+      </a>
       <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small osg-button--blue-light' + ($store.state.component.settings.viewSize.mobile ? ' osg-button--active' : '')" @click="setViewSize('mobile'); $event.target.blur()">
         S
       </a>
@@ -19,12 +28,6 @@
       </a>
       <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.component.settings.viewSize.full ? ' osg-button--active' : '')" @click="setViewSize('full'); $event.target.blur()">
         <i class="fas fa-percentage" title="Full width"></i>
-      </a>
-      <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small' + (documentation ? ' osg-button--active' : '')" @click="toggleDocumentation(); $event.target.blur()">
-        <i class="fas fa-comment-dots" title="Documentation"></i>
-      </a>
-      <a aria-role="button" :class="'osg-button osg-button--small' + (code ? ' osg-button--active' : '')" @click="toggleCode(); $event.target.blur()">
-        <i class="fas fa-code" title="Code"></i>
       </a>
       <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="$store.dispatch('personal/reset'); $event.target.blur()">
         <i class="fas fa-industry"></i>
@@ -88,21 +91,6 @@ export default {
       }
     },
 
-    documentation: {
-      get: function() {
-        return this.$store.state.personal.sections.docs.visible
-      },
-      set: function(value) {
-        this.$store.dispatch('personal/setValues', {
-          sections: {
-            docs: {
-              visible: value
-            }
-          }
-        })
-      }
-    },
-
     code: {
       get: function() {
         return this.$store.state.personal.sections.code.visible
@@ -139,6 +127,28 @@ export default {
     setColor(color, solid) {
       this.backgroundColor = color
       this.backgroundSolid = solid
+    },
+
+    zoomIn() {
+      let currentZoom = this.$store.state.personal.settings.zoom
+      if (currentZoom < 500) {
+        this.$store.dispatch('personal/setValues', {
+          settings: {
+            zoom: currentZoom + 10
+          }
+        })
+      }
+    },
+
+    zoomOut() {
+      let currentZoom = this.$store.state.personal.settings.zoom      
+      if (currentZoom > 50) {
+        this.$store.dispatch('personal/setValues', {
+          settings: {
+            zoom: currentZoom - 10
+          }
+        })
+      }
     }
   }
 }

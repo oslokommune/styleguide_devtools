@@ -17,7 +17,9 @@ export const defaultState = {
     },
     fullscreen: false,
     backgroundColor: '',
-    backgroundSolid: false
+    backgroundSolid: false,
+    zoom: 100,
+    activeTab: 0
   },
   sections: {
     frame: {

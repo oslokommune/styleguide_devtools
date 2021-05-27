@@ -12,12 +12,11 @@ const state = {
     },
     fullscreen: false,
     backgroundColor: '',
-    backgroundSolid: false
+    backgroundSolid: false,
+    zoom: 100,
+    activeTab: 0
   },
   sections: {
-    docs: {
-      visible: true
-    },
     code: {
       visible: true
     }
@@ -62,12 +61,11 @@ const actions = {
         },
         fullscreen: false,
         backgroundColor: '',
-        backgroundSolid: false
+        backgroundSolid: false,
+        zoom: 100,
+        activeTab: 0
       },
       sections: {
-        docs: {
-          visible: true
-        },
         code: {
           visible: true
         }
