@@ -6,12 +6,14 @@
       <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs osg-margin-bottom-2">
         <button v-for="(tab, index) in tabs" v-bind:key="index" @click="activeTab = index" :class="activeTab === index ? 'osg-button osg-button--active osg-button--small' : 'osg-button osg-button--outline osg-button--small'">{{ tab }}</button>
       </div>
-      <div
-        v-if="activeTab === 0 && $store.state.component.sections.frame.visible"
-        :class="frameClasses"
-        :style="`background-color: ${bgColor};`">
-        <frame :content="component.template" />
-        <span class="osg-devtools-component__art"></span>
+      <div v-if="activeTab === 0" class="osg-devtools-component__frame-wrapper">
+        <div
+          v-if="$store.state.component.sections.frame.visible"
+          :class="frameClasses"
+          :style="`background-color: ${bgColor};`">
+          <frame :content="component.template" />
+          <span class="osg-devtools-component__art"></span>
+        </div>
       </div>
       <documentation v-if="activeTab === 1" :component="component" />      
       <status-bar v-if="! isCleanState()" :component="component" />
@@ -139,7 +141,7 @@ export default {
 .osg-devtools-component {
   position: relative;
   height: 100vh;
-  overflow: hidden;
+  overflow: hidden;  
 
   .osg-devtools-component--fullscreen {
     background-color: #ffffff;
@@ -153,10 +155,14 @@ export default {
     z-index: 100;
   }
 
+  .osg-devtools-component__frame-wrapper {
+    border: 2px dotted colors.$grayscale-20;
+  }
+
   .osg-devtools-component__frame {
     background-image: linear-gradient(45deg, #eaeaea 25%, transparent 25%), linear-gradient(-45deg, #eaeaea 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eaeaea 75%), linear-gradient(-45deg, transparent 75%, #eaeaea 75%);
     background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;    
     line-height: 0;
     margin: 0 auto;    
 
@@ -269,6 +275,10 @@ export default {
 
   &--clean {
     overflow: auto;
+
+    .osg-devtools-component__frame-wrapper {
+      border: none;
+    }
 
     .osg-devtools-component__frame {
       iframe {
