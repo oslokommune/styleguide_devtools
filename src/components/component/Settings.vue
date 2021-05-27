@@ -156,7 +156,7 @@ export default {
 <style lang="scss" scoped>
 .osg-devtools-button-list {
   > a {    
-    margin-top: 19px
+    margin-top: 22px
   }
 }
 </style>

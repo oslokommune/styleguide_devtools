@@ -40,7 +40,7 @@ export default {
 
   data: () => ({    
     tabs: [      
-      "View", "Documentation"
+      "Developer", "Documentation"
     ],
     component: {
       name: 'Loading...',
