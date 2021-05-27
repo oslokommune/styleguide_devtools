@@ -54,10 +54,13 @@
 
 a.osg-devtools-tag-item {
   display: block;
-  padding: 5px 15px;
-  border: 2px solid colors.$gray;
+  padding: 15px 30px;
+  border: 2px solid colors.$white;
+  background-color: colors.$white;  
   text-decoration: none;
   color: inherit;
+  margin-bottom: 2px;
+  position: relative;  
   
   &:hover {
     @extend %osg-state-hover;

@@ -88,42 +88,66 @@
 </script>
 <style lang="scss" scoped>
 @use "system/colors";
+@use "system/icons";
 @use "system/state";
-@use "components/links/link/mixins";
 
 a.osg-devtools-nav-item {
   display: block;
-  padding: 5px 15px;
-  border: 2px solid colors.$gray;
+  padding: 15px 30px;
+  border: 2px solid colors.$white;
+  background-color: colors.$white;  
   text-decoration: none;
   color: inherit;
+  margin-bottom: 2px;
+  margin-right: 30px;
+  position: relative;  
   
   &:hover {
     @extend %osg-state-hover;
+
+    &::after {
+      @extend %osg-state-hover;
+    }
   }
 
   &--closed {
-    @include mixins.icon-right('chevron-right', 1em);
-    position: relative;
-
+    margin-right: 82px;
     &::after {
+      font-family: 'Oslo Icons' !important;
+      font-size: 1.5em;
+      content: map-get(icons.$icons, 'chevron-right') !important;
+      width: 51px;
+      height: 51px;
+      border-radius: 50%;
+      background-color: colors.$white;
+      right: -53px;
+      top: 2px;
       position: absolute;
-      top: 5px;
+      text-align: center;    
+      padding-top: 14px;
     }
   }
 
   &--open {
-    @include mixins.icon-right('chevron-down', 1em);
-    position: relative;
-
+    margin-right: 82px;
     &::after {
+      font-family: 'Oslo Icons' !important;
+      font-size: 1.5em;
+      content: map-get(icons.$icons, 'chevron-down') !important;
+      width: 51px;
+      height: 51px;
+      border-radius: 50%;
+      background-color: colors.$white;
+      right: -53px;
+      top: 2px;
       position: absolute;
-      top: 5px;
+      text-align: center;    
+      padding-top: 14px;
     }
   }
 }
 
 ul.osg-devtools-nav-list {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 </style>

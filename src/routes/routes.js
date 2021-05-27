@@ -1,5 +1,6 @@
 import app from '../components/app.vue'
 import Component from '../components/Component.vue'
+import Start from '../components/Start.vue'
 
 export const routes = [
   {
@@ -9,6 +10,10 @@ export const routes = [
       {
         path: '/:id',
         component: Component
+      },
+      {
+        path: '',
+        component: Start
       }
     ]
   }
