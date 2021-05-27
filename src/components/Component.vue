@@ -6,7 +6,7 @@
       <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs osg-margin-bottom-2">
         <button v-for="(tab, index) in tabs" v-bind:key="index" @click="activeTab = index" :class="activeTab === index ? 'osg-button osg-button--active osg-button--small' : 'osg-button osg-button--outline osg-button--small'">{{ tab }}</button>
       </div>
-      <div v-if="activeTab === 0" class="osg-devtools-component__frame-wrapper">
+      <div v-if="activeTab === 0" :class="frameWrapperClasses" class="osg-devtools-component__frame-wrapper">
         <div
           v-if="$store.state.component.sections.frame.visible"
           :class="frameClasses"
@@ -53,17 +53,23 @@ export default {
   }),
 
   computed: {
+    frameWrapperClasses() {
+      let classes = []
+      
+      if (this.$store.state.component.settings.viewSize.mobile) {
+        classes.push('osg-devtools-component__frame-wrapper--small')
+      } else if (this.$store.state.component.settings.viewSize.tablet) {
+        classes.push('osg-devtools-component__frame-wrapper--medium')
+      } else if (this.$store.state.component.settings.viewSize.desktop) {
+        classes.push('osg-devtools-component__frame-wrapper--large')
+      }
+
+      return classes.join(' ')
+    },
+
     frameClasses() {
       let classes = ['osg-devtools-component__frame']
       
-      if (this.$store.state.component.settings.viewSize.mobile) {
-        classes.push('osg-devtools-component--mobile')
-      } else if (this.$store.state.component.settings.viewSize.tablet) {
-        classes.push('osg-devtools-component--tablet')
-      } else if (this.$store.state.component.settings.viewSize.desktop) {
-        classes.push('osg-devtools-component--desktop')
-      }
-
       if (this.$store.state.component.settings.backgroundSolid) {
         classes.push('osg-devtools-component--solid')
       }
@@ -141,7 +147,7 @@ export default {
 .osg-devtools-component {
   position: relative;
   height: 100vh;
-  overflow: hidden;  
+  overflow: hidden;
 
   .osg-devtools-component--fullscreen {
     background-color: #ffffff;
@@ -156,7 +162,117 @@ export default {
   }
 
   .osg-devtools-component__frame-wrapper {
-    border: 2px dotted colors.$grayscale-20;
+    border: 2px dotted colors.$grayscale-20;    
+
+    &--small,
+    &--medium,
+    &--large {
+      border: none;
+    }
+
+    &--small {
+      .osg-devtools-component__frame {
+        border: 20px solid colors.$grayscale-80;
+        border-bottom: 100px solid colors.$grayscale-80;
+        border-radius: 20px;
+        position: relative;
+        width: 414px;
+
+        &::after {
+          background-color: white;
+          border-radius: 50%;
+          bottom: -75px;
+          content: "";
+          display: block;
+          height: 50px;
+          left: calc(50% - 25px);
+          position: absolute;
+          width: 50px;
+        }
+
+        iframe {
+          min-height: auto !important;
+          height: 650px !important;
+        }
+      }
+    }
+
+    &--medium {
+      .osg-devtools-component__frame {
+        border: 20px solid colors.$grayscale-80;
+        border-bottom: 100px solid colors.$grayscale-80;
+        border-radius: 20px;
+        position: relative;
+        width: 809px;
+
+        &::after {
+          background-color: white;
+          border-radius: 50%;
+          bottom: -75px;
+          content: "";
+          display: block;
+          height: 50px;
+          left: calc(50% - 25px);
+          position: absolute;
+          width: 50px;
+        }
+
+        iframe {
+          min-height: auto !important;
+          height: 900px !important;
+        }
+      }
+    }
+
+    &--large {
+      .osg-devtools-component__frame {
+        border: 20px solid colors.$grayscale-80;
+        border-radius: 20px;
+        margin-bottom: 130px;
+        position: relative;
+        width: 1064px;
+
+        &::before {
+          background-color: colors.$grayscale-80;
+          bottom: -60px;
+          content: "";
+          display: block;
+          height: 50px;
+          left: calc(50% - 50px);
+          position: absolute;
+          width: 100px;
+        }
+
+        &::after {
+          background-color: colors.$grayscale-80;
+          border-radius: 10px;
+          bottom: -150px;
+          content: "";
+          display: block;
+          height: 100px;
+          left: calc(50% - 250px);
+          position: absolute;       
+          width: 500px;
+        }
+
+        .osg-devtools-component__art {
+          background-color: colors.$green-light;
+          border-radius: 10px;
+          bottom: -90px;
+          display: block;
+          height: 15px;
+          left: calc(50% + 210px);
+          position: absolute;
+          width: 15px;    
+          z-index: 10;
+        }
+
+        iframe {
+          min-height: auto !important;
+          height: 800px !important;
+        }
+      }
+    }
   }
 
   .osg-devtools-component__frame {
@@ -168,105 +284,7 @@ export default {
 
     .osg-devtools-component__art {
       display: none;
-    }
-
-    &.osg-devtools-component--mobile {
-      border: 20px solid colors.$grayscale-80;
-      border-bottom: 100px solid colors.$grayscale-80;
-      border-radius: 20px;
-      position: relative;
-      width: 414px;
-
-      &::after {
-        background-color: white;
-        border-radius: 50%;
-        bottom: -75px;
-        content: "";
-        display: block;
-        height: 50px;
-        left: calc(50% - 25px);
-        position: absolute;
-        width: 50px;
-      }
-
-      iframe {
-        min-height: auto !important;
-        height: 650px !important;
-      }
-    }
-
-    &.osg-devtools-component--tablet {
-      border: 20px solid colors.$grayscale-80;
-      border-bottom: 100px solid colors.$grayscale-80;
-      border-radius: 20px;
-      position: relative;
-      width: 809px;
-
-      &::after {
-        background-color: white;
-        border-radius: 50%;
-        bottom: -75px;
-        content: "";
-        display: block;
-        height: 50px;
-        left: calc(50% - 25px);
-        position: absolute;
-        width: 50px;
-      }
-
-      iframe {
-        min-height: auto !important;
-        height: 900px !important;
-      }
-    }
-
-    &.osg-devtools-component--desktop {
-      border: 20px solid colors.$grayscale-80;
-      border-radius: 20px;
-      margin-bottom: 130px;
-      position: relative;
-      width: 1064px;
-
-      &::before {
-        background-color: colors.$grayscale-80;
-        bottom: -60px;
-        content: "";
-        display: block;
-        height: 50px;
-        left: calc(50% - 50px);
-        position: absolute;
-        width: 100px;
-      }
-
-      &::after {
-        background-color: colors.$grayscale-80;
-        border-radius: 10px;
-        bottom: -150px;
-        content: "";
-        display: block;
-        height: 100px;
-        left: calc(50% - 250px);
-        position: absolute;       
-        width: 500px;
-      }
-
-      .osg-devtools-component__art {
-        background-color: colors.$green-light;
-        border-radius: 10px;
-        bottom: -90px;
-        display: block;
-        height: 15px;
-        left: calc(50% + 210px);
-        position: absolute;
-        width: 15px;    
-        z-index: 10;
-      }
-
-      iframe {
-        min-height: auto !important;
-        height: 800px !important;
-      }
-    }
+    }    
 
     &.osg-devtools-component--solid {
       background-image: none;
