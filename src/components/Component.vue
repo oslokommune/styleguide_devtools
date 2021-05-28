@@ -3,8 +3,10 @@
     <div class="osg-devtools-component__wrapper">
       <div :class="componentClasses" class="osg-devtools-component osg-color-bg-white osg-padding-horizontal-4">    
         <settings :component="component" />
-        <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs osg-margin-bottom-2">
-          <button v-for="(tab, index) in tabs" v-bind:key="index" @click="activeTab = index" :class="activeTab === index ? 'osg-button osg-button--active osg-button--small' : 'osg-button osg-button--outline osg-button--small'">{{ tab }}</button>
+        <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs">
+          <button v-for="(tab, index) in tabs" v-bind:key="index" @click="activeTab = index" class="osg-button osg-button--small" :class="activeTab === index ? 'osg-button--active' : 'osg-button--' + tab.color ">
+            <span :class="'osg-margin-right-2 ' + tab.icon"></span>{{ tab.title }}
+          </button>
         </div>
         <div v-if="activeTab === 0" class="osg-devtools-component__frame-wrapper">
           <div
@@ -40,8 +42,17 @@ export default {
   },
 
   data: () => ({    
-    tabs: [      
-      "Developer", "Documentation"
+    tabs: [
+      {
+        title: "Developer",
+        icon: "fab fa-css3",
+        color: "gray"
+      },
+      {
+        title: "Documentation",
+        icon: "fab fa-readme",
+        color: "gray"
+      }
     ],
     component: {
       name: 'Loading...',
@@ -149,6 +160,10 @@ export default {
 <style lang="scss">
 @use "system/colors";
 
+.osg-devtools-component__tabs {
+  margin-bottom: -2px;
+}
+
 .osg-devtools-component__outer {
   height: 100vh;
 }
@@ -163,7 +178,7 @@ export default {
   overflow: hidden;
 
   &__frame-wrapper {
-    border: 2px dotted colors.$grayscale-20;    
+    border: 2px solid colors.$gray;    
   }
 
   .osg-devtools-component__frame {
@@ -189,7 +204,8 @@ export default {
 
     & .osg-devtools-component__frame-wrapper {
       border: none;
-      padding-bottom: 20px;
+      border-top: 2px solid colors.$gray;
+      padding: 20px 0;
     }
   }
 

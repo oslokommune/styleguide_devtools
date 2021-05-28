@@ -1,5 +1,5 @@
 <template>
-  <div class="osg-padding-3">
+  <div class="osg-devtools-documentation">
     <article
       v-if="component.mdFile"
       class="osg-content"      
@@ -32,3 +32,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@use "system/colors";
+@use "system/spacing";
+
+.osg-devtools-documentation {
+  @extend %osg-padding-4;
+  border-top: 2px solid colors.$gray;
+}
+</style>
