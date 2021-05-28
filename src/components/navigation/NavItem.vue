@@ -113,6 +113,7 @@ a.osg-devtools-nav-item {
   &--closed {
     margin-right: 82px;
     &::after {
+      border: 2px solid colors.$white;
       font-family: 'Oslo Icons' !important;
       font-size: 1.5em;
       content: map-get(icons.$icons, 'chevron-right') !important;
@@ -124,13 +125,14 @@ a.osg-devtools-nav-item {
       top: 2px;
       position: absolute;
       text-align: center;    
-      padding-top: 14px;
+      padding-top: 13px;
     }
   }
 
   &--open {
     margin-right: 82px;
     &::after {
+      border: 2px solid colors.$white;
       font-family: 'Oslo Icons' !important;
       font-size: 1.5em;
       content: map-get(icons.$icons, 'chevron-down') !important;
@@ -142,7 +144,7 @@ a.osg-devtools-nav-item {
       top: 2px;
       position: absolute;
       text-align: center;    
-      padding-top: 14px;
+      padding-top: 13px;
     }
   }
 }

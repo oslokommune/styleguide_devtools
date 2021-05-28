@@ -24,7 +24,7 @@ export default {
   @extend %osg-text-7;
   background-color: colors.$gray-light;
   border-top: 1px solid colors.$gray;
-  bottom: 0;
+  bottom: -29px;
   display: flex;
   height: 30px;
   left: 0;

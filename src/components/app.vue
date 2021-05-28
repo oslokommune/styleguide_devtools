@@ -1,7 +1,7 @@
 <template>
   <div class="osg-container osg-container--gutterless osg-container--no-overflow-x">
     <div class="osg-row osg-row--gapless">
-      <div class="osg-row__column osg-row__column--3">
+      <div v-if="!$store.state.component.settings.fullscreen" class="osg-row__column osg-row__column--12 osg-row__column--3-breakpoint-medium">
         <div class="osg-devtools-nav">
           <section class="osg-padding-2">
             <figure class="osg-logo">
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="osg-row__column osg-row__column--9">
+      <div :class="{'osg-row__column--9-breakpoint-medium': !$store.state.component.settings.fullscreen}" class="osg-row__column osg-row__column--12">
         <router-view></router-view>
       </div>
     </div>

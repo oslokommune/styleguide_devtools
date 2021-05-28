@@ -1,21 +1,22 @@
 <template>
-  <div class="osg-devtools-component osg-color-bg-white osg-padding-horizontal-4" :class="{ 'osg-devtools-component--clean': isCleanState() }">    
-    <div
-      :class="{'osg-devtools-component--fullscreen': $store.state.component.settings.fullscreen }">
-      <settings :component="component" />
-      <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs osg-margin-bottom-2">
-        <button v-for="(tab, index) in tabs" v-bind:key="index" @click="activeTab = index" :class="activeTab === index ? 'osg-button osg-button--active osg-button--small' : 'osg-button osg-button--outline osg-button--small'">{{ tab }}</button>
-      </div>
-      <div v-if="activeTab === 0" :class="frameWrapperClasses" class="osg-devtools-component__frame-wrapper">
-        <div
-          v-if="$store.state.component.sections.frame.visible"
-          :class="frameClasses"
-          :style="`background-color: ${bgColor};`">
-          <frame :content="component.template" />
-          <span class="osg-devtools-component__art"></span>
+  <div class="osg-devtools-component__outer">
+    <div class="osg-devtools-component__wrapper">
+      <div :class="componentClasses" class="osg-devtools-component osg-color-bg-white osg-padding-horizontal-4">    
+        <settings :component="component" />
+        <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs osg-margin-bottom-2">
+          <button v-for="(tab, index) in tabs" v-bind:key="index" @click="activeTab = index" :class="activeTab === index ? 'osg-button osg-button--active osg-button--small' : 'osg-button osg-button--outline osg-button--small'">{{ tab }}</button>
         </div>
+        <div v-if="activeTab === 0" class="osg-devtools-component__frame-wrapper">
+          <div
+            v-if="$store.state.component.sections.frame.visible"
+            :class="frameClasses"
+            :style="`background-color: ${bgColor};`">
+            <frame :content="component.template" />
+            <span class="osg-devtools-component__art"></span>
+          </div>
+        </div>
+        <documentation v-if="activeTab === 1" :component="component" />      
       </div>
-      <documentation v-if="activeTab === 1" :component="component" />      
       <status-bar v-if="! isCleanState()" :component="component" />
     </div>
   </div>
@@ -53,15 +54,19 @@ export default {
   }),
 
   computed: {
-    frameWrapperClasses() {
+    componentClasses() {
       let classes = []
       
       if (this.$store.state.component.settings.viewSize.mobile) {
-        classes.push('osg-devtools-component__frame-wrapper--small')
+        classes.push('osg-devtools-component--small')
       } else if (this.$store.state.component.settings.viewSize.tablet) {
-        classes.push('osg-devtools-component__frame-wrapper--medium')
+        classes.push('osg-devtools-component--medium')
       } else if (this.$store.state.component.settings.viewSize.desktop) {
-        classes.push('osg-devtools-component__frame-wrapper--large')
+        classes.push('osg-devtools-component--large')
+      }
+
+      if (this.isCleanState()) {
+        classes.push('osg-devtools-component--clean')
       }
 
       return classes.join(' ')
@@ -144,135 +149,21 @@ export default {
 <style lang="scss">
 @use "system/colors";
 
-.osg-devtools-component {
-  position: relative;
+.osg-devtools-component__outer {
   height: 100vh;
+}
+
+.osg-devtools-component__wrapper {
+  position: relative;
+  height: calc(100vh - 31px);
+}
+
+.osg-devtools-component {
+  height: 100%;
   overflow: hidden;
 
-  .osg-devtools-component--fullscreen {
-    background-color: #ffffff;
-    height: 100vh;
-    left: 0;
-    overflow: scroll;
-    padding: 15px 30px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-  }
-
-  .osg-devtools-component__frame-wrapper {
+  &__frame-wrapper {
     border: 2px dotted colors.$grayscale-20;    
-
-    &--small,
-    &--medium,
-    &--large {
-      border: none;
-    }
-
-    &--small {
-      .osg-devtools-component__frame {
-        border: 20px solid colors.$grayscale-80;
-        border-bottom: 100px solid colors.$grayscale-80;
-        border-radius: 20px;
-        position: relative;
-        width: 414px;
-
-        &::after {
-          background-color: white;
-          border-radius: 50%;
-          bottom: -75px;
-          content: "";
-          display: block;
-          height: 50px;
-          left: calc(50% - 25px);
-          position: absolute;
-          width: 50px;
-        }
-
-        iframe {
-          min-height: auto !important;
-          height: 650px !important;
-        }
-      }
-    }
-
-    &--medium {
-      .osg-devtools-component__frame {
-        border: 20px solid colors.$grayscale-80;
-        border-bottom: 100px solid colors.$grayscale-80;
-        border-radius: 20px;
-        position: relative;
-        width: 809px;
-
-        &::after {
-          background-color: white;
-          border-radius: 50%;
-          bottom: -75px;
-          content: "";
-          display: block;
-          height: 50px;
-          left: calc(50% - 25px);
-          position: absolute;
-          width: 50px;
-        }
-
-        iframe {
-          min-height: auto !important;
-          height: 900px !important;
-        }
-      }
-    }
-
-    &--large {
-      .osg-devtools-component__frame {
-        border: 20px solid colors.$grayscale-80;
-        border-radius: 20px;
-        margin-bottom: 130px;
-        position: relative;
-        width: 1064px;
-
-        &::before {
-          background-color: colors.$grayscale-80;
-          bottom: -60px;
-          content: "";
-          display: block;
-          height: 50px;
-          left: calc(50% - 50px);
-          position: absolute;
-          width: 100px;
-        }
-
-        &::after {
-          background-color: colors.$grayscale-80;
-          border-radius: 10px;
-          bottom: -150px;
-          content: "";
-          display: block;
-          height: 100px;
-          left: calc(50% - 250px);
-          position: absolute;       
-          width: 500px;
-        }
-
-        .osg-devtools-component__art {
-          background-color: colors.$green-light;
-          border-radius: 10px;
-          bottom: -90px;
-          display: block;
-          height: 15px;
-          left: calc(50% + 210px);
-          position: absolute;
-          width: 15px;    
-          z-index: 10;
-        }
-
-        iframe {
-          min-height: auto !important;
-          height: 800px !important;
-        }
-      }
-    }
   }
 
   .osg-devtools-component__frame {
@@ -288,6 +179,121 @@ export default {
 
     &.osg-devtools-component--solid {
       background-image: none;
+    }
+  }
+
+  &--small,
+  &--medium,
+  &--large {
+    overflow: auto;
+
+    & .osg-devtools-component__frame-wrapper {
+      border: none;
+      padding-bottom: 20px;
+    }
+  }
+
+  &--small {
+    .osg-devtools-component__frame {
+      border: 20px solid colors.$grayscale-80;
+      border-bottom: 100px solid colors.$grayscale-80;
+      border-radius: 20px;
+      position: relative;
+      width: 414px;
+
+      &::after {
+        background-color: white;
+        border-radius: 50%;
+        bottom: -75px;
+        content: "";
+        display: block;
+        height: 50px;
+        left: calc(50% - 25px);
+        position: absolute;
+        width: 50px;
+      }
+
+      iframe {
+        min-height: 650px !important;
+        height: 650px !important;
+      }
+    }
+  }
+
+  &--medium {
+    .osg-devtools-component__frame {
+      border: 20px solid colors.$grayscale-80;
+      border-bottom: 100px solid colors.$grayscale-80;
+      border-radius: 20px;
+      position: relative;
+      width: 809px;
+
+      &::after {
+        background-color: white;
+        border-radius: 50%;
+        bottom: -75px;
+        content: "";
+        display: block;
+        height: 50px;
+        left: calc(50% - 25px);
+        position: absolute;
+        width: 50px;
+      }
+
+      iframe {
+        min-height: 900px !important;
+        height: 900px !important;
+      }
+    }
+  }
+
+  &--large {
+    .osg-devtools-component__frame {
+      border: 20px solid colors.$grayscale-80;
+      border-radius: 20px;
+      margin-bottom: 130px;
+      position: relative;
+      width: 1064px;
+
+      &::before {
+        background-color: colors.$grayscale-80;
+        bottom: -60px;
+        content: "";
+        display: block;
+        height: 50px;
+        left: calc(50% - 50px);
+        position: absolute;
+        width: 100px;
+      }
+
+      &::after {
+        background-color: colors.$grayscale-80;
+        border-radius: 10px;
+        bottom: -150px;
+        content: "";
+        display: block;
+        height: 100px;
+        left: calc(50% - 250px);
+        position: absolute;       
+        width: 500px;
+      }
+
+      .osg-devtools-component__art {
+        background-color: colors.$green-light;
+        border-radius: 10px;
+        bottom: -90px;
+        display: block;
+        height: 15px;
+        left: calc(50% + 210px);
+        position: absolute;
+        width: 15px;    
+        z-index: 10;
+      }
+
+      iframe {
+        min-height: 800px !important;
+        height: 800px !important;
+      }
     }
   }
 
