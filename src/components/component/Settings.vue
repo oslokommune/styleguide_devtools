@@ -134,7 +134,7 @@ export default {
       if (currentZoom < 500) {
         this.$store.dispatch('personal/setValues', {
           settings: {
-            zoom: currentZoom + 10
+            zoom: currentZoom + 25
           }
         })
       }
@@ -145,7 +145,7 @@ export default {
       if (currentZoom > 50) {
         this.$store.dispatch('personal/setValues', {
           settings: {
-            zoom: currentZoom - 10
+            zoom: currentZoom - 25
           }
         })
       }
