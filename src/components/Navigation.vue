@@ -2,10 +2,10 @@
   <nav>
     <div class="osg-padding-horizontal-4 osg-margin-top-3 osg-margin-bottom-4">
       <div class="osg-search osg-search--circle">
-        <form class="osg-search__form">
+        <div class="osg-search__form">
           <input class="osg-search__input" type="search" autocomplete="off" placeholder="Search" @keyup.enter="addTag" v-model="search">
           <button type="submit" class="osg-search__button" @click="addTag"><span class="osg-sr-only">Search</span></button>
-        </form>
+        </div>
       </div>
       <div class="osg-margin-top-1" v-if="tags.length">
         <button v-for="(tag, index) in tags" v-bind:key="index" class="osg-button osg-button--small osg-button--gray osg-margin-right-1 osg-margin-bottom-1" @click="removeTag(tag)">
