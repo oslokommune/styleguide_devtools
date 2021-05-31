@@ -46,12 +46,6 @@ export default {
     Navigation
   },
 
-  beforeMount() {
-    if (!this.$store.state.component || !this.$store.state.component.settings) {
-      this.$store.dispatch('component/setDefaults')
-    }
-  },
-
   mounted() {
     this.$eventHub.$on('personal.update', () => {
       this.$store.dispatch('component/updateValues')
