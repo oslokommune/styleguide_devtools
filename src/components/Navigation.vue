@@ -1,5 +1,5 @@
 <template>
-  <nav>
+  <nav aria-label="Components">
     <div class="osg-padding-horizontal-4 osg-margin-top-3 osg-margin-bottom-4">
       <div class="osg-search osg-search--circle">
         <div class="osg-search__form">
