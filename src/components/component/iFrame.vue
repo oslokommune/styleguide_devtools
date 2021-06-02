@@ -63,6 +63,13 @@ export default {
     border: 2px solid colors.$grayscale-20;
     font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
     overflow-x: auto;
+
+    code {
+      border: none;
+      background-color: inherit;
+      padding: 0;
+      line-height: 1.5em;
+    }
   }
 }
 

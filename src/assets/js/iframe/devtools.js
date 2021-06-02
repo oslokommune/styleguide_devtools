@@ -39,14 +39,6 @@ function preCode(selector) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  let elements = document.querySelectorAll("a");
-  elements.forEach(function (element) {
-    element.addEventListener("click", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-    }, false);
-  });
-
   elements = document.querySelectorAll("form");
   elements.forEach(function (element) {
     element.addEventListener("submit", function (event) {
@@ -54,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
       event.stopPropagation();
     }, false);
   });
-
 
   elements = document.querySelectorAll(".osg-devtools-code");
   elements.forEach(function (element) {
