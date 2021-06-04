@@ -1,6 +1,7 @@
 import { exec } from 'child_process'
 import fs from 'fs'
 import path from 'path'
+import styleguide from './styleguide.json'
 
 let lockFile = path.resolve(path.resolve() + '/eventListener.lock')
 let rebuildFile = path.resolve(path.resolve() + '/eventListener.rebuild')
@@ -42,25 +43,17 @@ function build() {
     relativePath = file.substring(file.lastIndexOf('/') + 1)
   }
 
-  switch (extension) {
-    case 'js':
-    case 'md':
-    case 'json':
-    case 'html':
-    case 'scss':
-    case 'vue':
-      console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
+  if (styleguide.internal.watchFormats.indexOf(extension) !== -1) {
+    console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
 
-      exec('npm run build-js && npm run build-structure true', (error, stdout, stderr) => {
-        let redTerminalText = '\x1b[31m'
-        let resetTerminalColor = '\x1b[0m'
+    exec('npm run build-js && npm run build-structure true', (error, stdout, stderr) => {
+      let redTerminalText = '\x1b[31m'
+      let resetTerminalColor = '\x1b[0m'
 
-        // color sass and twig errors red
-        let formattedOutput = stdout.replace('ERROR', `${redTerminalText}ERROR`) + resetTerminalColor
-
-        console.log(formattedOutput)
-      })
-      break
+      // color errors red
+      let formattedOutput = stdout.replace('ERROR', `${redTerminalText}ERROR`) + resetTerminalColor
+      console.log(formattedOutput)
+    })
   }
 
   fs.access(rebuildFile, fs.constants.F_OK | fs.constants.W_OK, (rerr) => {

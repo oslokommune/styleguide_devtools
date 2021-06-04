@@ -4,20 +4,31 @@
       <div :class="componentClasses" class="osg-devtools-component osg-color-bg-white osg-padding-horizontal-4">    
         <settings :component="component" />
         <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs">
-          <button v-for="(tab, index) in tabs" v-bind:key="index" @click="activeTab = index" class="osg-button osg-button--small" :class="activeTab === index ? 'osg-button--active' : 'osg-button--' + tab.color ">
-            <span :class="'osg-margin-right-2 ' + tab.icon"></span>{{ tab.title }}
+          <button @click="activeTab = 0" class="osg-button osg-button--small" :class="activeTab === 0 ? 'osg-button--active' : 'osg-button--gray' ">
+            <span :class="'osg-margin-right-2 fab fa-css3'"></span>Developer
+          </button>
+          <button @click="activeTab = 1" class="osg-button osg-button--small" :class="activeTab === 1 ? 'osg-button--active' : 'osg-button--gray' ">
+            <span :class="'osg-margin-right-2 fab fa-readme'"></span>Documentation
+          </button>
+          <button v-if="component.js.length" @click="activeTab = 2" class="osg-button osg-button--small" :class="activeTab === 2 ? 'osg-button--active' : 'osg-button--gray' ">
+            <span :class="'osg-margin-right-2 fab fa-js'"></span>Javascript
+          </button>
+          <button v-if="component.vue.length" @click="activeTab = 3" class="osg-button osg-button--small" :class="activeTab === 3 ? 'osg-button--active' : 'osg-button--gray' ">
+            <span :class="'osg-margin-right-2 fab fa-vuejs'"></span>Vue
           </button>
         </div>
-        <div v-if="activeTab === 0" class="osg-devtools-component__frame-wrapper">
+        <div v-if="activeTab === tabIndex.developer" class="osg-devtools-component__frame-wrapper">
           <div
             v-if="$store.state.component.sections.frame.visible"
             :class="frameClasses"
             :style="`background-color: ${bgColor};`">
-            <frame :content="component.template" />
+            <frame :hash="component.hash" :content="component.template" />
             <span class="osg-devtools-component__art"></span>
           </div>
         </div>
-        <documentation v-if="activeTab === 1" :component="component" />      
+        <documentation v-if="activeTab === tabIndex.documentation" :component="component" />
+        <javascript v-if="activeTab === tabIndex.javascript" :component="component" />
+        <vue v-if="activeTab === tabIndex.vue" :component="component" />
       </div>
       <status-bar v-if="! isCleanState()" :component="component" />
     </div>
@@ -29,6 +40,8 @@ import _ from 'lodash'
 import { componentInfo } from '../assets/js/componentInfo'
 import Settings from './component/Settings'
 import Documentation from './component/Documentation'
+import Javascript from './component/Javascript'
+import Vue from './component/Vue'
 import Frame from './component/iFrame'
 import StatusBar from './component/StatusBar'
 
@@ -37,30 +50,26 @@ export default {
   components: {
     Settings,
     Documentation,
+    Javascript,
+    Vue,
     Frame,
     StatusBar
   },
 
   data: () => ({    
-    tabs: [
-      {
-        title: "Developer",
-        icon: "fab fa-css3",
-        color: "gray"
-      },
-      {
-        title: "Documentation",
-        icon: "fab fa-readme",
-        color: "gray"
-      }
-    ],
+    tabIndex: {
+      developer: 0,
+      documentation: 1,
+      javascript: 2,
+      vue: 3
+    },
     component: {
       name: 'Loading...',
-      cssFiles: [],
-      jsFiles: [],
-      mdFile: null,
+      js: [],
+      vue: [],
+      documentation: null,
       template: null,
-      data: {}
+      config: {}
     }
   }),
 
@@ -122,30 +131,52 @@ export default {
     }
   },
 
+  created() {
+    var lastHash
+
+    var upToDate = function upToDate() {
+        return lastHash.indexOf(__webpack_hash__) >= 0
+    }      
+
+    this.$eventEmitter.on('webpackHotUpdate', (currentHash) => {
+        lastHash = currentHash
+        if (upToDate()) return
+
+        this.updateComponent(currentHash)
+    })
+  },
+
   mounted() {
     this.updateComponent()
-    this.$store.dispatch('component/updateValues', this.component.data)
+    this.$store.dispatch('component/updateValues', this.component.config)
+  },
+
+  beforeDestroy() {
+    this.$eventEmitter.removeListener('webpackHotUpdate', function() {})
   },
 
   watch: {
     '$route'() {
+      this.activeTab = 0
       this.updateComponent()
     },
     '$route.params.id'() {
-      this.$store.dispatch('component/updateValues', this.component.data)
+      this.$store.dispatch('component/updateValues', this.component.config)
     }
   },
 
   methods: {
-    updateComponent() {
-      this.component = componentInfo(this.$route.params.id)
+    updateComponent(hash = null) {
+      let component = componentInfo(this.$projectStructure, this.$route.params.id)
+      component.hash = hash
+      this.component = component
     },
 
     isCleanState() {
       if (this.component) {
-        if (this.component.data) {
-          if (this.component.data.preset) {
-            if (this.component.data.preset === "clean") {
+        if (this.component.config) {
+          if (this.component.config.preset) {
+            if (this.component.config.preset === "clean") {
               return true
             }
           }
@@ -159,10 +190,6 @@ export default {
 </script>
 <style lang="scss">
 @use "system/colors";
-
-.osg-devtools-component__tabs {
-  margin-bottom: -2px;
-}
 
 .osg-devtools-component__outer {
   height: 100vh;

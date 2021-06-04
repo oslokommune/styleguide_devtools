@@ -21,16 +21,13 @@
         <tag-item
           :item="item"
           :tags="tags"
-          v-for="(item, index) in components"
+          v-for="(item, index) in all"
           v-bind:key="index">
         </tag-item>
       </ul>
     </div>    
-    <ul v-else>
-      <nav-item :item="makeComponent('getting_started', componentStructure.gettingStarted.children.filter(child => child.isFolder))"></nav-item>
-      <nav-item :item="makeComponent('general', componentStructure.general.children.filter(child => child.isFolder))"></nav-item>
-      <nav-item :item="makeComponent('components', componentStructure.components.children.filter(child => child.isFolder))"></nav-item>
-      <nav-item :item="makeComponent('pages', componentStructure.pages.children.filter(child => child.isFolder))"></nav-item>
+    <ul v-else v-for="(item, index) in $styleguide.nav" v-bind:key="index">
+      <nav-item :item="makeComponent(item, $projectStructure[item].children.filter(child => child.isFolder))"></nav-item>
     </ul>
   </nav>
 </template>
@@ -38,7 +35,7 @@
 <script>
   import NavItem from './navigation/NavItem'
   import TagItem from './navigation/TagItem'
-  import componentStructure from '../../build/componentStructure.json'
+  import styleguide from '../styleguide.json'
 
   export default {
     name: 'Navigation',
@@ -47,15 +44,22 @@
       TagItem
     },
     data: () => ({
-      componentStructure,
       search: '',
       tags: []
     }),
 
     computed: {
-      components() {
-        return this.flatten(this.componentStructure.components.children)
-      },
+      all() {
+        let list = []
+        for (let item of this.$styleguide.nav) {
+          list = list.concat(
+            this.flatten(
+              this.$projectStructure[item].children
+            )
+          )
+        }
+        return list
+      }
     },
 
     methods: {
@@ -67,17 +71,9 @@
           extension: null,
           urlPath: null,
           rawPath: null,
-          isComponent: false,
-          isGlobal: false,
-          isGettingStarted: false,
           isFolder: true,
           isFile: false,
-          isDataFile: false,
-          isAsset: false,
-          isRoot: true,
-          isPage: false,
           contents: null,
-          template: null,
           children: children
         }
       },
@@ -85,11 +81,10 @@
       flatten(items) {
         let list = []
         for (let item of items) {
-          if (item.isDataFile) {
+          if (item.extension === styleguide.internal.configFormat) {
             list.push(item)
           }
           if (item.children && item.children.length > 0) {
-            
             list = list.concat(this.flatten(item.children))
           }
         }

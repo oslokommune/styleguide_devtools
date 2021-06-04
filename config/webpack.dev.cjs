@@ -15,7 +15,7 @@ module.exports = merge(common, {
       chunkFilename: '[id].css'
     })
   ],
-
+  cache: true,
   module: {
     rules: [
       {
@@ -23,17 +23,6 @@ module.exports = merge(common, {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                ident: 'postcss',
-                plugins: [
-                  require('autoprefixer')()
-                ]
-              }
-            }
-          },
           'resolve-url-loader',
           {
             loader: 'sass-loader',
@@ -53,7 +42,10 @@ module.exports = merge(common, {
 module.exports.devServer = {
   host: '0.0.0.0',
   port: 9000,
-  overlay: true,
-  contentBase: path.resolve(__dirname + '/../dist'),
-  writeToDisk: true
+  static: [
+    path.resolve(__dirname + '/../dist')
+  ],
+  devMiddleware: {
+    writeToDisk: true
+  }
 }

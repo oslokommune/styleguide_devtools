@@ -1,26 +1,18 @@
 import fs from 'fs'
-import dotenv from 'dotenv'
-dotenv.config()
+import styleguide from '../styleguide.json'
 
 export function fileObject(path) {
+  let projectPath = path.replace(styleguide.internal.project_path, '')
   return {
-    name: getName(path),
-    baseName: getBaseName(path),
-    path: getPath(path),
-    extension: getExtension(path),
-    urlPath: path.replace(process.env.COMPONENTS_PATH, '').replace(/-/g, '__').replace(/\//g, '-'),
+    name: getName(projectPath),
+    baseName: getBaseName(projectPath),
+    path: getPath(projectPath),
+    extension: getExtension(projectPath),
+    urlPath: projectPath.replace(/-/g, '__').replace(/\//g, '-'),
     rawPath: path,
-    isComponent: isComponent(path),
-    isGlobal: isGlobal(path),
-    isGettingStarted: isGettingStarted(path),
-    isFolder: isFolder(path),
-    isFile: isFile(path),
-    isDataFile: isDataFile(path),
-    isAsset: isAsset(path),
-    isRoot: isRoot(path),
-    isPage: isPage(path),
-    contents: getContents(path),
-    template: getTemplate(path)
+    isFolder: isFolder(projectPath),
+    isFile: isFile(projectPath),
+    contents: getContents(path)
   }
 }
 
@@ -37,30 +29,7 @@ function getBaseName(path) {
 }
 
 function getPath(path) {
-  return path.substring(0, path.lastIndexOf('/')).
-    replace(process.env.COMPONENTS_PATH, '').
-    replace('components/', '').
-    replace('general/', '')
-}
-
-function isAsset(path) {
-  return path.indexOf('system') >= 0
-}
-
-function isComponent(path) {
-  return path.indexOf('components') >= 0
-}
-
-function isGlobal(path) {
-  return path.indexOf('general') >= 0
-}
-
-function isGettingStarted(path) {
-  return path.indexOf('getting_started') >= 0
-}
-
-function isPage(path) {
-  return path.indexOf('pages') >= 0
+  return path.substring(0, path.lastIndexOf('/'))
 }
 
 function isFolder(path) {
@@ -72,30 +41,15 @@ function isFile(path) {
 }
 
 function getExtension(path) {
-  return path.substring(path.lastIndexOf('.') + 1)
-}
-
-function isDataFile(path) {
-  return (isFile(path) && getExtension(path) === 'json')
-}
-
-function isRoot(path) {
-  return path === process.env.COMPONENTS_PATH + 'components' || path === process.env.COMPONENTS_PATH + 'general'
+  if (path.lastIndexOf('.') !== -1) {
+    return path.substring(path.lastIndexOf('.') + 1)
+  }
+  return null
 }
 
 function getContents(path) {
   if (isFile(path)) {
     return fs.readFileSync(path).toString().trim()
-  }
-  return null
-}
-
-function getTemplate(path) {
-  if (getExtension(path) === 'json' && isFile(path)) {
-    let templateCache = path.replace(/json/, 'html')
-    try {
-      return fs.readFileSync(templateCache).toString().trim()
-    } catch (err) { }
   }
   return null
 }

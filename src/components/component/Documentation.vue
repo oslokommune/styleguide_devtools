@@ -1,9 +1,9 @@
 <template>
   <div class="osg-devtools-documentation">
     <article
-      v-if="component.mdFile"
+      v-if="component.documentation"
       class="osg-content"      
-      v-html="marked(component.mdFile.contents)"
+      v-html="marked(component.documentation)"
     >
     </article>
     <div v-else>
@@ -26,8 +26,8 @@ export default {
   },
 
   methods: {
-    marked(md) {
-      return marked(md, {gfm: true})
+    marked(documentation) {
+      return marked(documentation, {gfm: true})
     }
   }
 }

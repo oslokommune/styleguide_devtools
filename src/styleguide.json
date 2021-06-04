@@ -1,0 +1,38 @@
+{
+  "title": "Styles &amp;<br>Component library",
+  "footer": "Made with &hearts; by<br><strong>Utviklings- og kompetanseetaten</strong><br>Oslo kommune<br><a class=\"osg-link\" href=\"mailto:devnull@uke.oslo.kommune.no\">Contact us</a>",
+  "nav": [
+    "getting_started",
+    "general",
+    "components",
+    "pages"
+  ],
+  "internal": {
+    "project_path": "./node_modules/styleguide/src/",
+    "supportedFormats": [
+      "html",
+      "md",
+      "json",
+      "js",
+      "vue",
+      "scss"
+    ],
+    "watchFormats": [
+      "html",
+      "md",
+      "json",
+      "js",
+      "vue"
+    ],
+    "projectStructureFormats": [
+      "html",
+      "md",
+      "json",
+      "js",
+      "vue"
+    ],
+    "templateFormat": "html",
+    "documentationFormat": "md",
+    "configFormat": "json"
+  }
+}

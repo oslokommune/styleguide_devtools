@@ -22,11 +22,9 @@
               </a>
             </figure>
           </section>
-          <h1 class="osg-heading-4 osg-margin-bottom-1 osg-padding-horizontal-4">Styles &amp;<br>Component library</h1>
+          <h1 class="osg-heading-4 osg-margin-bottom-1 osg-padding-horizontal-4" v-html="$styleguide.title"></h1>
           <Navigation></Navigation>
-          <div class="osg-padding-4 osg-text-center">
-            Made with &hearts; by<br><strong>Utviklings- og kompetanseetaten</strong><br>Oslo kommune<br><a class="osg-link" href="mailto:devnull@uke.oslo.kommune.no">Contact us</a>
-          </div>
+          <div class="osg-padding-4 osg-text-center" v-html="$styleguide.footer"></div>
         </div>
       </div>
       <div :class="{'osg-row__column--9-breakpoint-medium': !$store.state.component.settings.fullscreen}" class="osg-row__column osg-row__column--12">
@@ -65,6 +63,8 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 $osg-font-path: '~styleguide/src/assets/fonts';
 @use "~styleguide/src/system/colors";
 @use "~styleguide/src/devtools";
+
+@use "prismjs/themes/prism.css";
 
 body {
   background-color: colors.$gray

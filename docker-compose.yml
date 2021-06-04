@@ -3,7 +3,7 @@ services:
   app:
     container_name: styleguide_devtools
     build: ./
-    command: sh -c "npm i && npm run hmr-watch"
+    command: sh -c "yarn run hmr-watch"
     ports:
       - 9000:9000
     volumes:
