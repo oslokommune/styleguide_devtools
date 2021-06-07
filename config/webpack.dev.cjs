@@ -50,6 +50,12 @@ module.exports = merge(common, {
   optimization: {
     runtimeChunk: true
   },
+  infrastructureLogging: {
+    appendOnly: true,
+    level: 'warn',
+    colors: true
+  },
+  stats: 'minimal',
   module: {
     rules: [
       {
