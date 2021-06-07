@@ -11,7 +11,4 @@ dist/*
 build/*
 !build/.gitkeep
 
-eventListener.lock
-eventListener.rebuild
-
 package-lock.json
