@@ -8,7 +8,7 @@ const styleguide = require('../src/styleguide.json')
 const webpack = require('webpack')
 
 chokidar.watch(styleguide.internal.project_path + '**/*', {
-  followSymlinks: false,
+  followSymlinks: true,
   ignoreInitial: true
 }).on('all', (event, path) => {
   let infoTerminalText = '\x1b[46m'
