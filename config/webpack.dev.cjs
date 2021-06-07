@@ -41,6 +41,7 @@ module.exports = merge(common, {
 
 module.exports.devServer = {
   host: '0.0.0.0',
+  hot: true,
   port: 9000,
   static: [
     {

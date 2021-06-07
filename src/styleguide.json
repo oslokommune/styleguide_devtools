@@ -24,6 +24,10 @@
       "js",
       "vue"
     ],
+    "buildJsFormats": [
+      "js",
+      "vue"
+    ],
     "projectStructureFormats": [
       "html",
       "md",

@@ -9,5 +9,6 @@ export default {
   plugins: [
     babel({ babelHelpers: 'bundled' }),
     vue()
-  ]
+  ],
+  cache: true
 };

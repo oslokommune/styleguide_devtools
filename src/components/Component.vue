@@ -135,14 +135,14 @@ export default {
     var lastHash
 
     var upToDate = function upToDate() {
-        return lastHash.indexOf(__webpack_hash__) >= 0
+      return lastHash.indexOf(__webpack_hash__) >= 0
     }      
 
     this.$eventEmitter.on('webpackHotUpdate', (currentHash) => {
-        lastHash = currentHash
-        if (upToDate()) return
+      lastHash = currentHash
+      if (upToDate()) return
 
-        this.updateComponent(currentHash)
+      this.updateComponent(currentHash)
     })
   },
 

@@ -13,3 +13,5 @@ build/*
 
 eventListener.lock
 eventListener.rebuild
+
+package-lock.json

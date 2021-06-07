@@ -7,7 +7,8 @@ COPY ./build ./build
 COPY ./config ./config
 COPY ./dist ./dist
 COPY ./src ./src
-COPY ./package.* ./
+COPY ./package.json ./
+COPY ./yarn.lock ./
 COPY ./.eslintrc.json ./
 COPY ./.babelrc ./
 COPY ./rollup.config.js ./

@@ -1,19 +1,18 @@
-import { fileObject } from './fileObject.js'
+import { fileObject } from './fileObject.mjs'
 import styleguide from '../styleguide.json'
 
 const nestedStructureList = {}
 
 export function projectStructure(fileList) {
   let projectFiles = []
-  fileList.forEach(function (item, index) {
+  for (let item of fileList) {
     let itemObj = fileObject(item)
     if (styleguide.internal.projectStructureFormats.indexOf(itemObj.extension) !== -1 || itemObj.isFolder) {
       projectFiles.push(itemObj)
     }
-  })
+  }
 
   nestFiles(projectFiles)
-
   return nestedStructureList
 }
 

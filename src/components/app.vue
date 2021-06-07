@@ -35,7 +35,13 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import projectStructure from '../../build/projectStructure.json'
+import styleguide from '../styleguide.json'
 import Navigation from './Navigation.vue'
+
+Vue.prototype.$projectStructure = projectStructure
+Vue.prototype.$styleguide = styleguide
 
 export default {
   name: 'App',

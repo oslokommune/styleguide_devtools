@@ -4,8 +4,9 @@ import store from './store/store.js'
 import bus from './bus/bus.js'
 import './assets/images/favicon.ico'
 import EventEmitter from 'webpack/hot/emitter.js'
-import styleguide from './styleguide.json'
-import projectStructure from '../build/projectStructure.json'
+
+Vue.config.productionTip = false
+Vue.config.devtools = false
 
 Vue.use(VueRouter)
 
@@ -32,8 +33,6 @@ Vue.filter('snakeToRegular', function (value) {
 
 Vue.prototype.$eventHub = bus
 Vue.prototype.$eventEmitter = EventEmitter
-Vue.prototype.$styleguide = styleguide
-Vue.prototype.$projectStructure = projectStructure
 
 new Vue({
   router,

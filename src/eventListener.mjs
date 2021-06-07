@@ -44,13 +44,14 @@ function build() {
   }
 
   if (styleguide.internal.watchFormats.indexOf(extension) !== -1) {
-    console.log(`\n${blueTerminalText}${relativePath} changed - building structure...${resetTerminalColor}\n`)
-
-    exec('npm run build-js && npm run build-structure true', (error, stdout, stderr) => {
+    console.log(`\n${blueTerminalText}${relativePath} changed - building...${resetTerminalColor}\n`)
+    let cmd = 'yarn run build-structure'
+    if (styleguide.internal.buildJsFormats.indexOf(extension) !== -1) {
+      cmd = 'yarn run build'
+    }
+    exec(cmd, (error, stdout, stderr) => {
       let redTerminalText = '\x1b[31m'
       let resetTerminalColor = '\x1b[0m'
-
-      // color errors red
       let formattedOutput = stdout.replace('ERROR', `${redTerminalText}ERROR`) + resetTerminalColor
       console.log(formattedOutput)
     })
