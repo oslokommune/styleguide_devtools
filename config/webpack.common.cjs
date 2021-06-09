@@ -1,7 +1,8 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   mode: 'development',
@@ -49,6 +50,23 @@ module.exports = {
           outputPath: 'assets/fonts/',
           publicPath: '/assets/fonts/'
         }
+      },
+      {
+        test: /\.(sass|scss|css)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'resolve-url-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: ['node_modules', 'node_modules/styleguide/src']
+              },
+              sourceMap: true
+            }
+          }
+        ]
       }
     ]
   },
@@ -66,5 +84,9 @@ module.exports = {
         { from: "src/assets/js/iframe/devtools.js", to: "devtools.js" },
       ],
     }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
+    })
   ]
 }

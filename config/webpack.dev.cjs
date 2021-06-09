@@ -2,7 +2,6 @@ const { merge } = require('webpack-merge')
 const { exec } = require('child_process');
 const chokidar = require('chokidar');
 const common = require('./webpack.common.cjs')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 const styleguide = require('../src/styleguide.json')
 const webpack = require('webpack')
@@ -36,10 +35,6 @@ module.exports = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
     })
   ],
   output: {
@@ -55,28 +50,7 @@ module.exports = merge(common, {
     level: 'warn',
     colors: true
   },
-  stats: 'minimal',
-  module: {
-    rules: [
-      {
-        test: /\.(sass|scss|css)$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'resolve-url-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              sassOptions: {
-                includePaths: ['node_modules', 'node_modules/styleguide/src']
-              },
-              sourceMap: true
-            },
-          }
-        ]
-      },
-    ]
-  }
+  stats: 'minimal'
 })
 
 module.exports.devServer = {
