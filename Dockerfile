@@ -6,7 +6,6 @@ WORKDIR /app
 COPY ./build ./build
 COPY ./config ./config
 COPY ./dist ./dist
-COPY ./public ./public
 COPY ./src ./src
 COPY ./package.json ./
 COPY ./yarn.lock ./
