@@ -28,11 +28,13 @@ export default {
         <link href="/main.css?${this.hash}" rel="stylesheet" type="text/css">
         <style>
         body { background-color: inherit; transform-origin: 0 0; transform: scale(${this.$store.state.component.settings.zoom / 100}); }
-        .osg-devtools-code pre { display: none; }      
+        .osg-devtools-code pre { display: none; }
+        .osg-devtools-debug { display: none; }
+        body.osg-devtools-debug-enable .osg-devtools-debug { display: block !important; }
         </style>
         <script src="/devtools.js?${this.hash}"><\/script>
         </head>
-        <body class="${this.$store.state.component.sections.code.visible ? 'osg-devtools-code-examples' : ''}">
+        <body class="${this.$store.state.component.sections.code.visible ? 'osg-devtools-code-examples' : ''} ${this.$store.state.component.sections.debug.visible ? 'osg-devtools-debug-enable' : ''}">
         ${this.content}
         <script src="/osg.js?${this.hash}" type="module"><\/script></body></html>`
 

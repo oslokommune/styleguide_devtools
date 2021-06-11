@@ -29,7 +29,10 @@ export const defaultState = {
       visible: true
     },
     code: {
-      visible: true
+      visible: false
+    },
+    debug: {
+      visible: false
     }
   }
 }

@@ -11,6 +11,9 @@
       <a aria-role="button" :class="'osg-button osg-button--small' + (code ? ' osg-button--active' : '')" @click="toggleCode(); $event.target.blur()">
         <i class="fas fa-code" title="Code"></i>
       </a>
+      <a aria-role="button" :class="'osg-button osg-button--small' + (debug ? ' osg-button--active' : '')" @click="toggleDebug(); $event.target.blur()">
+        <i class="fas fa-bug" title="Debug"></i>
+      </a>
       <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--small" @click="zoomOut(); $event.target.blur()">
         <i class="fas fa-search-minus" title="Zoom out"></i>
       </a>
@@ -104,6 +107,21 @@ export default {
           }
         })
       }
+    },
+
+    debug: {
+      get: function() {
+        return this.$store.state.personal.sections.debug.visible
+      },
+      set: function(value) {
+        this.$store.dispatch('personal/setValues', {
+          sections: {
+            debug: {
+              visible: value
+            }
+          }
+        })
+      }
     }
   },
 
@@ -118,6 +136,10 @@ export default {
 
     toggleCode() {
       this.code = !this.code
+    },
+
+    toggleDebug() {
+      this.debug = !this.debug
     },
 
     setViewSize(size) {

@@ -18,7 +18,10 @@ const state = {
   },
   sections: {
     code: {
-      visible: true
+      visible: false
+    },
+    debug: {
+      visible: false
     }
   }
 }

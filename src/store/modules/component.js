@@ -35,7 +35,10 @@ const state = {
       visible: true
     },
     code: {
-      visible: true
+      visible: false
+    },
+    debug: {
+      visible: false
     }
   }
 }
