@@ -40,5 +40,7 @@ export default {
 .osg-devtools-documentation {
   @extend %osg-padding-4;
   border-top: 2px solid colors.$gray;
+  max-height: calc(100vh - 218px);
+  overflow: auto
 }
 </style>
