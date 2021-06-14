@@ -29,12 +29,11 @@ export default {
         <style>
         body { background-color: inherit; transform-origin: 0 0; transform: scale(${this.$store.state.component.settings.zoom / 100}); }
         .osg-devtools-code pre { display: none; }
-        .osg-devtools-debug { display: none; }
-        body.osg-devtools-debug-enable .osg-devtools-debug { display: block !important; }
+        body.osg-devtools-hide-debug .osg-devtools-debug { display: none !important; }
         </style>
         <script src="/devtools.js?${this.hash}"><\/script>
         </head>
-        <body class="${this.$store.state.component.sections.code.visible ? 'osg-devtools-code-examples' : ''} ${this.$store.state.component.sections.debug.visible ? 'osg-devtools-debug-enable' : ''}">
+        <body class="${this.$store.state.component.sections.code.visible ? 'osg-devtools-code-examples' : ''} ${this.$store.state.component.sections.debug.visible ? '' : 'osg-devtools-hide-debug'}">
         ${this.content}
         <script src="/osg.js?${this.hash}" type="module"><\/script></body></html>`
 
