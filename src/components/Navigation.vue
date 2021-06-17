@@ -1,20 +1,20 @@
 <template>
   <nav aria-label="Components">
-    <div class="osg-padding-horizontal-4 osg-margin-top-3 osg-margin-bottom-4">
+    <div class="osg-padding-horizontal-30 osg-margin-top-15 osg-margin-bottom-30">
       <div class="osg-search osg-search--circle">
         <div class="osg-search__form">
           <input class="osg-search__input" type="search" autocomplete="off" placeholder="Search" @keyup.enter="addTag" v-model="search">
           <button type="submit" class="osg-search__button" @click="addTag"><span class="osg-sr-only">Search</span></button>
         </div>
       </div>
-      <div class="osg-margin-top-1" v-if="tags.length">
-        <button v-for="(tag, index) in tags" v-bind:key="index" class="osg-button osg-button--small osg-button--gray osg-margin-right-1 osg-margin-bottom-1" @click="removeTag(tag)">
+      <div class="osg-margin-top-50" v-if="tags.length">
+        <button v-for="(tag, index) in tags" v-bind:key="index" class="osg-button osg-button--small osg-button--gray osg-margin-right-50 osg-margin-bottom-50" @click="removeTag(tag)">
           {{ tag }}<span class="osg-icon osg-icon--close osg-icon--icon-right"></span>
         </button>
       </div>
     </div>
-    <div class="osg-padding-horizontal-4" v-if="tags.length">
-      <h6 class="osg-heading-6 osg-margin-bottom-1">
+    <div class="osg-padding-horizontal-30" v-if="tags.length">
+      <h6 class="osg-heading-6 osg-margin-bottom-50">
         Search result
       </h6>
       <ul>

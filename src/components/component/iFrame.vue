@@ -54,12 +54,12 @@ export default {
 
 .osg-devtools-code {
   &__box {
-    @extend %osg-padding-4;
+    @extend %osg-padding-30;
     border: 4px solid colors.$gray;
   }
  
   &__trigger {
-    @extend %osg-margin-vertical-2;
+    @extend %osg-margin-vertical-10;
     @extend %osg-text-medium;
     display: block;
     font-size: fonts.$size-16;
@@ -67,7 +67,7 @@ export default {
     text-decoration: none;
 
     & .osg-icon {
-      @extend %osg-margin-left-1;
+      @extend %osg-margin-left-50;
       font-size: fonts.$size-24;
       vertical-align: top;
     }
@@ -84,7 +84,7 @@ export default {
     overflow-x: auto;
 
     code {
-      @extend %osg-padding-2;
+      @extend %osg-padding-10;
       border: none;
       background-color: inherit;
       padding: 0;

@@ -1,8 +1,8 @@
 <template>
   <div class="osg-devtools-vue">
-    <h5 class="osg-heading-5 osg-margin-bottom-2">File</h5>
-    <p class="osg-margin-bottom-4">{{ file }}</p>
-    <h5 class="osg-heading-5 osg-margin-bottom-2">Code</h5>
+    <h5 class="osg-heading-5 osg-margin-bottom-10">File</h5>
+    <p class="osg-margin-bottom-30">{{ file }}</p>
+    <h5 class="osg-heading-5 osg-margin-bottom-10">Code</h5>
     <pre v-if="vue"><code v-html="vue"></code></pre>
     <div v-else>
       No vue component available.
@@ -49,7 +49,7 @@ code {
 }
 
 .osg-devtools-vue {
-  @extend %osg-padding-top-4;
+  @extend %osg-padding-top-30;
   border-top: 2px solid colors.$gray;
   max-height: calc(100vh - 190px);
   overflow: auto;

@@ -6,16 +6,16 @@
       </div>
       <div class="osg-row__column osg-row__column--6 osg-devtools-button-list osg-text-right" v-if="$store.state.component.settings.sections.configuration.visible && devMode">
         <color-picker @pick="setColor" />
-        <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small osg-button--icon' + (fullscreen ? ' osg-button--active' : '')" @click="toggleFullscreen(); $event.target.blur()" title="Fullscreen">
+        <a aria-role="button" :class="'osg-margin-left-15 osg-button osg-button--small osg-button--icon' + (fullscreen ? ' osg-button--active' : '')" @click="toggleFullscreen(); $event.target.blur()" title="Fullscreen">
           <span class="osg-button__icon osg-icons--expand"></span>
         </a>
-        <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--small osg-button--icon" @click="zoomIn(); $event.target.blur()" title="Zoom in">
+        <a aria-role="button" class="osg-margin-left-15 osg-button osg-button--small osg-button--icon" @click="zoomIn(); $event.target.blur()" title="Zoom in">
           <span class="osg-button__icon osg-icons--plus-sign"></span>
         </a>
         <a aria-role="button" class="osg-button osg-button--small osg-button--icon" @click="zoomOut(); $event.target.blur()" title="Zoom out">
           <span class="osg-button__icon osg-icons--minus-sign"></span>
         </a>
-        <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.component.settings.viewSize.mobile ? ' osg-button--active' : '')" @click="setViewSize('mobile'); $event.target.blur()" title="Small">
+        <a aria-role="button" :class="'osg-margin-left-15 osg-button osg-button--small' + ($store.state.component.settings.viewSize.mobile ? ' osg-button--active' : '')" @click="setViewSize('mobile'); $event.target.blur()" title="Small">
           S
         </a>
         <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.component.settings.viewSize.tablet ? ' osg-button--active' : '')" @click="setViewSize('tablet'); $event.target.blur()" title="Medium">
@@ -27,7 +27,7 @@
         <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.component.settings.viewSize.full ? ' osg-button--active' : '')" @click="setViewSize('full'); $event.target.blur()" title="Fluid">
           %
         </a>
-        <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--icon osg-button--small" @click="$store.dispatch('personal/reset'); $event.target.blur()" title="Factory reset">
+        <a aria-role="button" class="osg-margin-left-15 osg-button osg-button--icon osg-button--small" @click="$store.dispatch('personal/reset'); $event.target.blur()" title="Factory reset">
           <span class="osg-button__icon osg-icons--factory-fill"></span>
         </a>
       </div>
@@ -136,7 +136,7 @@ export default {
 @use "system/spacing";
 
 .osg-devtools-settings {
-  @extend %osg-margin-vertical-3;
+  @extend %osg-margin-vertical-15;
 }
 
 .osg-devtools-button-list {

@@ -20,7 +20,7 @@ export default {
 @use "system/spacing";
 
 .osg-devtools-component__statusbar {
-  @extend %osg-padding-horizontal-4;
+  @extend %osg-padding-horizontal-30;
   @extend %osg-text-7;
   background-color: colors.$gray-light;
   border-top: 1px solid colors.$gray;

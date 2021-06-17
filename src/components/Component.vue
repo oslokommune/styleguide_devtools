@@ -1,7 +1,7 @@
 <template>
   <div :class="componentOuterClasses">
     <div :class="componentWrapperClasses">
-      <div :class="componentClasses" class="osg-devtools-component osg-color-bg-white osg-padding-horizontal-4">    
+      <div :class="componentClasses" class="osg-devtools-component osg-color-bg-white osg-padding-horizontal-30">    
         <settings :devMode="devMode" :component="component" />
         <div v-if="! isCleanState()" class="osg-devtools-component__tabs">
           <button @click="activeTab = 0" class="osg-button osg-button--small" :class="activeTab === 0 ? 'osg-button--active' : 'osg-button--gray' ">
@@ -407,7 +407,7 @@ export default {
     margin-bottom: 5px;
 
     > button.osg-button {
-      @extend %osg-padding-horizontal-5;
+      @extend %osg-padding-horizontal-50;
     }
   }
 }

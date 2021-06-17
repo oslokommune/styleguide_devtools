@@ -3,7 +3,7 @@
     <div class="osg-row osg-row--gapless">
       <div v-if="!$store.state.component.settings.fullscreen" class="osg-row__column osg-row__column--12 osg-row__column--3-breakpoint-medium">
         <div class="osg-devtools-nav">
-          <section class="osg-padding-2">
+          <section class="osg-padding-10">
             <figure class="osg-logo">
               <a href="/">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 154">
@@ -22,9 +22,9 @@
               </a>
             </figure>
           </section>
-          <h1 class="osg-heading-4 osg-margin-bottom-1 osg-padding-horizontal-4" v-html="$styleguide.title"></h1>
+          <h1 class="osg-heading-4 osg-margin-bottom-50 osg-padding-horizontal-30" v-html="$styleguide.title"></h1>
           <Navigation></Navigation>
-          <div class="osg-padding-4 osg-text-center" v-html="$styleguide.footer"></div>
+          <div class="osg-padding-30 osg-text-center" v-html="$styleguide.footer"></div>
         </div>
       </div>
       <div :class="{'osg-row__column--9-breakpoint-medium': !$store.state.component.settings.fullscreen}" class="osg-row__column osg-row__column--12">
