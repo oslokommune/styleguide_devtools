@@ -18,8 +18,6 @@
   "license": "GPL-3.0-only",
   "homepage": "https://github.com/oslokommune/styleguide_devtools#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.15.3",
-    "marked": "2.0.3",
     "vue": "2.6.14",
     "vue-router": "3.5.1",
     "vue-template-compiler": "2.6.14",

@@ -24,15 +24,6 @@ export const defaultState = {
   sections: {
     frame: {
       visible: true
-    },
-    docs: {
-      visible: true
-    },
-    code: {
-      visible: false
-    },
-    debug: {
-      visible: false
     }
   }
 }

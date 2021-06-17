@@ -59,12 +59,6 @@ export default {
 </script>
 
 <style lang="scss">
-// Font Awesome
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
-@use '~@fortawesome/fontawesome-free/scss/fontawesome';
-@use '~@fortawesome/fontawesome-free/scss/solid';
-@use '~@fortawesome/fontawesome-free/scss/brands';
-
 // OSG Main
 $osg-font-path: '~styleguide/src/assets/fonts';
 @use "~styleguide/src/system/colors";

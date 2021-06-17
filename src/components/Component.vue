@@ -1,36 +1,35 @@
 <template>
-  <div class="osg-devtools-component__outer">
-    <div class="osg-devtools-component__wrapper">
+  <div :class="componentOuterClasses">
+    <div :class="componentWrapperClasses">
       <div :class="componentClasses" class="osg-devtools-component osg-color-bg-white osg-padding-horizontal-4">    
-        <settings :component="component" />
-        <div v-if="$store.state.component.sections.docs.visible" class="osg-devtools-component__tabs">
+        <settings :devMode="devMode" :component="component" />
+        <div v-if="! isCleanState()" class="osg-devtools-component__tabs">
           <button @click="activeTab = 0" class="osg-button osg-button--small" :class="activeTab === 0 ? 'osg-button--active' : 'osg-button--gray' ">
-            <span :class="'osg-margin-right-2 fab fa-css3'"></span>Developer
+            Overview
           </button>
           <button @click="activeTab = 1" class="osg-button osg-button--small" :class="activeTab === 1 ? 'osg-button--active' : 'osg-button--gray' ">
-            <span :class="'osg-margin-right-2 fab fa-readme'"></span>Documentation
+            Developer
           </button>
           <button v-if="component.js.length" @click="activeTab = 2" class="osg-button osg-button--small" :class="activeTab === 2 ? 'osg-button--active' : 'osg-button--gray' ">
-            <span :class="'osg-margin-right-2 fab fa-js'"></span>Javascript
+            Javascript
           </button>
           <button v-if="component.vue.length" @click="activeTab = 3" class="osg-button osg-button--small" :class="activeTab === 3 ? 'osg-button--active' : 'osg-button--gray' ">
-            <span :class="'osg-margin-right-2 fab fa-vuejs'"></span>Vue
+            Vue
           </button>
         </div>
-        <div v-if="activeTab === tabIndex.developer" class="osg-devtools-component__frame-wrapper">
+        <div v-if="activeTab === tabIndex.developer || activeTab === tabIndex.documentation" class="osg-devtools-component__frame-wrapper">
           <div
             v-if="$store.state.component.sections.frame.visible"
             :class="frameClasses"
             :style="`background-color: ${bgColor};`">
-            <frame :hash="component.hash" :content="component.template" />
+            <frame :devMode="devMode" :hash="component.hash" :content="component.template" />
             <span class="osg-devtools-component__art"></span>
           </div>
         </div>
-        <documentation v-if="activeTab === tabIndex.documentation" :component="component" />
         <javascript v-if="activeTab === tabIndex.javascript" :component="component" />
         <vue v-if="activeTab === tabIndex.vue" :component="component" />
       </div>
-      <status-bar v-if="! isCleanState()" :component="component" />
+      <status-bar v-if="! isCleanState() && devMode" :component="component" />
     </div>
   </div>
 </template>
@@ -39,7 +38,6 @@
 import _ from 'lodash'
 import { componentInfo } from '../assets/js/componentInfo'
 import Settings from './component/Settings'
-import Documentation from './component/Documentation'
 import Javascript from './component/Javascript'
 import Vue from './component/Vue'
 import Frame from './component/iFrame'
@@ -49,7 +47,6 @@ export default {
   name: 'ComponentFrame',
   components: {
     Settings,
-    Documentation,
     Javascript,
     Vue,
     Frame,
@@ -58,8 +55,8 @@ export default {
 
   data: () => ({    
     tabIndex: {
-      developer: 0,
-      documentation: 1,
+      documentation: 0,
+      developer: 1,
       javascript: 2,
       vue: 3
     },
@@ -74,19 +71,41 @@ export default {
   }),
 
   computed: {
+    devMode() {
+      return this.tabIndex.developer === this.$store.state.component.settings.activeTab
+    },
+
+    componentOuterClasses() {
+      let classes = ['osg-devtools-component__outer']
+
+      if (this.isCleanState()) {
+        classes.push('osg-devtools-component__outer--clean')
+      }
+
+      return classes.join(' ')
+    },
+
+    componentWrapperClasses() {
+      let classes = ['osg-devtools-component__wrapper']
+
+      if (this.devMode) {
+        classes.push('osg-devtools-component__wrapper--devmode')
+      }
+
+      return classes.join(' ')
+    },
+
     componentClasses() {
       let classes = []
       
-      if (this.$store.state.component.settings.viewSize.mobile) {
-        classes.push('osg-devtools-component--small')
-      } else if (this.$store.state.component.settings.viewSize.tablet) {
-        classes.push('osg-devtools-component--medium')
-      } else if (this.$store.state.component.settings.viewSize.desktop) {
-        classes.push('osg-devtools-component--large')
-      }
-
-      if (this.isCleanState()) {
-        classes.push('osg-devtools-component--clean')
+      if (this.devMode) {
+        if (this.$store.state.component.settings.viewSize.mobile) {
+          classes.push('osg-devtools-component--small')
+        } else if (this.$store.state.component.settings.viewSize.tablet) {
+          classes.push('osg-devtools-component--medium')
+        } else if (this.$store.state.component.settings.viewSize.desktop) {
+          classes.push('osg-devtools-component--large')
+        }
       }
 
       return classes.join(' ')
@@ -95,7 +114,7 @@ export default {
     frameClasses() {
       let classes = ['osg-devtools-component__frame']
       
-      if (this.$store.state.component.settings.backgroundSolid) {
+      if (this.$store.state.component.settings.backgroundSolid || !this.devMode) {
         classes.push('osg-devtools-component--solid')
       }
 
@@ -103,6 +122,10 @@ export default {
     },
 
     bgColor() {
+      if (!this.devMode) {
+        return this.$styleguide.internal.nonDevModeBGColor
+      }
+      
       if (typeof this.$store.state.component.settings.backgroundColor === 'object') {
         return 'rgba(' +
           this.$store.state.component.settings.backgroundColor.rgba.r +
@@ -190,22 +213,56 @@ export default {
 </script>
 <style lang="scss">
 @use "system/colors";
+@use "system/spacing";
 
 .osg-devtools-component__outer {
   height: 100vh;
+
+  &--clean {
+    height: 100%;
+
+    .osg-devtools-component__wrapper {
+      height: 100%;
+
+      .osg-devtools-component__frame-wrapper {
+        border: none;
+      }
+
+      iframe {
+        min-height: calc(100vh - 140px) !important;
+        max-height: calc(100vh - 140px) !important;
+      }
+    }
+  }
 }
 
 .osg-devtools-component__wrapper {
   position: relative;
-  height: calc(100vh - 31px);
+  height: 100vh;
+
+  &--devmode {
+    height: calc(100vh - 31px) !important;
+
+    .osg-devtools-component__frame-wrapper {
+      border: 2px solid colors.$gray;
+    }
+
+    .osg-devtools-component__frame {
+      iframe {
+        min-height: calc(100vh - 220px) !important;
+        max-height: calc(100vh - 220px) !important;
+      }
+    }
+  }
 }
 
 .osg-devtools-component {
   height: 100%;
   overflow: hidden;
-
+  
   &__frame-wrapper {
-    border: 2px solid colors.$gray;    
+    border: 2px solid colors.$white;
+    border-top: 2px solid colors.$gray;
   }
 
   .osg-devtools-component__frame {
@@ -221,6 +278,12 @@ export default {
 
     &.osg-devtools-component--solid {
       background-image: none;
+    }
+
+    iframe {
+      width: 100%;
+      min-height: calc(100vh - 195px);
+      max-height: calc(100vh - 195px);
     }
   }
 
@@ -340,18 +403,11 @@ export default {
     }
   }
 
-  &--clean {
-    overflow: auto;
+  &__tabs {
+    margin-bottom: 5px;
 
-    .osg-devtools-component__frame-wrapper {
-      border: none;
-    }
-
-    .osg-devtools-component__frame {
-      iframe {
-        min-height: auto !important;
-        max-height: none !important;
-      }
+    > button.osg-button {
+      @extend %osg-padding-horizontal-5;
     }
   }
 }

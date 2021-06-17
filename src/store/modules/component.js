@@ -1,7 +1,6 @@
 import _ from 'lodash'
 import { defaultState } from '../presets/defaultComponent.js'
 import { cleanState } from '../presets/cleanComponent.js'
-import { mdState } from '../presets/mdComponent.js'
 
 /* Pattern Store */
 const state = {
@@ -30,15 +29,6 @@ const state = {
   sections: {
     frame: {
       visible: true
-    },
-    docs: {
-      visible: true
-    },
-    code: {
-      visible: false
-    },
-    debug: {
-      visible: false
     }
   }
 }
@@ -55,9 +45,6 @@ const actions = {
         switch (payload.preset) {
           case 'clean':
             commit('setValues', cleanState)
-            break
-          case 'md':
-            commit('setValues', mdState)
             break
           default:
             commit('setDefaults', defaultState)

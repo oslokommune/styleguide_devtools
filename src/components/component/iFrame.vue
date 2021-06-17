@@ -1,16 +1,14 @@
 <template>
-  <iframe
-    :srcdoc="frameContents"
-    width="100%"
-    style="min-height: calc(100vh - 218px); max-height: calc(100vh - 218px);"
-    onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.offsetHeight + 30 + "px";}(this));'
-    />
+  <iframe :srcdoc="frameContents" />
 </template>
 <script>
 export default {
   name: 'iFrame',
 
   props: {
+    devMode: {
+      type: Boolean
+    },
     content: {
       type: String
     },
@@ -27,31 +25,58 @@ export default {
         <head>
         <link href="/main.css?${this.hash}" rel="stylesheet" type="text/css">
         <style>
-        body { background-color: inherit; transform-origin: 0 0; transform: scale(${this.$store.state.component.settings.zoom / 100}); }
-        .osg-devtools-code pre { display: none; }
-        body.osg-devtools-hide-debug .osg-devtools-debug { display: none !important; }
+        body { margin-top: 20px; background-color: inherit; transform-origin: 0 0; transform: scale(${this.zoom / 100}); }
+        body.osg-devtools-devmode .osg-devtools-nondevmode { display: none !important; }
+        body.osg-devtools-nondevmode .osg-devtools-devmode { display: none !important; } 
         </style>
         <script src="/devtools.js?${this.hash}"><\/script>
         </head>
-        <body class="${this.$store.state.component.sections.code.visible ? 'osg-devtools-code-examples' : ''} ${this.$store.state.component.sections.debug.visible ? '' : 'osg-devtools-hide-debug'}">
+        <body class="${this.devMode ? 'osg-devtools-devmode' : 'osg-devtools-nondevmode'}">
         ${this.content}
         <script src="/osg.js?${this.hash}" type="module"><\/script></body></html>`
 
       
       return template
+    },
+
+    zoom() {
+      return this.devMode ? this.$store.state.component.settings.zoom : 100
     }
   }
 }
 </script>
 <style lang="scss">
 @use "system/colors";
+@use "system/fonts";
+@use "system/icons";
 @use "system/spacing";
 @use "components/grid/container/container";
 
-.osg-devtools-code-examples .osg-devtools-code {   
+.osg-devtools-code {
+  &__box {
+    @extend %osg-padding-4;
+    border: 4px solid colors.$gray;
+  }
+ 
+  &__trigger {
+    @extend %osg-margin-vertical-2;
+    @extend %osg-text-medium;
+    display: block;
+    font-size: fonts.$size-16;
+    text-align: right;
+    text-decoration: none;
+
+    & .osg-icon {
+      @extend %osg-margin-left-1;
+      font-size: fonts.$size-24;
+      vertical-align: top;
+    }
+    &.osg-collapsible__trigger--expanded .osg-icon::before {      
+      content: map-get(icons.$icons, 'chevron-thin-up') !important;
+    }
+  }
+
   pre {
-    @extend %osg-padding-2, %osg-margin-top-3;
-    
     display: block;
     background-color: colors.$gray-light;
     border: 2px solid colors.$grayscale-20;
@@ -59,18 +84,12 @@ export default {
     overflow-x: auto;
 
     code {
+      @extend %osg-padding-2;
       border: none;
       background-color: inherit;
       padding: 0;
       line-height: 1.5em;
     }
   }
-}
-
-.osg-devtools-code-examples .osg-devtools-code.osg-devtools-code--container pre {
-  @extend .osg-container;
-}
-.osg-devtools-code-examples .osg-devtools-code.osg-devtools-code--no-space pre {
-  margin-top: 0 !important;
 }
 </style>

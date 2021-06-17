@@ -15,14 +15,6 @@ const state = {
     backgroundSolid: false,
     zoom: 100,
     activeTab: 0
-  },
-  sections: {
-    code: {
-      visible: false
-    },
-    debug: {
-      visible: false
-    }
   }
 }
 

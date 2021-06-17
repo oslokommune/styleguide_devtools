@@ -1,6 +1,6 @@
 <template>
-  <a aria-role="button" class="osg-button osg-button--blue-light osg-button--small osg-devtools-colorpicker">
-    <span class="fas fa-palette"></span>
+  <a aria-role="button" class="osg-button osg-button--icon osg-button--small osg-devtools-colorpicker" title="Background">
+    <span class="osg-button__icon osg-icons--paint-bucket"></span>
     <ul class="osg-devtools-colorpicker__list">
       <li class="osg-devtools-colorpicker__transparent" @click="pick('', false)"></li>
       <li class="osg-devtools-colorpicker__white" @click="pick('#ffffff')"></li>
@@ -80,6 +80,7 @@ export default {
         background-image: linear-gradient(45deg, #eaeaea 25%, transparent 25%), linear-gradient(-45deg, #eaeaea 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eaeaea 75%), linear-gradient(-45deg, transparent 75%, #eaeaea 75%);
         background-size: 10px 10px;
         background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+        border: 2px solid transparent;
       }
       &.osg-devtools-colorpicker__white {
         @extend %osg-color-bg-white;

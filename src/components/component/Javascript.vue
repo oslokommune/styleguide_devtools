@@ -51,7 +51,7 @@ code {
 .osg-devtools-javascript {
   @extend %osg-padding-top-4;
   border-top: 2px solid colors.$gray;
-  max-height: calc(100vh - 218px);
+  max-height: calc(100vh - 190px);
   overflow: auto;
 }
 </style>

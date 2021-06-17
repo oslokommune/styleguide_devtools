@@ -48,11 +48,32 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   elements = document.querySelectorAll(".osg-devtools-code");
-  elements.forEach(function (element) {
+  elements.forEach(function (element, index) {
     let innerHTML = element.innerHTML
+
+    let innerBox = element.querySelector('.osg-devtools-code__box')
+    if (innerBox) {
+      innerHTML = innerBox.innerHTML
+    }
+
+    let trigger = document.createElement('a')
+    trigger.className = 'osg-devtools-code__trigger osg-link osg-collapsible__trigger'
+    trigger.setAttribute('href', 'javascript:void(0)')
+    trigger.setAttribute('aria-controls', 'osg-devtools-code__' + index)
+    trigger.text = 'View code'
+
+    let icon = document.createElement('span')
+    icon.className = 'osg-icon osg-icons--chevron-thin-down'
+    trigger.appendChild(icon)
+
     let pre = document.createElement('pre')
+    pre.className = 'osg-collapsible osg-collapsible--collapsed osg-collapsible--ease'
+    pre.id = 'osg-devtools-code__' + index
+    
     let code = document.createElement('code')
     pre.appendChild(code)
+    
+    element.appendChild(trigger)
     element.appendChild(pre)
     code.append(innerHTML)
   });

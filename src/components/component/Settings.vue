@@ -1,40 +1,36 @@
 <template>
-  <div class="osg-row" v-if="$store.state.component.settings.visible">
-    <div class="osg-row__column osg-row__column--6">
-      <h1 class="osg-heading-1" v-if="$store.state.component.settings.sections.title.visible">{{ component.name|capitalize }}</h1>
-    </div>
-    <div class="osg-row__column osg-row__column--6 osg-devtools-button-list osg-text-right" v-if="$store.state.component.settings.sections.configuration.visible">
-      <color-picker @pick="setColor" />
-      <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small' + (fullscreen ? ' osg-button--active' : '')" @click="toggleFullscreen(); $event.target.blur()">
-        <i class="fas fa-expand" title="Fullscreen mode"></i>
-      </a>
-      <a aria-role="button" :class="'osg-button osg-button--small' + (code ? ' osg-button--active' : '')" @click="toggleCode(); $event.target.blur()">
-        <i class="fas fa-code" title="Code"></i>
-      </a>
-      <a aria-role="button" :class="'osg-button osg-button--small' + (debug ? ' osg-button--active' : '')" @click="toggleDebug(); $event.target.blur()">
-        <i class="fas fa-bug" title="Debug"></i>
-      </a>
-      <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--small" @click="zoomOut(); $event.target.blur()">
-        <i class="fas fa-search-minus" title="Zoom out"></i>
-      </a>
-      <a aria-role="button" class="osg-button osg-button--small" @click="zoomIn(); $event.target.blur()">
-        <i class="fas fa-search-plus" title="Zoom in"></i>
-      </a>
-      <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small osg-button--blue-light' + ($store.state.component.settings.viewSize.mobile ? ' osg-button--active' : '')" @click="setViewSize('mobile'); $event.target.blur()">
-        S
-      </a>
-      <a aria-role="button" :class="'osg-button osg-button--small osg-button--green-light' + ($store.state.component.settings.viewSize.tablet ? ' osg-button--active' : '')" @click="setViewSize('tablet'); $event.target.blur()">
-        M
-      </a>
-      <a aria-role="button" :class="'osg-button osg-button--small osg-button--yellow' + ($store.state.component.settings.viewSize.desktop ? ' osg-button--active' : '')" @click="setViewSize('desktop'); $event.target.blur()">
-        L
-      </a>
-      <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.component.settings.viewSize.full ? ' osg-button--active' : '')" @click="setViewSize('full'); $event.target.blur()">
-        <i class="fas fa-percentage" title="Full width"></i>
-      </a>
-      <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--small osg-button--red" @click="$store.dispatch('personal/reset'); $event.target.blur()">
-        <i class="fas fa-industry"></i>
-      </a>
+  <div class="osg-devtools-settings">
+    <div class="osg-row" v-if="$store.state.component.settings.visible">
+      <div class="osg-row__column osg-row__column--6">
+        <h1 class="osg-heading-1" v-if="$store.state.component.settings.sections.title.visible">{{ component.name|capitalize }}</h1>
+      </div>
+      <div class="osg-row__column osg-row__column--6 osg-devtools-button-list osg-text-right" v-if="$store.state.component.settings.sections.configuration.visible && devMode">
+        <color-picker @pick="setColor" />
+        <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small osg-button--icon' + (fullscreen ? ' osg-button--active' : '')" @click="toggleFullscreen(); $event.target.blur()" title="Fullscreen">
+          <span class="osg-button__icon osg-icons--expand"></span>
+        </a>
+        <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--small osg-button--icon" @click="zoomIn(); $event.target.blur()" title="Zoom in">
+          <span class="osg-button__icon osg-icons--plus-sign"></span>
+        </a>
+        <a aria-role="button" class="osg-button osg-button--small osg-button--icon" @click="zoomOut(); $event.target.blur()" title="Zoom out">
+          <span class="osg-button__icon osg-icons--minus-sign"></span>
+        </a>
+        <a aria-role="button" :class="'osg-margin-left-3 osg-button osg-button--small' + ($store.state.component.settings.viewSize.mobile ? ' osg-button--active' : '')" @click="setViewSize('mobile'); $event.target.blur()" title="Small">
+          S
+        </a>
+        <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.component.settings.viewSize.tablet ? ' osg-button--active' : '')" @click="setViewSize('tablet'); $event.target.blur()" title="Medium">
+          M
+        </a>
+        <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.component.settings.viewSize.desktop ? ' osg-button--active' : '')" @click="setViewSize('desktop'); $event.target.blur()" title="Large">
+          L
+        </a>
+        <a aria-role="button" :class="'osg-button osg-button--small' + ($store.state.component.settings.viewSize.full ? ' osg-button--active' : '')" @click="setViewSize('full'); $event.target.blur()" title="Fluid">
+          %
+        </a>
+        <a aria-role="button" class="osg-margin-left-3 osg-button osg-button--icon osg-button--small" @click="$store.dispatch('personal/reset'); $event.target.blur()" title="Factory reset">
+          <span class="osg-button__icon osg-icons--factory-fill"></span>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -46,6 +42,9 @@ export default {
   components: { ColorPicker },
 
   props: {
+    devMode: {
+      type: Boolean
+    },
     component: {
       type: Object,
       required: true
@@ -92,54 +91,12 @@ export default {
           }
         })
       }
-    },
-
-    code: {
-      get: function() {
-        return this.$store.state.personal.sections.code.visible
-      },
-      set: function(value) {
-        this.$store.dispatch('personal/setValues', {
-          sections: {
-            code: {
-              visible: value
-            }
-          }
-        })
-      }
-    },
-
-    debug: {
-      get: function() {
-        return this.$store.state.personal.sections.debug.visible
-      },
-      set: function(value) {
-        this.$store.dispatch('personal/setValues', {
-          sections: {
-            debug: {
-              visible: value
-            }
-          }
-        })
-      }
     }
   },
 
   methods: {
     toggleFullscreen() {
       this.fullscreen = !this.fullscreen
-    },
-
-    toggleDocumentation() {
-      this.documentation = !this.documentation
-    },
-
-    toggleCode() {
-      this.code = !this.code
-    },
-
-    toggleDebug() {
-      this.debug = !this.debug
     },
 
     setViewSize(size) {
@@ -176,6 +133,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@use "system/spacing";
+
+.osg-devtools-settings {
+  @extend %osg-margin-vertical-3;
+}
+
 .osg-devtools-button-list {
   > a {    
     margin-top: 22px
