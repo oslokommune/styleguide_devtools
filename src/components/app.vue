@@ -22,7 +22,7 @@
               </a>
             </figure>
           </section>
-          <h1 class="osg-heading-4 osg-margin-bottom-50 osg-padding-horizontal-30" v-html="$styleguide.title"></h1>
+          <h1 class="osg-heading-4 osg-margin-bottom-5 osg-padding-horizontal-30" v-html="$styleguide.title"></h1>
           <Navigation></Navigation>
           <div class="osg-padding-30 osg-text-center" v-html="$styleguide.footer"></div>
         </div>
