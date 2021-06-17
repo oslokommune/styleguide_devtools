@@ -67,7 +67,7 @@ export default {
     text-decoration: none;
 
     & .osg-icon {
-      @extend %osg-margin-left-50;
+      @extend %osg-margin-left-5;
       font-size: fonts.$size-24;
       vertical-align: top;
     }
