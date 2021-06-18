@@ -1,5 +1,5 @@
 # Stage 1 - Install node dependencies and build distribution files
-FROM node:16 AS node
+FROM --platform=linux/x86-64 node:16 AS node
 WORKDIR /app
 RUN mkdir build
 COPY ./package.json ./
@@ -16,7 +16,7 @@ RUN yarn run build
 RUN yarn run build-production
 
 # Stage 2 - Include distribution files and run web server
-FROM node:16
+FROM --platform=linux/x86-64 node:16
 RUN apt-get update && apt-get -y upgrade
 EXPOSE 80
 WORKDIR /app
