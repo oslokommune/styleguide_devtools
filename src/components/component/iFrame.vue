@@ -56,6 +56,13 @@ export default {
   &__box {
     @extend %osg-padding-30;
     border: 4px solid colors.$gray;
+    
+    @each $name, $color in colors.$colors {
+      &--#{$name} { 
+        background-color: $color;
+        border: 4px solid $color;
+      }
+    }
   }
  
   &__trigger {
