@@ -52,8 +52,17 @@ export default {
 @use "system/spacing";
 @use "components/grid/container/container";
 
-.osg-devtools-nondevmode .osg-devtools-code {
-  @extend %osg-margin-top-30;
+.osg-devtools-nondevmode {
+  .osg-devtools-code {
+    @extend %osg-margin-top-30;
+  }
+
+  .osg-devtools-heading {
+    @extend %osg-heading-3;
+  }
+  .osg-devtools-heading + .osg-paragraph {
+    @extend %osg-margin-top-5;
+  }
 } 
 
 .osg-devtools-code {
