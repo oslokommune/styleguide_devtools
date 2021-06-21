@@ -52,6 +52,10 @@ export default {
 @use "system/spacing";
 @use "components/grid/container/container";
 
+.osg-devtools-nondevmode .osg-devtools-code {
+  @extend %osg-margin-top-30;
+} 
+
 .osg-devtools-code {
   &__box {
     @extend %osg-padding-30;
