@@ -43,7 +43,7 @@
         if (active) {
           this.$eventHub.$emit('menuOpen', this.parentNameAndSeparator + this.item.name)
         }
-        return active ? 'osg-devtools-nav-item osg-state-primary' : 'osg-devtools-nav-item'
+        return active ? 'osg-devtools-nav-item osg-states-primary' : 'osg-devtools-nav-item'
       },
 
       parentNameAndSeparator() {

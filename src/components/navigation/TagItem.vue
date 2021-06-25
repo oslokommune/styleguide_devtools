@@ -39,7 +39,7 @@
 
       active() {
         let active = this.url === this.$route.params.id
-        return active ? 'osg-devtools-tag-item osg-state-primary' : 'osg-devtools-tag-item'
+        return active ? 'osg-devtools-tag-item osg-states-primary' : 'osg-devtools-tag-item'
       },
 
       url() {
