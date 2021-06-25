@@ -89,7 +89,7 @@
 <style lang="scss" scoped>
 @use "system/colors";
 @use "system/icons";
-@use "system/state";
+@use "system/states";
 
 a.osg-devtools-nav-item {
   display: block;
@@ -103,10 +103,14 @@ a.osg-devtools-nav-item {
   position: relative;  
   
   &:hover {
-    @extend %osg-state-hover;
+    background-color: states.$hover !important;
+    border: 2px solid states.$hover !important;
+    color: states.$hover-text !important;
 
     &::after {
-      @extend %osg-state-hover;
+      background-color: states.$hover !important;
+      border: 2px solid states.$hover !important;
+      color: states.$hover-text !important;
     }
   }
 

@@ -50,7 +50,7 @@
 </script>
 <style lang="scss" scoped>
 @use "system/colors";
-@use "system/state";
+@use "system/states";
 
 a.osg-devtools-tag-item {
   display: block;
@@ -63,7 +63,9 @@ a.osg-devtools-tag-item {
   position: relative;  
   
   &:hover {
-    @extend %osg-state-hover;
+    background-color: states.$hover !important;
+    border: 2px solid states.$hover !important;
+    color: states.$hover-text !important;
   }
 }
 </style>

@@ -50,7 +50,6 @@ export default {
 @use "system/fonts";
 @use "system/icons";
 @use "system/spacing";
-@use "components/grid/container/container";
 
 .osg-devtools-nondevmode {
   .osg-devtools-code {

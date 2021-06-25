@@ -7,14 +7,14 @@
           <button type="submit" class="osg-search__button" @click="addTag"><span class="osg-sr-only">Search</span></button>
         </div>
       </div>
-      <div class="osg-margin-top-50" v-if="tags.length">
+      <div class="osg-margin-top-5" v-if="tags.length">
         <button v-for="(tag, index) in tags" v-bind:key="index" class="osg-button osg-button--small osg-button--gray osg-margin-right-50 osg-margin-bottom-50" @click="removeTag(tag)">
           {{ tag }}<span class="osg-icon osg-icon--close osg-icon--icon-right"></span>
         </button>
       </div>
     </div>
     <div class="osg-padding-horizontal-30" v-if="tags.length">
-      <h6 class="osg-heading-6 osg-margin-bottom-50">
+      <h6 class="osg-heading-6 osg-margin-bottom-5">
         Search result
       </h6>
       <ul>
