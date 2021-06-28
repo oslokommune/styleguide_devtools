@@ -2,9 +2,9 @@
   <div class="osg-devtools-start">
     <div class="osg-text-center">
       <h1 class="osg-heading-1">Oslo</h1>
-      <h1 class="osg-heading-1 osg-margin-bottom-30">Styleguide</h1>
-      <div class="osg-text-3">Retningslinjer for digitalt grensesnitt.</div>
-      <div class="osg-text-3">Dokumentasjon og visning av stiler, komponenter og sider.</div>
+      <h1 class="osg-heading-1 osg-margin-bottom-30">Designsystem</h1>
+      <div class="osg-text-3">Guidelines for www.oslo.kommune.no</div>
+      <div class="osg-text-3">Documentation, code and examples of styles, components and pages.</div>
       <figure class="osg-margin-top-75">
         <img src="/assets/images/illustration.svg" />
       </figure>
