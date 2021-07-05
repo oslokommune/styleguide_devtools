@@ -53,7 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let innerBox = element.querySelector('.osg-devtools-code__box')
     if (innerBox) {
-      innerHTML = innerBox.innerHTML
+      let innerCodeBox = element.querySelector('.osg-devtools-code__box__code')
+      if (innerCodeBox) {
+        innerHTML = innerCodeBox.innerHTML
+      } else {
+        innerHTML = innerBox.innerHTML
+      }
     }
 
     let trigger = document.createElement('a')
@@ -69,10 +74,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let pre = document.createElement('pre')
     pre.className = 'osg-collapsible osg-collapsible--collapsed osg-collapsible--ease'
     pre.id = 'osg-devtools-code__' + index
-    
+
     let code = document.createElement('code')
     pre.appendChild(code)
-    
+
     element.appendChild(trigger)
     element.appendChild(pre)
     code.append(innerHTML)
