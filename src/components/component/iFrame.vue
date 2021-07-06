@@ -79,20 +79,9 @@ export default {
  
   &__trigger {
     @extend %osg-margin-vertical-10;
-    @extend %osg-text-medium;
     display: block;
-    font-size: fonts.$size-16;
+    font-size: fonts.$size-16 !important;
     text-align: right;
-    text-decoration: none;
-
-    & .osg-icon {
-      @extend %osg-margin-left-5;
-      font-size: fonts.$size-24;
-      vertical-align: top;
-    }
-    &.osg-collapsible__trigger--expanded .osg-icon::before {      
-      content: map-get(icons.$icons, 'chevron-thin-up') !important;
-    }
   }
 
   pre {

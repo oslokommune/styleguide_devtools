@@ -61,18 +61,13 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    let trigger = document.createElement('a')
-    trigger.className = 'osg-devtools-code__trigger osg-link osg-collapsible__trigger'
-    trigger.setAttribute('href', 'javascript:void(0)')
+    let trigger = document.createElement('h3')
+    trigger.className = 'osg-devtools-code__trigger osg-collapsible-trigger osg-collapsible-trigger--link'
     trigger.setAttribute('aria-controls', 'osg-devtools-code__' + index)
-    trigger.text = 'View code'
-
-    let icon = document.createElement('span')
-    icon.className = 'osg-icon osg-icons--chevron-thin-down'
-    trigger.appendChild(icon)
+    trigger.innerHTML = 'View code'
 
     let pre = document.createElement('pre')
-    pre.className = 'osg-collapsible osg-collapsible--collapsed osg-collapsible--ease'
+    pre.className = 'osg-collapsible-content osg-collapsible-content--collapsed osg-collapsible-content--ease'
     pre.id = 'osg-devtools-code__' + index
 
     let code = document.createElement('code')
