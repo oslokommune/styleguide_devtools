@@ -61,8 +61,9 @@ export default {
 <style lang="scss">
 // OSG Main
 $osg-font-path: '~styleguide/src/assets/fonts';
-@use "~styleguide/src/system/colors";
-@use "~styleguide/src/devtools";
+@use "styleguide/src/system/colors";
+@use "styleguide/src/getting_started";
+@use "styleguide/src/osg";
 
 @use "prismjs/themes/prism.css";
 

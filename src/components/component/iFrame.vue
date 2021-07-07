@@ -33,7 +33,7 @@ export default {
         </head>
         <body class="${this.devMode ? 'osg-devtools-devmode' : 'osg-devtools-nondevmode'}">
         ${this.content}
-        <script src="/osg.js?${this.hash}" defer><\/script></body></html>`
+        <script src="/styleguide.js?${this.hash}" defer><\/script></body></html>`
 
       
       return template
