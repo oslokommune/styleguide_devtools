@@ -16,8 +16,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @use "system/colors";
-@use "system/fonts";
 @use "system/spacing";
+@use "system/typography";
 
 .osg-devtools-component__statusbar {
   @extend %osg-padding-horizontal-30;

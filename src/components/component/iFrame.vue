@@ -47,9 +47,9 @@ export default {
 </script>
 <style lang="scss">
 @use "system/colors";
-@use "system/fonts";
 @use "system/icons";
 @use "system/spacing";
+@use "system/typography";
 
 .osg-devtools-nondevmode {
   .osg-devtools-code {
@@ -80,7 +80,7 @@ export default {
   &__trigger {
     @extend %osg-margin-vertical-10;
     display: block;
-    font-size: fonts.$size-16 !important;
+    font-size: typography.$size-16 !important;
     text-align: right;
   }
 
