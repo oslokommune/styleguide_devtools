@@ -6,7 +6,7 @@ import './assets/images/favicon.ico'
 import EventEmitter from 'webpack/hot/emitter.js'
 
 Vue.config.productionTip = false
-Vue.config.devtools = false
+Vue.config.devtools = true
 
 Vue.use(VueRouter)
 
