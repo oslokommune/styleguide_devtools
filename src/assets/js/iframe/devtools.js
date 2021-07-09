@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     element.appendChild(trigger)
     element.appendChild(pre)
-    code.append(innerHTML)
+    code.append(innerHTML.replace(/=""/g, ''))
   });
 
   preCode("code");
