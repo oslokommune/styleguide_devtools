@@ -60,7 +60,6 @@ export default {
 
 <style lang="scss">
 // OSG Main
-$osg-font-path: 'styleguide/src/assets/fonts';
 @use "styleguide/src/system/colors";
 @use "styleguide/src/packages/devtools";
 

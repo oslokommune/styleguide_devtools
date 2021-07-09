@@ -56,14 +56,12 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'resolve-url-loader',
           {
             loader: 'sass-loader',
             options: {
               sassOptions: {
                 includePaths: ['node_modules', 'node_modules/styleguide/src']
-              },
-              sourceMap: true
+              }
             }
           }
         ]
